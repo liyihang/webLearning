@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script src="./Active.js"></script>
+<script>
+    const app = new Active({
+        data: {
+            test: "This is a demo",
+            foo: {
+                bar: 'bar'
+            }
+        }
+    });
+    app.$data.test = 'Hello World';
+    app.$data.foo.bar = 'func demo';
+
+</script>
+</html>
