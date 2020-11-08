@@ -5,11 +5,15 @@ class Active {
         this.$data = options.data;
         // 对数据的观察监听
         this.observe(this.$data);
-        // 模拟watcher的创建过程
-        new Watcher();
-        this.$data.test;
-        new Watcher();
-        this.$data.foo.bar;
+        // // 模拟watcher的创建过程
+        // new Watcher();
+        // this.$data.test;
+        // new Watcher();
+        // this.$data.foo.bar;
+        new Compile(options.el,this);
+        if (options.created) {
+            options.created.call(this)
+        }
     }
     observe(value){
         // 判断是否存在这个对象

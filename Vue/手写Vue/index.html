@@ -1,25 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
+    <div id="app">
+        <p>{{name}}</p>
+        <p a-tetx></p>
+        <p>{{age}}</p>
+        <p>{{doubleAge}}</p>
+        <input type="text" a-model="name">
+        <button @click="changeName">呵呵</button>
+        <div a-html="html"></div>
+    </div>
 </body>
-<script src="./Active.js"></script>
+<script src="./compile.js"></script>
+<script src="./active.js"></script>
 <script>
     const app = new Active({
+        el: '#app',
         data: {
-            test: "This is a demo",
-            foo: {
-                bar: 'bar'
+            name: "This is a demo",
+            age: 18,
+            html: "<button>登录、注册</button>"
+        },
+        created() {
+            console.log("开始测试");
+            setTimeout(() => {
+                this.name = "这是测试"
+            },1500)
+        },
+        methods:{
+            changeName() {
+                this.name = "测试ChangeName"
             }
         }
     });
-    app.$data.test = 'Hello World';
-    app.$data.foo.bar = 'func demo';
-
 </script>
+
 </html>
