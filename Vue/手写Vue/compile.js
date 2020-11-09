@@ -31,7 +31,22 @@ class Compile {
       // 元素节点
       if (this.isElement(node)) {
         // console.log("编译元素" + node.nodeName);
-        // 文本
+        // 查找a- @ ：开头的文本
+        const nodeAttrs = node.attributes;
+        Array.from(nodeAttrs).forEach((attr) => {
+          // 属性名
+          const attrName = attr.name;
+          // 属性值
+          const exp = attr.value;
+          if (this.isDerective(attrName)) {
+            const dir = attrName.substring(2);
+            this[dir] && this[dir](node, this.$vm, exp);
+          }
+          if (this.isEvent(attrName)) {
+            const dir = attrName.substring(1);
+            this.eventHandle(node, this.$vm, exp, dir);
+          }
+        });
       } else if (this.isInterplolation(node)) {
         // console.log("编译文本" + node.textContent);
         this.compileText(node);
@@ -41,7 +56,44 @@ class Compile {
       }
     });
   }
+  // 文本处理
+  /**
+   *
+   * @param {*} node
+   * @param {*} vm
+   * @param {*} exp
+   */
+  text(node, vm, exp) {
+    this.update(node, vm, exp, "text");
+  }
+  /**
+   *a-model的双向绑定
+   * @param {*} node
+   * @param {*} vm
+   * @param {*} exp
+   */
+  model(node, vm, exp) {
+    this.update(node, vm, exp, "model");
+    node.addEventListener("input", (e) => {
+      vm[exp] = e.target.value;
+    });
+  }
+  modelUpdater(node, value) {
+    node.value = value;
+  }
+  // html
+  html(node, vm, exp) {
+    this.update(node, vm, exp, 'html');
+  }
+  htmlUpdater(node, value) {
+    node.innerHTML = value;
+  }
+
   //   文本编译
+  /**
+   *
+   * @param {*} node
+   */
   compileText(node) {
     // console.log(RegExp.$1);
     // const regValue = RegExp.$1;
@@ -59,6 +111,27 @@ class Compile {
   }
   textUpdater(node, value) {
     node.textContent = value;
+  }
+  /**
+   *
+   * @param {*} node 节点属性
+   * @param {*} vm  vm
+   * @param {*} exp  属性值 @clicl='clkbtn' 中clkbtn 即方法名
+   * @param {*} dir  指令
+   */
+  eventHandle(node, vm, exp, dir) {
+    const fn = vm.$options.methods && vm.$options.methods[exp];
+    if (dir && fn) {
+      node.addEventListener(dir, fn.bind(vm));
+    }
+  }
+  // 判断是否是指令
+  isDerective(attr) {
+    return attr.indexOf("a-") == 0;
+  }
+  // 判断是否是方法
+  isEvent(attr) {
+    return attr.indexOf("@") == 0;
   }
   // 判断是否是节点
   isElement(node) {
