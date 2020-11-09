@@ -8,8 +8,8 @@ class Compile {
       this.$fragment = this.node2Fragment(this.$el);
       // 执行编译
       this.compile(this.$fragment);
-      console.log(this.$el);
-      console.log(this.$fragment);
+      // console.log(this.$el);
+      // console.log(this.$fragment);
       // 编译完的html追加至$el
       this.$el.appendChild(this.$fragment);
     }
@@ -30,7 +30,7 @@ class Compile {
     Array.from(childNodes).forEach((node) => {
       // 元素节点
       if (this.isElement(node)) {
-        console.log("编译元素" + node.nodeName);
+        // console.log("编译元素" + node.nodeName);
         // 文本
       } else if (this.isInterplolation(node)) {
         // console.log("编译文本" + node.textContent);
@@ -42,10 +42,23 @@ class Compile {
     });
   }
   //   文本编译
-  compileText(node){
-      console.log(RegExp.$1);
-      const regValue = RegExp.$1;
-      node.textContent = this.$vm.$data[regValue];
+  compileText(node) {
+    // console.log(RegExp.$1);
+    // const regValue = RegExp.$1;
+    // node.textContent = this.$vm.$data[regValue];
+    this.update(node, this.$vm, RegExp.$1, "text");
+  }
+  update(node, vm, exp, dir) {
+    const updaterFn = this[dir + "Updater"];
+    //    初始化
+    updaterFn && updaterFn(node, vm[exp]);
+    // 依赖收集
+    new Watcher(vm, exp, function (value) {
+      updaterFn && updaterFn(node, value);
+    });
+  }
+  textUpdater(node, value) {
+    node.textContent = value;
   }
   // 判断是否是节点
   isElement(node) {
