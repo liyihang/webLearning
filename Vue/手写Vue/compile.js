@@ -98,6 +98,7 @@ class Compile {
     // console.log(RegExp.$1);
     // const regValue = RegExp.$1;
     // node.textContent = this.$vm.$data[regValue];
+    debugger;
     this.update(node, this.$vm, RegExp.$1, "text");
   }
   update(node, vm, exp, dir) {
