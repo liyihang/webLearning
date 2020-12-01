@@ -80,8 +80,11 @@ export default class Index extends React.Component {
   // 导航处理
   renderNav() {
     return navItems.map((item) => (
-      <Flex.Item key={item.id}>
-        <img src={item.imgSrc} alt="dtzf" onClick={()=>{this.props.history.path(item.path)}}></img>
+      <Flex.Item
+        key={item.id}
+        onClick={() => this.props.history.push(item.path)}
+      >
+        <img src={item.imgSrc} alt="dtzf"></img>
         <h2>{item.title}</h2>
       </Flex.Item>
     ));
@@ -98,22 +101,7 @@ export default class Index extends React.Component {
         </Carousel>
         {/* 导航 */}
         <Flex className="nav">
-          <Flex.Item>
-            <img src={Nav1} alt="zs"></img>
-            <h2>整租</h2>
-          </Flex.Item>
-          <Flex.Item>
-            <img src={Nav2} alt="hz"></img>
-            <h2>合租</h2>
-          </Flex.Item>
-          <Flex.Item>
-            <img src={Nav3} alt="dtzf"></img>
-            <h2>地图找房</h2>
-          </Flex.Item>
-          <Flex.Item>
-            <img src={Nav4} alt="cz"></img>
-            <h2>出租</h2>
-          </Flex.Item>
+          {this.renderNav()}
         </Flex>
       </div>
     );
