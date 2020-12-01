@@ -2,8 +2,44 @@ import React from "react";
 import Axios from "axios";
 
 // 导入轮播组件
-import { Carousel } from "antd-mobile";
+import { Carousel, Flex } from "antd-mobile";
 
+// 导入样式
+
+import "./index.css";
+// 导入图片
+import Nav1 from "../../assets/images/nav-1.png";
+import Nav2 from "../../assets/images/nav-2.png";
+import Nav3 from "../../assets/images/nav-3.png";
+import Nav4 from "../../assets/images/nav-4.png";
+
+// nav 导航数据
+const navItems = [
+  {
+    id: 1,
+    title: "整租",
+    imgSrc: Nav1,
+    path: "/home/houselist",
+  },
+  {
+    id: 2,
+    title: "合租",
+    imgSrc: Nav2,
+    path: "/home/sharerome",
+  },
+  {
+    id: 3,
+    title: "地图找房",
+    imgSrc: Nav3,
+    path: "/map",
+  },
+  {
+    id: 4,
+    title: "出租",
+    imgSrc: Nav4,
+    path: "renting",
+  },
+];
 export default class Index extends React.Component {
   state = {
     swiper: [],
@@ -16,7 +52,7 @@ export default class Index extends React.Component {
       swiper: res.data.body,
     });
   }
-  //
+  //轮播处理
   renderSwiper() {
     return this.state.swiper.map((item) => (
       <a
@@ -41,16 +77,44 @@ export default class Index extends React.Component {
       </a>
     ));
   }
-
+  // 导航处理
+  renderNav() {
+    return navItems.map((item) => (
+      <Flex.Item key={item.id}>
+        <img src={item.imgSrc} alt="dtzf" onClick={()=>{this.props.history.path(item.path)}}></img>
+        <h2>{item.title}</h2>
+      </Flex.Item>
+    ));
+  }
   componentDidMount() {
     this.getSwiper();
   }
   render() {
     return (
       <div>
-        <Carousel autoplay={true} infinite={true} autoplayInterval>
+        {/* 轮播图 */}
+        <Carousel autoplay={true} infinite={true}>
           {this.renderSwiper()}
         </Carousel>
+        {/* 导航 */}
+        <Flex className="nav">
+          <Flex.Item>
+            <img src={Nav1} alt="zs"></img>
+            <h2>整租</h2>
+          </Flex.Item>
+          <Flex.Item>
+            <img src={Nav2} alt="hz"></img>
+            <h2>合租</h2>
+          </Flex.Item>
+          <Flex.Item>
+            <img src={Nav3} alt="dtzf"></img>
+            <h2>地图找房</h2>
+          </Flex.Item>
+          <Flex.Item>
+            <img src={Nav4} alt="cz"></img>
+            <h2>出租</h2>
+          </Flex.Item>
+        </Flex>
       </div>
     );
   }
