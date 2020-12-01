@@ -1,58 +1,55 @@
 import React from "react";
+import Axios from "axios";
 
 // 导入轮播组件
-import { Carousel} from "antd-mobile";
+import { Carousel } from "antd-mobile";
 
 export default class Index extends React.Component {
   state = {
-    data: ["1", "2", "3"],
-    imgHeight: 176,
+    swiper: [],
   };
+
+  //   获取轮播图数据
+  async getSwiper() {
+    const res = await Axios.get("http://localhost:8080/home/swiper");
+    this.setState({
+      swiper: res.data.body,
+    });
+  }
+  //
+  renderSwiper() {
+    return this.state.swiper.map((item) => (
+      <a
+        key={item.id}
+        href="http://www.zfyg.com"
+        style={{
+          display: "inline-block",
+          width: "100%",
+          height: 212,
+        }}
+      >
+        <img
+          src={`http://localhost:8080${item.imgSrc}`}
+          alt=""
+          style={{ width: "100%", verticalAlign: "top" }}
+          onLoad={() => {
+            // fire window resize event to change height
+            window.dispatchEvent(new Event("resize"));
+            // this.setState({ imgHeight: "auto" });
+          }}
+        />
+      </a>
+    ));
+  }
+
   componentDidMount() {
-    // simulate img loading
-    setTimeout(() => {
-      this.setState({
-        data: [
-          "AiyWuByWklrrUDlFignR",
-          "TekJlZRVCjLFexlOCuWn",
-          "IJOtIlfsYdTyaDTRVrLI",
-        ],
-      });
-    }, 100);
+    this.getSwiper();
   }
   render() {
     return (
       <div>
-        <Carousel
-          autoplay={false}
-          infinite
-          beforeChange={(from, to) =>
-            console.log(`slide from ${from} to ${to}`)
-          }
-          afterChange={(index) => console.log("slide to", index)}
-        >
-          {this.state.data.map((val) => (
-            <a
-              key={val}
-              href="http://www.alipay.com"
-              style={{
-                display: "inline-block",
-                width: "100%",
-                height: this.state.imgHeight,
-              }}
-            >
-              <img
-                src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
-                alt=""
-                style={{ width: "100%", verticalAlign: "top" }}
-                onLoad={() => {
-                  // fire window resize event to change height
-                  window.dispatchEvent(new Event("resize"));
-                  this.setState({ imgHeight: "auto" });
-                }}
-              />
-            </a>
-          ))}
+        <Carousel autoplay={true} infinite={true} autoplayInterval>
+          {this.renderSwiper()}
         </Carousel>
       </div>
     );
