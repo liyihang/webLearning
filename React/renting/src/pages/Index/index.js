@@ -5,7 +5,7 @@ import Axios from "axios";
 
 import "./index.css";
 // 导入轮播组件
-import { Carousel, Flex, Grid, WingBlank } from "antd-mobile";
+import { Carousel, Flex, Grid, Icon, WingBlank } from "antd-mobile";
 
 // 导入图片
 import Nav1 from "../../assets/images/nav-1.png";
@@ -120,7 +120,6 @@ export default class Index extends React.Component {
   }
   // 推荐房源渲染
   renderRecommendHouse() {
-
     return this.state.recommendHouse.map((item) => (
       <div key={item.id}>
         <div className="houseinfo-item">
@@ -158,6 +157,20 @@ export default class Index extends React.Component {
           )}
         </div>
         {/* 导航 */}
+        {/* 顶部导航 */}
+        <Flex className="search-area">
+          <Flex className="main">
+            <div className="search" onClick={()=>this.props.history.push('/citylist')}>
+              <span>上海</span>
+              <i className="iconfont icon-arrow"></i>
+            </div>
+            <div className="search-content" onClick={()=>this.props.history.push('/search')}>
+              <i className="iconfont icon-seach"></i>
+              <span className="search-text">请输入搜索内容</span>
+            </div>
+          </Flex>
+          <i className="iconfont icon-map" onClick={()=>this.props.history.push('/map')}></i>
+        </Flex>
         <Flex className="nav">{this.renderNav()}</Flex>
         {/* 推荐小组 */}
         <div className="recommend">
