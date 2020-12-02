@@ -38,7 +38,7 @@ export default class Home extends React.Component {
   state = {
     selectedTab: this.props.location.pathname,
   };
-// fix tabbar error
+  // fix tabbar error
   componentDidUpdate(prevProps) {
     if (prevProps.location.pathname !== this.props.location.pathname) {
       this.setState({
@@ -75,7 +75,6 @@ export default class Home extends React.Component {
         <Route path="/home/user" component={User}></Route>
         <Route path="/home/houselist" component={HouseList}></Route>
         <Route exact path="/home" component={Index}></Route>
-
         <TabBar tintColor="#21b97a" barTintColor="white" noRenderContent="true">
           {this.renderTabbarItems()}
         </TabBar>

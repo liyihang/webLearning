@@ -51,6 +51,7 @@ export default class Index extends React.Component {
     isSwiperLoaded: false,
     recommendData: [],
     recommendHouse: [],
+    LocalCity: "成都",
   };
 
   //   获取轮播图数据
@@ -141,6 +142,17 @@ export default class Index extends React.Component {
     this.getSwiper();
     this.getRecommendData();
     this.getRecommendHouse();
+    // 地理位置信息
+
+    const myCity = new window.BMap.LocalCity();
+    myCity.get(async (res) => {
+      const result = await Axios.get(
+        `http://localhost:8080/area/info?name=${res.name}`
+      );
+      this.setState({
+        LocalCity: result.data.body.label,
+      });
+    });
   }
 
   render() {
@@ -160,16 +172,25 @@ export default class Index extends React.Component {
         {/* 顶部导航 */}
         <Flex className="search-area">
           <Flex className="main">
-            <div className="search" onClick={()=>this.props.history.push('/citylist')}>
-              <span>上海</span>
+            <div
+              className="search"
+              onClick={() => this.props.history.push("/citylist")}
+            >
+              <span>{this.state.LocalCity}</span>
               <i className="iconfont icon-arrow"></i>
             </div>
-            <div className="search-content" onClick={()=>this.props.history.push('/search')}>
+            <div
+              className="search-content"
+              onClick={() => this.props.history.push("/search")}
+            >
               <i className="iconfont icon-seach"></i>
               <span className="search-text">请输入搜索内容</span>
             </div>
           </Flex>
-          <i className="iconfont icon-map" onClick={()=>this.props.history.push('/map')}></i>
+          <i
+            className="iconfont icon-map"
+            onClick={() => this.props.history.push("/map")}
+          ></i>
         </Flex>
         <Flex className="nav">{this.renderNav()}</Flex>
         {/* 推荐小组 */}
