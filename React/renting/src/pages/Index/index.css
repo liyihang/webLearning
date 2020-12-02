@@ -1,14 +1,74 @@
-.nav{
-    padding: 10px 0;
+.swiper {
+  height: 212px;
 }
-.nav .am-flexbox-item{
-    text-align: center;
+.nav {
+  padding: 10px 0;
 }
-.nav img{
-    height: 48px;
+.nav .am-flexbox-item {
+  text-align: center;
 }
-.nav h2{
+.nav img {
+  width: 48px;
+}
+.nav h2 {
+  font-size: 13px;
+  font-weight: normal;
+}
+.home .recommend {
+  background-color: #f6f5f6;
+  overflow: hidden;
+  padding: 0 10px;
+}
+.title {
+  position: relative;
+  margin: 15px 0 15px 10px;
+  background-color: #f6f5f6;
+  font-size: 15px;
+}
+.more {
+  position: absolute;
+  right: 0;
+  font-size: 14px;
+  font-weight: normal;
+  color: #787d82;
+}
 
-    font-size: 13px;
-    font-weight: normal;
+.rec-item p {
+  font-weight: bold;
+  font-size: 13px;
+  margin-top: 5px;
+}
+.rec-item span {
+  font-size: 12px;
+  color: #999;
+}
+.rec-item img {
+  height: 55px;
+}
+.recommend .am-grid .am-flexbox {
+  background-color: inherit;
+}
+.am-flexbox-item {
+  background-color: #fff;
+}
+.am-flexbox-align-stretch {
+  margin-bottom: 10px;
+}
+.am-grid-item:first-child {
+  margin-right: 10px;
+}
+/* 推荐房源 */
+.imgIcon {
+  margin: 10px;
+  height: 100px;
+  width: 120px;
+}
+.houseinfo h2 {
+  margin: 15px 0 15px 15px;
+  font-size: 15px;
+}
+.house-content {
+  display: inline-block;
+  position: absolute;
+  margin: 10px 20px 0px 20px;
 }

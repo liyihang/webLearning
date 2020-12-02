@@ -38,6 +38,14 @@ export default class Home extends React.Component {
   state = {
     selectedTab: this.props.location.pathname,
   };
+// fix tabbar error
+  componentDidUpdate(prevProps) {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
+      this.setState({
+        selectedTab: this.props.location.pathname,
+      });
+    }
+  }
   /**
    * 组件内容抽取渲染
    */
@@ -66,14 +74,10 @@ export default class Home extends React.Component {
         <Route path="/home/news" component={News}></Route>
         <Route path="/home/user" component={User}></Route>
         <Route path="/home/houselist" component={HouseList}></Route>
-        <Route path="/home" component={Index}></Route>
+        <Route exact path="/home" component={Index}></Route>
 
-        <TabBar
-          tintColor="#21b97a"
-          barTintColor="white"
-          noRenderContent="true"
-        >
-            {this.renderTabbarItems()}
+        <TabBar tintColor="#21b97a" barTintColor="white" noRenderContent="true">
+          {this.renderTabbarItems()}
         </TabBar>
       </div>
     );
