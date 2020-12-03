@@ -3,15 +3,32 @@ import { NavBar } from "antd-mobile";
 import "./index.css";
 import Axios from "axios";
 
+const formatCityData = (list) => {
+  const cityData = {};
+  //   遍历获取的城市数据
+  list.forEach((item) => {
+    //   获取城市的首字母
+    const initials = item.short.substr(0, 1);
+    if (cityData[initials]) {
+      cityData[initials].push(item);
+    } else {
+      cityData[initials] = [item];
+    }
+  });
+  const cityIndex = Object.keys(cityData).sort();
+  return { cityData, cityIndex };
+};
+
 export default class CityList extends React.Component {
   // 获取城市数据
   async getCityName() {
-    const cityData = await Axios.get("http://localhost:8080/area/city?level=1");
-    console.log(cityData);
+    const cityres = await Axios.get("http://localhost:8080/area/city?level=1");
+
+    const { cityData, cityIndex } = formatCityData(cityres.data.body);
   }
 
-  componentDidMount(){
-      this.getCityName()
+  componentDidMount() {
+    this.getCityName();
   }
   render() {
     return (
