@@ -3,7 +3,7 @@ import { NavBar } from "antd-mobile";
 import "./index.css";
 import Axios from "axios";
 
-import {getCurrentCity} from '../../utils'
+import { getCurrentCity } from "../../utils";
 
 const formatCityData = (list) => {
   const cityData = {};
@@ -32,6 +32,12 @@ export default class CityList extends React.Component {
 
     cityData["hot"] = hotCity.data.body;
     cityIndex.unshift("hot");
+    const currentCity = await getCurrentCity();
+
+    // 当前城市
+    cityData["#"] = [currentCity];
+    cityIndex.unshift("#");
+    console.log(cityData, cityIndex, currentCity);
   }
 
   componentDidMount() {

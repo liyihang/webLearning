@@ -20,4 +20,6 @@ export const getCurrentCity = () => {
       });
     });
   }
+  //   处理localstorage 存储数据情况
+  return Promise.resolve(localCity);
 };

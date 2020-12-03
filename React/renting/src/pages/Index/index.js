@@ -4,6 +4,8 @@ import Axios from "axios";
 // 导入样式
 
 import "./index.css";
+// 导入公共组件
+import { getCurrentCity } from "../../utils";
 // 导入轮播组件
 import { Carousel, Flex, Grid, WingBlank } from "antd-mobile";
 
@@ -138,11 +140,14 @@ export default class Index extends React.Component {
       </div>
     ));
   }
-  componentDidMount() {
+  async componentDidMount() {
     this.getSwiper();
     this.getRecommendData();
     this.getRecommendHouse();
-  
+    const LocalCity = await getCurrentCity();
+    this.setState({
+      LocalCity: LocalCity.label,
+    });
   }
 
   render() {
