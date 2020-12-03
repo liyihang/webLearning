@@ -5,7 +5,7 @@ import Axios from "axios";
 
 import "./index.css";
 // 导入轮播组件
-import { Carousel, Flex, Grid, Icon, WingBlank } from "antd-mobile";
+import { Carousel, Flex, Grid, WingBlank } from "antd-mobile";
 
 // 导入图片
 import Nav1 from "../../assets/images/nav-1.png";
@@ -142,17 +142,7 @@ export default class Index extends React.Component {
     this.getSwiper();
     this.getRecommendData();
     this.getRecommendHouse();
-    // 地理位置信息
-
-    const myCity = new window.BMap.LocalCity();
-    myCity.get(async (res) => {
-      const result = await Axios.get(
-        `http://localhost:8080/area/info?name=${res.name}`
-      );
-      this.setState({
-        LocalCity: result.data.body.label,
-      });
-    });
+  
   }
 
   render() {
