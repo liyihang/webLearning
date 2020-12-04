@@ -25,11 +25,16 @@ const formatCityData = (list) => {
 const TITLE_HEIGHT = 36;
 const CITY_HEIGHT = 50;
 export default class CityList extends React.Component {
-  state = {
-    cityData: {},
-    cityIndex: [],
-    activeIndex: 0,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      cityData: {},
+      cityIndex: [],
+      activeIndex: 0,
+    };
+    this.cityListCompont = React.createRef();
+  }
+
   // 获取城市数据
   async getCityName() {
     const cityres = await Axios.get("http://localhost:8080/area/city?level=1");
@@ -68,8 +73,10 @@ export default class CityList extends React.Component {
     const { cityData, cityIndex } = this.state;
     return TITLE_HEIGHT + cityData[cityIndex[index]].length * CITY_HEIGHT;
   };
-  componentDidMount() {
-    this.getCityName();
+  async componentDidMount() {
+    await this.getCityName();
+    // 解决城市索引定位不准
+    this.cityListCompont.current.measureAllRows();
   }
   componentWillUnmount() {
     // fix Warning: Can't perform a React state update on an unmounted component
@@ -77,6 +84,14 @@ export default class CityList extends React.Component {
       return;
     };
   }
+  //   active
+  onRowsRendered = ({ startIndex }) => {
+    if (this.state.activeIndex !== startIndex) {
+      this.setState({
+        activeIndex: startIndex,
+      });
+    }
+  };
 
   //virtualized content render
   rowRenderer = ({
@@ -103,7 +118,13 @@ export default class CityList extends React.Component {
   //   city index render
   renderIndex() {
     return this.state.cityIndex.map((item, index) => (
-      <li className="city-item" key={Date.now() + Math.random()}>
+      <li
+        className="city-item"
+        key={item}
+        onClick={() => {
+          this.cityListCompont.current.scrollToRow(index);
+        }}
+      >
         <span className={this.state.activeIndex === index ? "city-active" : ""}>
           {item === "hot" ? "热" : item.toUpperCase()}
         </span>
@@ -124,11 +145,14 @@ export default class CityList extends React.Component {
         <AutoSizer>
           {({ width, height }) => (
             <List
+              ref={this.cityListCompont}
               width={width}
               height={height}
               rowCount={this.state.cityIndex.length}
               rowHeight={this.getHeight}
               rowRenderer={this.rowRenderer}
+              onRowsRendered={this.onRowsRendered}
+              scrollToAlignment="start"
             />
           )}
         </AutoSizer>
