@@ -14,12 +14,40 @@
   color: #333;
 }
 .city .citytitle {
-  margin: 11px 10px 11px 10px;
+  margin: 0 10px 0 10px;
+  height: 36px;
+  line-height: 36px;
   background-color: #fff;
   color: #619888;
   border-bottom: 1px solid #619353;
 }
 .city .cityname {
-  margin: 30px 10px 10px;
+  margin: 0 10px 0 10px;
+  height: 50px;
+  line-height: 50px;
   border-bottom: 1px solid #f6f5f6;
+}
+.city-index{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 5px;
+  z-index: 1;
+  height: 90%;
+  padding-top: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.city-item {
+  flex: 1;
+}
+.city-active{
+  height: 15px;
+  width: 15px;
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 100%;
+  background-color: #619353;
+  color: #fff;
+  
 }

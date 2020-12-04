@@ -65,14 +65,19 @@ export default class CityList extends React.Component {
     //   每个字母下城市数量高度
     // TITLE_HEIGHT+城市数量*CITY_HEIGHT
     const { cityData, cityIndex } = this.state;
-    console.log(index);
     return TITLE_HEIGHT + cityData[cityIndex[index]].length * CITY_HEIGHT;
   };
   componentDidMount() {
     this.getCityName();
   }
+  componentWillUnmount() {
+    // fix Warning: Can't perform a React state update on an unmounted component
+    this.setState = (state, callback) => {
+      return;
+    };
+  }
 
-  //
+  //virtualized content render
   rowRenderer = ({
     key, // Unique key within array of rows
     index, // Index of row within collection
@@ -94,6 +99,14 @@ export default class CityList extends React.Component {
       </div>
     );
   };
+  //   city index render
+  renderIndex() {
+    return (
+      <li className="city-item">
+        <span className="city-active">#</span>
+      </li>
+    );
+  }
   render() {
     return (
       <div className="citylist">
@@ -116,11 +129,7 @@ export default class CityList extends React.Component {
             />
           )}
         </AutoSizer>
-        <ul className="cityIndex">
-            <li className="cityItem">
-                <span>#</span>
-            </li>
-        </ul>
+        <ul className="city-index">{this.renderIndex()}</ul>
       </div>
     );
   }

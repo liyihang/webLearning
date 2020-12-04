@@ -20,6 +20,7 @@ ul {
   margin: 0;
 }
 ul{
+  margin: 0;
   list-style: none;
 }
 /* scroll not deal well */
