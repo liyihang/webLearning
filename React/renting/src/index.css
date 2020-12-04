@@ -14,8 +14,13 @@ body {
   box-sizing: border-box;
   touch-action: pan-y;
 }
-h2 {
+p,
+h2,
+ul {
   margin: 0;
+}
+ul{
+  list-style: none;
 }
 /* scroll not deal well */
 *::-webkit-scrollbar {

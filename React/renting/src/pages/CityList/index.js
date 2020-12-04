@@ -85,9 +85,9 @@ export default class CityList extends React.Component {
 
     return (
       <div key={key} style={style} className="city">
-        <div className="title">{this.formatIndex(letter)}</div>
+        <div className="citytitle">{this.formatIndex(letter)}</div>
         {cityData[letter].map((item) => (
-          <div className="name" key={item.value}>
+          <div className="cityname" key={item.value}>
             {item.label}
           </div>
         ))}
@@ -116,6 +116,11 @@ export default class CityList extends React.Component {
             />
           )}
         </AutoSizer>
+        <ul className="cityIndex">
+            <li className="cityItem">
+                <span>#</span>
+            </li>
+        </ul>
       </div>
     );
   }
