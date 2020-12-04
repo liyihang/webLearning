@@ -28,6 +28,7 @@ export default class CityList extends React.Component {
   state = {
     cityData: {},
     cityIndex: [],
+    activeIndex: 0,
   };
   // 获取城市数据
   async getCityName() {
@@ -101,11 +102,13 @@ export default class CityList extends React.Component {
   };
   //   city index render
   renderIndex() {
-    return (
-      <li className="city-item">
-        <span className="city-active">#</span>
+    return this.state.cityIndex.map((item, index) => (
+      <li className="city-item" key={Date.now() + Math.random()}>
+        <span className={this.state.activeIndex === index ? "city-active" : ""}>
+          {item === "hot" ? "热" : item.toUpperCase()}
+        </span>
       </li>
-    );
+    ));
   }
   render() {
     return (
