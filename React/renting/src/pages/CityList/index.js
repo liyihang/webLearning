@@ -1,5 +1,5 @@
 import React from "react";
-import { NavBar } from "antd-mobile";
+import { NavBar, Toast } from "antd-mobile";
 import "./index.css";
 import Axios from "axios";
 import { List, AutoSizer } from "react-virtualized";
@@ -24,6 +24,9 @@ const formatCityData = (list) => {
 // react-virtualized
 const TITLE_HEIGHT = 36;
 const CITY_HEIGHT = 50;
+
+// 有房源的城市
+const HOUSE_CITY = ["北京", "上海", "深圳", "广州"];
 export default class CityList extends React.Component {
   constructor(props) {
     super(props);
@@ -34,7 +37,16 @@ export default class CityList extends React.Component {
     };
     this.cityListCompont = React.createRef();
   }
-
+  // 获取点击城市
+  getChangeCity = ({ label, value }) => {
+    //   如果有数据，将数据存储在localstorage中，并返回
+    if (HOUSE_CITY.indexOf(label) > -1) {
+      localStorage.setItem("bkzf", JSON.stringify({ label, value }));
+      this.props.history.go(-1);
+    } else {
+      Toast.info("暂无房源信息", 1,null,false);
+    }
+  };
   // 获取城市数据
   async getCityName() {
     const cityres = await Axios.get("http://localhost:8080/area/city?level=1");
@@ -108,7 +120,11 @@ export default class CityList extends React.Component {
       <div key={key} style={style} className="city">
         <div className="citytitle">{this.formatIndex(letter)}</div>
         {cityData[letter].map((item) => (
-          <div className="cityname" key={item.value}>
+          <div
+            className="cityname"
+            key={item.value}
+            onClick={() => this.getChangeCity(item)}
+          >
             {item.label}
           </div>
         ))}
