@@ -1,7 +1,10 @@
 import React from "react";
 import { NavBar } from "antd-mobile";
 import "./index.css";
+// react 高阶组件
 import { withRouter } from "react-router-dom";
+// props类型校验
+import PropTypes from "prop-types";
 function NavHeader({ children, history, onLeftClick }) {
   const defaultHandle = () => history.go(-1);
   return (
@@ -15,4 +18,9 @@ function NavHeader({ children, history, onLeftClick }) {
     </NavBar>
   );
 }
+// navheader 组件参数校验
+NavHeader.propTypes = {
+  children: PropTypes.string.isRequired,
+  onLeftClick: PropTypes.func,
+};
 export default withRouter(NavHeader);
