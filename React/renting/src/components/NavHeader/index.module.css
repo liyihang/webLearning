@@ -1,0 +1,11 @@
+.navbar {
+  /* margin-top: -45px; */
+  background-color: #f6f5f6;
+}
+.navbar :global(.am-navbar-title) {
+  font-size: 16px;
+  color: #333;
+}
+.navbar :global(.am-navbar-left-icon) {
+  color: #333;
+}

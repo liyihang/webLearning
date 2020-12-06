@@ -1,6 +1,6 @@
 import React from "react";
 import { NavBar } from "antd-mobile";
-import "./index.css";
+import style from  "./index.module.css";
 // react 高阶组件
 import { withRouter } from "react-router-dom";
 // props类型校验
@@ -9,7 +9,7 @@ function NavHeader({ children, history, onLeftClick }) {
   const defaultHandle = () => history.go(-1);
   return (
     <NavBar
-      className="navbar"
+      className={style.navbar}
       mode="light"
       icon={<i className="iconfont icon-back" />}
       onLeftClick={defaultHandle || onLeftClick}
