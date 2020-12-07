@@ -2,6 +2,17 @@
 #container {
   height: 100%;
 }
-.BMap_stdMpZoom{
+.BMap_stdMpZoom {
   top: -45px;
+}
+.buddle {
+  height: 75px;
+  width: 75px;
+  display: inline-block;
+  position: absolute;
+  padding-top: 20px;
+  background-color: green;
+  color: aliceblue;
+  border-radius: 100%;
+  text-align: center;
 }
