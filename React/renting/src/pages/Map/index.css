@@ -16,3 +16,9 @@
   border-radius: 100%;
   text-align: center;
 }
+/* fix  [Intervention] Ignored attempt to cancel a touchmove event with cancelable=false,
+ for example because scrolling is in progress and cannot be interrupted 
+ */
+html {
+  touch-action: none;
+}
