@@ -4,6 +4,17 @@ import Axios from "axios";
 
 import "./index.css";
 const BMap = window.BMap;
+
+// 覆盖物样式
+const labelStyle = {
+  cursor: "pointer",
+  border: "0px solid rgb(255, 0, 0)",
+  padding: "0px",
+  whiteSpace: "nowrap",
+  fontSize: "12px",
+  color: "rgb(255, 255, 255)",
+  textAlign: "center",
+};
 export default class Map extends React.Component {
   componentDidMount() {
     this.initMap();
@@ -53,15 +64,15 @@ export default class Map extends React.Component {
     // 当前缩放级别
     const zoom = this.map.getZoom();
     let nextZoom, type;
-    if (zoom > 10 && zoom < 12) {
+    if (zoom >= 10 && zoom < 12) {
       // 区级
       nextZoom = 13;
       type = "circle";
-    } else if (zoom > 12 && zoom < 14) {
+    } else if (zoom >= 12 && zoom < 14) {
       // 镇级
       nextZoom = 15;
       type = "circle";
-    } else {
+    } else if (zoom >= 14 && zoom < 16) {
       // 小区级别
       type = "rect";
     }
@@ -78,18 +89,46 @@ export default class Map extends React.Component {
       value,
     } = data;
     // 创建坐标对象
-    const areaPoint = BMap.Point(longitude, latitude);
+    const areaPoint =new BMap.Point(longitude, latitude);
     // 判断区域类型
-    if ((type = "circle")) {
-      this.createCircle(areaPoint,areaName,count,value,zoom);
+    if (type === "circle") {
+      this.createCircle(areaPoint, areaName, count, value, zoom);
     } else {
-      this.createRect(areaPoint,areaName,count,value)
+      this.createRect(areaPoint, areaName, count, value);
     }
   }
   // 创建圆形渲染覆盖物
-  createCircle(areaPoint, areaName, count, value, zoom) {}
+  createCircle(point, name, count, id, zoom) {
+    const label = new BMap.Label("", {
+      position: point,
+      offSet: new BMap.Size(-35, -35),
+    });
+    // 设置覆盖物id
+    label.id = id;
+    // 设置覆盖物内容;
+    label.setContent(
+      `<div class="buddle">
+      <p class="content">${name}</p>
+      <p>${count}套</p>
+    </div>`
+    );
+    // 设置覆盖物样式
+    label.setStyle(labelStyle);
+    // 点击事件
+    label.addEventListener("click", () => {
+      this.renderOverlays(id);
+      // 点击放大地图
+      this.map.centerAndZoom(point, zoom);
+      // 清除覆盖物
+      setTimeout(() => {
+        //fix baidu map VM104036:1 Uncaught TypeError: Cannot read property 'M' of null at HTMLLabelElement.eval (eval at RZ
+        this.map.clearOverlays();
+      }, 0);
+    });
+    this.map.addOverlay(label);
+  }
   // 创建普通覆盖物
-  createRect(areaPoint, areaName, count, value) {}
+  createRect(point, name, count, id) {}
   render() {
     return (
       <div className="map">
