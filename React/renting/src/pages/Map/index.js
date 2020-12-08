@@ -15,6 +15,8 @@ export default class Map extends React.Component {
     const { label, value } = JSON.parse(localStorage.getItem("bkzf"));
     //   初始化map实例
     const map = new BMap.Map("container");
+    // 绑定this，外部可用
+    this.map = map;
     // 地址解析
 
     const myGeo = new BMap.Geocoder();
@@ -28,54 +30,7 @@ export default class Map extends React.Component {
           // 图层控件
           map.addControl(new BMap.NavigationControl());
           map.addControl(new BMap.ScaleControl());
-          // 设置地图覆盖物
-          const opts = {
-            position: point,
-            offSet: new BMap.Size(-35, -35),
-          };
-          // 发送请求获取所在区域房源数据
-          const res = await Axios.get(
-            `http://localhost:8080/area/map?id=${value}`
-          );
-          res.data.body.forEach((item) => {
-            const {
-              coord: { longitude, latitude },
-              label: areaName,
-              count,
-              value,
-            } = item;
-            // 设置label
-            const areaPoint = new BMap.Point(longitude, latitude);
-            const label = new BMap.Label("", {
-              position: areaPoint,
-              offSet: new BMap.Size(-35, -35),
-            });
-            // 设置覆盖物id
-            label.id = value;
-            // 设置覆盖物内容;
-            label.setContent(
-              `<div class="buddle">
-              <p class="content">${areaName}</p>
-              <p>${count}套</p>
-            </div>`
-            );
-            // 设置覆盖物样式
-            label.setStyle({
-              color: "red",
-            });
-            // 点击事件
-            label.addEventListener("click", () => {
-              console.log("此处房子卖完了", label.id);
-              // 点击放大地图
-              map.centerAndZoom(areaPoint, 13);
-              // 清除覆盖物
-              setTimeout(() => {
-                //fix baidu map VM104036:1 Uncaught TypeError: Cannot read property 'M' of null at HTMLLabelElement.eval (eval at RZ
-                map.clearOverlays();
-              }, 0);
-            });
-            map.addOverlay(label);
-          });
+          this.renderOverlays(value);
         } else {
           alert("您选择的地址没有解析到结果！");
         }
@@ -83,6 +38,38 @@ export default class Map extends React.Component {
       label
     );
   }
+  // 获取数据  渲染
+  async renderOverlays(id) {
+    const res = await Axios.get(`http://localhost:8080/area/map?id=${id}`);
+    const data = res.data.body;
+    const { nextZoom, type } = this.getTypeAndZoom();
+    data.forEach((item) => {
+      // 创建覆盖物
+      this.createOverlays(item,nextZoom,type);
+    });
+  }
+  // 获取地图缩放层级和类型
+  getTypeAndZoom(){
+    // 当前缩放级别
+    const zoom = this.map.getZoom()
+    const nextZoom,type;
+    if(zoom >10 && zoom <12){
+      // 区级
+      nextZoom = 13;
+      type = 'circle'
+    }else if(zoom >12 && zoom <14){
+      // 镇级
+      nextZoom = 15;
+      type = 'circle'
+    }else{
+      // 小区级别
+      type = 'ract'
+    }
+    return {nextZoom,type}
+
+  }
+  // 创建覆盖物
+  createOverlays() {}
   render() {
     return (
       <div className="map">
