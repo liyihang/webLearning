@@ -45,31 +45,51 @@ export default class Map extends React.Component {
     const { nextZoom, type } = this.getTypeAndZoom();
     data.forEach((item) => {
       // 创建覆盖物
-      this.createOverlays(item,nextZoom,type);
+      this.createOverlays(item, nextZoom, type);
     });
   }
   // 获取地图缩放层级和类型
-  getTypeAndZoom(){
+  getTypeAndZoom() {
     // 当前缩放级别
-    const zoom = this.map.getZoom()
-    const nextZoom,type;
-    if(zoom >10 && zoom <12){
+    const zoom = this.map.getZoom();
+    let nextZoom, type;
+    if (zoom > 10 && zoom < 12) {
       // 区级
       nextZoom = 13;
-      type = 'circle'
-    }else if(zoom >12 && zoom <14){
+      type = "circle";
+    } else if (zoom > 12 && zoom < 14) {
       // 镇级
       nextZoom = 15;
-      type = 'circle'
-    }else{
+      type = "circle";
+    } else {
       // 小区级别
-      type = 'ract'
+      type = "rect";
     }
-    return {nextZoom,type}
-
+    return { nextZoom, type };
   }
+
   // 创建覆盖物
-  createOverlays() {}
+  createOverlays(data, zoom, type) {
+    // 解构数据
+    const {
+      coord: { longitude, latitude },
+      label: areaName,
+      count,
+      value,
+    } = data;
+    // 创建坐标对象
+    const areaPoint = BMap.Point(longitude, latitude);
+    // 判断区域类型
+    if ((type = "circle")) {
+      this.createCircle(areaPoint,areaName,count,value,zoom);
+    } else {
+      this.createRect(areaPoint,areaName,count,value)
+    }
+  }
+  // 创建圆形渲染覆盖物
+  createCircle(areaPoint, areaName, count, value, zoom) {}
+  // 创建普通覆盖物
+  createRect(areaPoint, areaName, count, value) {}
   render() {
     return (
       <div className="map">
