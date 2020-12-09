@@ -18,6 +18,7 @@ const labelStyle = {
 export default class Map extends React.Component {
   state = {
     houseList: [],
+    isShow: false
   };
   componentDidMount() {
     this.initMap();
@@ -86,6 +87,7 @@ export default class Map extends React.Component {
     const res = await Axios.get(`http://localhost:8080/houses?cityId=${id}`);
     this.setState = {
       houseList: res.data.body.list,
+      isShow: true
     };
   }
   // 创建覆盖物
@@ -164,7 +166,10 @@ export default class Map extends React.Component {
     return (
       <div className="map">
         <NavHeader>城市地图</NavHeader>
-        <div id="container"></div>
+        <div id="container">
+          <div className="wrap">waibu</div>
+          <div className="houselist">list</div>
+        </div>
       </div>
     );
   }
