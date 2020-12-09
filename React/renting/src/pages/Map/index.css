@@ -22,3 +22,23 @@
 html {
   touch-action: none;
 }
+.rect {
+  height: 20px;
+  width: 100px;
+  line-height: 20px;
+  position: absolute;
+  border-radius: 3px;
+  background-color: green;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.housename {
+  display: inline-block;
+  width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+.housenum {
+  display: inline-block;
+}

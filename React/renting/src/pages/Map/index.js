@@ -89,7 +89,7 @@ export default class Map extends React.Component {
       value,
     } = data;
     // 创建坐标对象
-    const areaPoint =new BMap.Point(longitude, latitude);
+    const areaPoint = new BMap.Point(longitude, latitude);
     // 判断区域类型
     if (type === "circle") {
       this.createCircle(areaPoint, areaName, count, value, zoom);
@@ -128,7 +128,29 @@ export default class Map extends React.Component {
     this.map.addOverlay(label);
   }
   // 创建普通覆盖物
-  createRect(point, name, count, id) {}
+  createRect(point, name, count, id) {
+    const label = new BMap.Label("", {
+      position: point,
+      offSet: new BMap.Size(-50, -28),
+    });
+    // 设置覆盖物id
+    label.id = id;
+    // 设置覆盖物内容;
+    label.setContent(
+      `<div class="rect">
+      <p class="housename">${name}</p>
+      <p class="housenum">${count}</p>
+      <i class="arrow"></i>
+      </div>`
+    );
+    // 设置覆盖物样式
+    label.setStyle(labelStyle);
+    // 点击事件
+    label.addEventListener("click", () => {
+      console.log("object" + 123);
+    });
+    this.map.addOverlay(label);
+  }
   render() {
     return (
       <div className="map">
