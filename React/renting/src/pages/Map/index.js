@@ -16,6 +16,9 @@ const labelStyle = {
   textAlign: "center",
 };
 export default class Map extends React.Component {
+  state = {
+    houseList: [],
+  };
   componentDidMount() {
     this.initMap();
   }
@@ -78,7 +81,13 @@ export default class Map extends React.Component {
     }
     return { nextZoom, type };
   }
-
+  // 获取某一小区的房源信息
+  async getHouseList(id) {
+    const res = await Axios.get(`http://localhost:8080/houses?cityId=${id}`);
+    this.setState = {
+      houseList: res.data.body.list,
+    };
+  }
   // 创建覆盖物
   createOverlays(data, zoom, type) {
     // 解构数据
@@ -147,7 +156,7 @@ export default class Map extends React.Component {
     label.setStyle(labelStyle);
     // 点击事件
     label.addEventListener("click", () => {
-      console.log("object" + 123);
+      this.getHouseList(id);
     });
     this.map.addOverlay(label);
   }
