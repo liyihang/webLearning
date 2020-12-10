@@ -18,7 +18,7 @@ const labelStyle = {
 export default class Map extends React.Component {
   state = {
     houseList: [],
-    isShow: false
+    isShow: false,
   };
   componentDidMount() {
     this.initMap();
@@ -87,7 +87,7 @@ export default class Map extends React.Component {
     const res = await Axios.get(`http://localhost:8080/houses?cityId=${id}`);
     this.setState = {
       houseList: res.data.body.list,
-      isShow: true
+      isShow: true,
     };
   }
   // 创建覆盖物
@@ -159,6 +159,7 @@ export default class Map extends React.Component {
     // 点击事件
     label.addEventListener("click", () => {
       this.getHouseList(id);
+      console.log("123123");
     });
     this.map.addOverlay(label);
   }
@@ -166,9 +167,24 @@ export default class Map extends React.Component {
     return (
       <div className="map">
         <NavHeader>城市地图</NavHeader>
-        <div id="container">
-          <div className="wrap">waibu</div>
-          <div className="houselist">list</div>
+        <div id="container"></div>
+        <div className="wrap">
+          <div className="house">
+            <h2 className="housedetail">房源列表</h2>
+            <p className="morehouse">更多房源</p>
+          </div>
+          <div className="houselist">
+            <ul>
+             <li>
+                 <img className="houseimg" src="http://localhost:8080/newImg/7bj63hd2c.jpg" alt="123" />
+               <div className="itemdetail">
+                  <h2>新龙城回龙观好房</h2>
+                  <p>好房，进地铁，新房</p>
+                  <p>99999元/月</p>
+               </div>
+             </li>
+            </ul>
+          </div>
         </div>
       </div>
     );

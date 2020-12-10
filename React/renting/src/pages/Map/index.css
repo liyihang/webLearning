@@ -1,6 +1,6 @@
 .map,
 #container {
-  height: 100%;
+  height: 97%;
 }
 .BMap_stdMpZoom {
   top: -45px;
@@ -42,9 +42,37 @@ html {
 .housenum {
   display: inline-block;
 }
-.wrap{
+.wrap {
+  width: 100%;
   height: 40%;
-  z-index: 1;
-  position:absolute;
-  background-color: aqua;
+  z-index: 999;
+  position: absolute;
+  bottom: 0px;
+  background-color: #fff;
+  overflow: auto;
+}
+.house {
+  height: 40px;
+  line-height: 40px;
+  margin: 5px;
+  border-bottom: 1px solid #939393;
+  text-align: center;
+}
+.housedetail {
+  float: left;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Noto Sans SC';
+  padding-left: 15px;
+}
+.morehouse {
+  padding-left: 70%;
+  color: #939393;
+}
+.houseimg{
+  height: 100px;
+  widows: 120px;
+}
+.itemdetail{
+  display: inline-block;
 }
