@@ -54,25 +54,39 @@ html {
 .house {
   height: 40px;
   line-height: 40px;
-  margin: 5px;
   border-bottom: 1px solid #939393;
   text-align: center;
+}
+ul {
+  padding: 10px;
+}
+.houseitem {
+  margin: 0;
 }
 .housedetail {
   float: left;
   font-size: 16px;
   font-weight: 400;
-  font-family: 'Noto Sans SC';
+  font-family: "Noto Sans SC";
   padding-left: 15px;
 }
 .morehouse {
   padding-left: 70%;
   color: #939393;
 }
-.houseimg{
+.houseimg {
   height: 100px;
   widows: 120px;
 }
-.itemdetail{
+.itemdetail {
   display: inline-block;
+  margin: 10px;
+  position: fixed;
+}
+.itemdetail > h2{
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+.itemdetail > p {
+  padding-bottom: 10px;
 }
