@@ -63,6 +63,36 @@ export default class Map extends React.Component {
       this.createOverlays(item, nextZoom, type);
     });
   }
+  renderHouseList() {
+    if (this.state.isShow) {
+      return (
+        <div className="wrap">
+          <div className="house">
+            <h2 className="housedetail">房源列表</h2>
+            <p className="morehouse">更多房源</p>
+          </div>
+          <div className="houselist">
+            <ul>
+              <li className="houseitem">
+                <img
+                  className="houseimg"
+                  src="http://localhost:8080/newImg/7bj63hd2c.jpg"
+                  alt="123"
+                />
+                <div className="itemdetail">
+                  <h2>新龙城回龙观好房</h2>
+                  <p>好房，进地铁，新房</p>
+                  <p>99999元/月</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
   // 获取地图缩放层级和类型
   getTypeAndZoom() {
     // 当前缩放级别
@@ -85,6 +115,7 @@ export default class Map extends React.Component {
   // 获取某一小区的房源信息
   async getHouseList(id) {
     const res = await Axios.get(`http://localhost:8080/houses?cityId=${id}`);
+    console.log(res);
     this.setState = {
       houseList: res.data.body.list,
       isShow: true,
@@ -168,24 +199,8 @@ export default class Map extends React.Component {
       <div className="map">
         <NavHeader>城市地图</NavHeader>
         <div id="container"></div>
-        <div className="wrap">
-          <div className="house">
-            <h2 className="housedetail">房源列表</h2>
-            <p className="morehouse">更多房源</p>
-          </div>
-          <div className="houselist">
-            <ul>
-             <li className="houseitem">
-                 <img className="houseimg" src="http://localhost:8080/newImg/7bj63hd2c.jpg" alt="123" />
-               <div className="itemdetail">
-                  <h2>新龙城回龙观好房</h2>
-                  <p>好房，进地铁，新房</p>
-                  <p>99999元/月</p>
-               </div>
-             </li>
-            </ul>
-          </div>
-        </div>
+
+        {this.renderHouseList()}
       </div>
     );
   }
