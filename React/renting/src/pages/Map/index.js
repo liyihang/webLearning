@@ -115,11 +115,11 @@ export default class Map extends React.Component {
   // 获取某一小区的房源信息
   async getHouseList(id) {
     const res = await Axios.get(`http://localhost:8080/houses?cityId=${id}`);
-    console.log(res);
-    this.setState = {
+    this.setState({
       houseList: res.data.body.list,
       isShow: true,
-    };
+    });
+    console.log(this.state.houseList);
   }
   // 创建覆盖物
   createOverlays(data, zoom, type) {
@@ -190,7 +190,6 @@ export default class Map extends React.Component {
     // 点击事件
     label.addEventListener("click", () => {
       this.getHouseList(id);
-      console.log("123123");
     });
     this.map.addOverlay(label);
   }
