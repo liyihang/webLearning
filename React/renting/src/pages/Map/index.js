@@ -73,18 +73,20 @@ export default class Map extends React.Component {
           </div>
           <div className="houselist">
             <ul>
-              <li className="houseitem">
-                <img
-                  className="houseimg"
-                  src="http://localhost:8080/newImg/7bj63hd2c.jpg"
-                  alt="123"
-                />
-                <div className="itemdetail">
-                  <h2>新龙城回龙观好房</h2>
-                  <p>好房，进地铁，新房</p>
-                  <p>99999元/月</p>
-                </div>
-              </li>
+              {this.state.houseList.map((item) => (
+                <li className="houseitem">
+                  <img
+                    className="houseimg"
+                    src={`http://localhost:8080${item.houseImg}`}
+                    alt="123"
+                  />
+                  <div className="itemdetail">
+              <h2>{item.title}</h2>
+              <p>{item.desc}</p>
+              <p>{item.price}</p>
+                  </div>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
