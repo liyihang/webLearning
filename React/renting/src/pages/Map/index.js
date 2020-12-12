@@ -3,6 +3,7 @@ import NavHeader from "../../components/NavHeader";
 import Axios from "axios";
 
 import "./index.css";
+import { Toast } from "antd-mobile";
 const BMap = window.BMap;
 
 // 覆盖物样式
@@ -55,7 +56,9 @@ export default class Map extends React.Component {
   }
   // 获取数据  渲染
   async renderOverlays(id) {
+    Toast.loading("加载中……", 0, null, false);
     const res = await Axios.get(`http://localhost:8080/area/map?id=${id}`);
+    Toast.hide();
     const data = res.data.body;
     const { nextZoom, type } = this.getTypeAndZoom();
     data.forEach((item) => {
@@ -116,7 +119,9 @@ export default class Map extends React.Component {
   }
   // 获取某一小区的房源信息
   async getHouseList(id) {
+    Toast.loading("加载中……", 0, null, false);
     const res = await Axios.get(`http://localhost:8080/houses?cityId=${id}`);
+    Toast.hide();
     this.setState({
       houseList: res.data.body.list,
       isShow: true,
