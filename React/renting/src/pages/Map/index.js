@@ -4,6 +4,8 @@ import Axios from "axios";
 
 import "./index.css";
 import { Toast } from "antd-mobile";
+
+import { BASE_URL } from "../../utils/url";
 const BMap = window.BMap;
 
 // 覆盖物样式
@@ -80,7 +82,7 @@ export default class Map extends React.Component {
                 <li className="houseitem" key={item.houseCode}>
                   <img
                     className="houseimg"
-                    src={`http://localhost:8080${item.houseImg}`}
+                    src={BASE_URL + item.houseImg}
                     alt="123"
                   />
                   <div className="itemdetail">
@@ -197,6 +199,7 @@ export default class Map extends React.Component {
     label.addEventListener("click", (e) => {
       this.getHouseList(id);
       // 点击小区，展示小区房源的同时，把小区坐标移动到地图中心
+      console.log(BASE_URL);
       const pos = e.changedTouches[0];
       this.map.panBy(
         window.innerWidth / 2 - pos.clientX,
@@ -212,6 +215,7 @@ export default class Map extends React.Component {
         <div id="container"></div>
 
         {this.renderHouseList()}
+
       </div>
     );
   }
