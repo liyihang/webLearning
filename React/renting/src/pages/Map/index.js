@@ -74,16 +74,16 @@ export default class Map extends React.Component {
           <div className="houselist">
             <ul>
               {this.state.houseList.map((item) => (
-                <li className="houseitem">
+                <li className="houseitem" key={item.houseCode}>
                   <img
                     className="houseimg"
                     src={`http://localhost:8080${item.houseImg}`}
                     alt="123"
                   />
                   <div className="itemdetail">
-              <h2>{item.title}</h2>
-              <p>{item.desc}</p>
-              <p>{item.price}</p>
+                    <h2>{item.title}</h2>
+                    <p>{item.desc}</p>
+                    <p>{item.price}</p>
                   </div>
                 </li>
               ))}
@@ -121,7 +121,6 @@ export default class Map extends React.Component {
       houseList: res.data.body.list,
       isShow: true,
     });
-    console.log(this.state.houseList);
   }
   // 创建覆盖物
   createOverlays(data, zoom, type) {
@@ -190,8 +189,14 @@ export default class Map extends React.Component {
     // 设置覆盖物样式
     label.setStyle(labelStyle);
     // 点击事件
-    label.addEventListener("click", () => {
+    label.addEventListener("click", (e) => {
       this.getHouseList(id);
+      // 点击小区，展示小区房源的同时，把小区坐标移动到地图中心
+      const pos = e.changedTouches[0];
+      this.map.panBy(
+        window.innerWidth / 2 - pos.clientX,
+        (window.innerHeight - 330) / 2 - pos.clientY
+      );
     });
     this.map.addOverlay(label);
   }
