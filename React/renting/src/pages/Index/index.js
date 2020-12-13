@@ -1,5 +1,4 @@
 import React from "react";
-import Axios from "axios";
 
 // 导入样式
 
@@ -14,6 +13,8 @@ import Nav1 from "../../assets/images/nav-1.png";
 import Nav2 from "../../assets/images/nav-2.png";
 import Nav3 from "../../assets/images/nav-3.png";
 import Nav4 from "../../assets/images/nav-4.png";
+import { BASE_URL } from "../../utils/url";
+import { http } from "../../utils/http";
 
 // nav 导航数据
 const navItems = [
@@ -58,7 +59,7 @@ export default class Index extends React.Component {
 
   //   获取轮播图数据
   async getSwiper() {
-    const res = await Axios.get("http://localhost:8080/home/swiper");
+    const res = await http.get("/home/swiper");
     this.setState({
       swiper: res.data.body,
       isSwiperLoaded: true,
@@ -66,17 +67,15 @@ export default class Index extends React.Component {
   }
   //   获取推荐的信息
   async getRecommendData() {
-    const res = await Axios.get(
-      "http://localhost:8080/home/groups?area=AREA%7C88cff55c-aaa4-e2e0"
-    );
+    const res = await http.get("/home/groups?area=AREA%7C88cff55c-aaa4-e2e0");
     this.setState({
       recommendData: res.data.body,
     });
   }
   //   获取推荐房源
   async getRecommendHouse() {
-    const recHouse = await Axios.get(
-      "http://localhost:8080/home/news?area=AREA%7C88cff55c-aaa4-e2e0"
+    const recHouse = await http.get(
+      "/home/news?area=AREA%7C88cff55c-aaa4-e2e0"
     );
 
     this.setState({
@@ -97,7 +96,7 @@ export default class Index extends React.Component {
         }}
       >
         <img
-          src={`http://localhost:8080${item.imgSrc}`}
+          src={BASE_URL + item.imgSrc}
           alt=""
           style={{ width: "100%", verticalAlign: "top" }}
           onLoad={() => {
@@ -126,11 +125,7 @@ export default class Index extends React.Component {
     return this.state.recommendHouse.map((item) => (
       <div key={item.id}>
         <div className="houseinfo-item">
-          <img
-            className="imgIcon"
-            src={`http://localhost:8080${item.imgSrc}`}
-            alt=""
-          ></img>
+          <img className="imgIcon" src={BASE_URL + item.imgSrc} alt=""></img>
           <div className="house-content">
             <h2>{item.title}</h2>
             <p>{item.from}</p>
@@ -206,7 +201,7 @@ export default class Index extends React.Component {
                   <p>{item.title}</p>
                   <span>{item.desc}</span>
                 </div>
-                <img src={`http://localhost:8080${item.imgSrc}`} alt=""></img>
+                <img src={BASE_URL + item.imgSrc} alt=""></img>
               </Flex>
             )}
           />

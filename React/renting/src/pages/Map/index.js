@@ -1,11 +1,11 @@
 import React from "react";
 import NavHeader from "../../components/NavHeader";
-import Axios from "axios";
 
 import "./index.css";
 import { Toast } from "antd-mobile";
 
 import { BASE_URL } from "../../utils/url";
+import {http} from '../../utils/http'
 const BMap = window.BMap;
 
 // 覆盖物样式
@@ -59,7 +59,7 @@ export default class Map extends React.Component {
   // 获取数据  渲染
   async renderOverlays(id) {
     Toast.loading("加载中……", 0, null, false);
-    const res = await Axios.get(`http://localhost:8080/area/map?id=${id}`);
+    const res = await http.get(`/area/map?id=${id}`);
     Toast.hide();
     const data = res.data.body;
     const { nextZoom, type } = this.getTypeAndZoom();
@@ -122,7 +122,7 @@ export default class Map extends React.Component {
   // 获取某一小区的房源信息
   async getHouseList(id) {
     Toast.loading("加载中……", 0, null, false);
-    const res = await Axios.get(`http://localhost:8080/houses?cityId=${id}`);
+    const res = await http.get(`/houses?cityId=${id}`);
     Toast.hide();
     this.setState({
       houseList: res.data.body.list,
@@ -199,7 +199,6 @@ export default class Map extends React.Component {
     label.addEventListener("click", (e) => {
       this.getHouseList(id);
       // 点击小区，展示小区房源的同时，把小区坐标移动到地图中心
-      console.log(BASE_URL);
       const pos = e.changedTouches[0];
       this.map.panBy(
         window.innerWidth / 2 - pos.clientX,
