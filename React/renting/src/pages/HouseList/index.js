@@ -1,13 +1,18 @@
+import { Flex } from "antd-mobile";
 import React from "react";
 import SearchBar from "../../components/SearchBar";
+import styles from './index.module.css'
 
-const {label}  = JSON.parse(localStorage.getItem('bkzf'));
+const { label } = JSON.parse(localStorage.getItem("bkzf"));
 
 export default class HouseList extends React.Component {
   render() {
     return (
       <div>
-        <SearchBar curCity = {label}></SearchBar>
+        <Flex className={styles.header}>
+          <i className="iconfont icon-back"></i>
+          <SearchBar curCity={label} className={styles.searchbar}></SearchBar>
+        </Flex>
       </div>
     );
   }

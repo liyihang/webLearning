@@ -5,9 +5,9 @@ import "./index.css";
 
 import PropTypes from 'prop-types'
 
-function SearchBar({ history, curCity }) {
+function SearchBar({ history, curCity,className}) {
   return (
-    <Flex className="search-area">
+    <Flex className={['search-area',className||''].join(' ')}>
       <Flex className="main">
         <div className="search" onClick={() => history.push("/citylist")}>
           <span>{curCity}</span>
