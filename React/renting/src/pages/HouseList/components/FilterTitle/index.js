@@ -12,14 +12,14 @@ const titleList = [
   { title: "筛选", type: "more" },
 ];
 
-export default function FilterTitle({ titleSelectedStatus }) {
+export default function FilterTitle({ titleSelectedStatus, onClick }) {
   return (
     <Flex align="center" className={styles.root}>
       {/* 遍历筛选栏 */}
       {titleList.map((item) => {
         const isHighLight = titleSelectedStatus[item.type];
         return (
-          <Flex.Item key={item.area}>
+          <Flex.Item key={item.area} onClick={()=>onClick(item.type)}>
             {/* 选中类名： selected */}
             <span
               className={[
