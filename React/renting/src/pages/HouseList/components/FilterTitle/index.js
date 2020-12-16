@@ -19,7 +19,7 @@ export default function FilterTitle({ titleSelectedStatus, onClick }) {
       {titleList.map((item) => {
         const isHighLight = titleSelectedStatus[item.type];
         return (
-          <Flex.Item key={item.area} onClick={()=>onClick(item.type)}>
+          <Flex.Item key={item.area} onClick={() => onClick(item.type)}>
             {/* 选中类名： selected */}
             <span
               className={[
