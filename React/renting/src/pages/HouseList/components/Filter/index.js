@@ -1,13 +1,26 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-import FilterTitle from '../FilterTitle'
-import FilterPicker from '../FilterPicker'
-import FilterMore from '../FilterMore'
+import FilterTitle from "../FilterTitle";
+import FilterPicker from "../FilterPicker";
+import FilterMore from "../FilterMore";
 
-import styles from './index.module.css'
+import styles from "./index.module.css";
+
+// 组件高亮状态
+
+const titleSelectedStatus = {
+  area: false,
+  mode: false,
+  price: false,
+  more: false,
+};
 
 export default class Filter extends Component {
+  state = {
+    titleSelectedStatus,
+  };
   render() {
+    const { titleSelectedStatus } = this.state;
     return (
       <div className={styles.root}>
         {/* 前三个菜单的遮罩层 */}
@@ -15,7 +28,7 @@ export default class Filter extends Component {
 
         <div className={styles.content}>
           {/* 标题栏 */}
-          <FilterTitle />
+          <FilterTitle titleSelectedStatus={titleSelectedStatus} />
 
           {/* 前三个菜单对应的内容： */}
           {/* <FilterPicker /> */}
@@ -24,6 +37,6 @@ export default class Filter extends Component {
           {/* <FilterMore /> */}
         </div>
       </div>
-    )
+    );
   }
 }
