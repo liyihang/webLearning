@@ -62,12 +62,34 @@ export default class Filter extends Component {
   };
   // renderFilterPicker
   renderFilterPicker() {
-    const { openType } = this.state;
+    const {
+      openType,
+      titleData: { area, subway,rentType,price },
+    } = this.state;
     if (openType !== "area" && openType !== "mode" && openType !== "price") {
       return null;
     }
+    // 获取筛选数据
+    let data = [];
+    let cols = 3
+    switch (openType) {
+      case "area":
+        data = [area, subway];
+        cols = 3
+        break;
+      case "mode":
+        data = rentType;
+        cols = 1;
+        break;
+      case "price":
+        data = price;
+        cols=1;
+        break;
+      default:
+        break;
+    }
 
-    return <FilterPicker onCancel={this.onCancel} onSave={this.onSave} />;
+    return <FilterPicker onCancel={this.onCancel} onSave={this.onSave}  data={data} cols = {cols}/>;
   }
   render() {
     const { titleSelectedStatus, openType } = this.state;
