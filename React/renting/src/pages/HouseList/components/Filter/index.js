@@ -16,11 +16,21 @@ const titleSelectedStatus = {
   more: false,
 };
 
+// filtermore  filterpick 选中值
+
+const selectTitle = {
+  area: ["area", "null"],
+  mode: ["null"],
+  price: ["null"],
+  more: [],
+};
+
 export default class Filter extends Component {
   state = {
     titleSelectedStatus,
     openType: "",
     titleData: {},
+    selectTitle,
   };
 
   componentDidMount() {
@@ -43,9 +53,14 @@ export default class Filter extends Component {
     });
   };
   //点击确定 隐藏对话框
-  onSave = () => {
+  onSave = (type, value) => {
+    console.log(type, value);
     this.setState({
       openType: "",
+      selectTitle: {
+        ...this.state.selectTitle,
+        [type]: value,
+      },
     });
   };
   // 点击筛选标题  改变状态
@@ -64,18 +79,19 @@ export default class Filter extends Component {
   renderFilterPicker() {
     const {
       openType,
-      titleData: { area, subway,rentType,price },
+      titleData: { area, subway, rentType, price, selectTitle },
     } = this.state;
     if (openType !== "area" && openType !== "mode" && openType !== "price") {
       return null;
     }
     // 获取筛选数据
     let data = [];
-    let cols = 3
+    let cols = 3;
+    let defaultTitle = selectTitle[openType];
     switch (openType) {
       case "area":
         data = [area, subway];
-        cols = 3
+        cols = 3;
         break;
       case "mode":
         data = rentType;
@@ -83,13 +99,22 @@ export default class Filter extends Component {
         break;
       case "price":
         data = price;
-        cols=1;
+        cols = 1;
         break;
       default:
         break;
     }
 
-    return <FilterPicker onCancel={this.onCancel} onSave={this.onSave}  data={data} cols = {cols}/>;
+    return (
+      <FilterPicker
+        onCancel={this.onCancel}
+        onSave={this.onSave}
+        data={data}
+        type={openType}
+        cols={cols}
+        defaultTitle={defaultTitle}
+      />
+    );
   }
   render() {
     const { titleSelectedStatus, openType } = this.state;
