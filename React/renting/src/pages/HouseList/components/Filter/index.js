@@ -65,14 +65,37 @@ export default class Filter extends Component {
   };
   // 点击筛选标题  改变状态
   titleClick = (type) => {
-    this.setState((prevState) => {
-      return {
-        titleSelectedStatus: {
-          ...prevState.titleSelectedStatus,
-          [type]: true,
-        },
-        openType: type,
-      };
+    const { titleSelectedStatus, selectTitle } = this.state;
+
+    // 新的标题选中状态
+    const newTitleStatus = { ...titleSelectedStatus };
+    // 遍历选中状态
+    Object.keys(titleSelectedStatus).forEach((key) => {
+      if (key === type) {
+        newTitleStatus[type] = true;
+        return;
+      }
+      // 其他标签
+      const selectValue = selectTitle[key];
+      if (
+        key === "area" &&
+        (selectValue.length !== 2 || selectValue[0] !== "area")
+      ) {
+        newTitleStatus[key] = true;
+      } else if (key === "mode" && selectValue[0] !== "null") {
+        newTitleStatus[key] = true;
+      } else if (key === "price" && selectValue[0] !== "null") {
+        newTitleStatus[key] = true;
+      } else if (key === "more") {
+        // todo
+      } else {
+        newTitleStatus[key] = false;
+      }
+    });
+
+    this.setState({
+      openType: type,
+      titleSelectedStatus: newTitleStatus,
     });
   };
   // renderFilterPicker
@@ -87,7 +110,9 @@ export default class Filter extends Component {
     // 获取筛选数据
     let data = [];
     let cols = 3;
-    let defaultTitle = selectTitle[openType];
+    console.log(selectTitle)
+
+    // let defaultTitle = selectTitle[openType];
     switch (openType) {
       case "area":
         data = [area, subway];
@@ -107,12 +132,13 @@ export default class Filter extends Component {
 
     return (
       <FilterPicker
+        key={openType}
         onCancel={this.onCancel}
         onSave={this.onSave}
         data={data}
         type={openType}
         cols={cols}
-        defaultTitle={defaultTitle}
+        // defaultTitle={defaultTitle}
       />
     );
   }
