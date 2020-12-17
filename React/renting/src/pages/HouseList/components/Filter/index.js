@@ -102,7 +102,7 @@ export default class Filter extends Component {
   renderFilterPicker() {
     const {
       openType,
-      titleData: { area, subway, rentType, price, selectTitle },
+      titleData: { area, subway, rentType, price },selectTitle
     } = this.state;
     if (openType !== "area" && openType !== "mode" && openType !== "price") {
       return null;
@@ -110,9 +110,9 @@ export default class Filter extends Component {
     // 获取筛选数据
     let data = [];
     let cols = 3;
-    console.log(selectTitle)
+    // console.log(selectTitle)
 
-    // let defaultTitle = selectTitle[openType];
+    let defaultTitle = selectTitle[openType];
     switch (openType) {
       case "area":
         data = [area, subway];
@@ -138,7 +138,7 @@ export default class Filter extends Component {
         data={data}
         type={openType}
         cols={cols}
-        // defaultTitle={defaultTitle}
+        defaultTitle={defaultTitle}
       />
     );
   }
