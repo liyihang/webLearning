@@ -102,7 +102,8 @@ export default class Filter extends Component {
   renderFilterPicker() {
     const {
       openType,
-      titleData: { area, subway, rentType, price },selectTitle
+      titleData: { area, subway, rentType, price },
+      selectTitle,
     } = this.state;
     if (openType !== "area" && openType !== "mode" && openType !== "price") {
       return null;
@@ -142,6 +143,18 @@ export default class Filter extends Component {
       />
     );
   }
+  // render filterMore
+  renderFilterMore() {
+    const {
+      openType,
+      titleData: { roomType, oriented, floor, characteristic },
+    } = this.state;
+    if (openType !== "more") {
+      return null;
+    }
+    const data = { roomType, oriented, floor, characteristic };
+    return <FilterMore data={data}/>;
+  }
   render() {
     const { titleSelectedStatus, openType } = this.state;
     return (
@@ -165,6 +178,7 @@ export default class Filter extends Component {
 
           {/* 最后一个菜单对应的内容： */}
           {/* <FilterMore /> */}
+          {this.renderFilterMore()}
         </div>
       </div>
     );
