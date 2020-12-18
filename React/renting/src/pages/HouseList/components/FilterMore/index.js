@@ -5,14 +5,40 @@ import FilterFooter from "../../../../components/FilterFooter";
 import styles from "./index.module.css";
 
 export default class FilterMore extends Component {
+  state = {
+    selectedTags: [],
+  };
+  // 点击标题高亮
+  onTagClick(value) {
+    const { selectedTags } = this.state;
+    const { newSelectedTags } = { ...selectedTags };
+    // 点击tag 如果没有存储在selectedTags中
+    if (selectedTags.indexOf(value) <= -1) {
+      // 选中的标签不在数组中，添加到数组中
+      selectedTags.push(value)
+    }else{
+      // 如果已经高亮了，点击取消高亮
+      const index = newSelectedTags.indexOf(item =>item===value)
+      selectedTags.splice(index,1)
+    }
+  }
   // 渲染标签
   renderFilters(data) {
     // 高亮类名： styles.tagActive
-    return data.map(item=>{
+    return data.map((item) => {
       return (
-        <span key={item.value} className={[styles.tag, styles.tagActive].join(" ")}>{item.label}</span>
+        <span
+          key={item.value}
+          // styles.tagActive
+          className={[styles.tag].join(" ")}
+          onClick={() => {
+            this.onTagClick(item.value);
+          }}
+        >
+          {item.label}
+        </span>
       );
-    })
+    });
   }
 
   render() {
