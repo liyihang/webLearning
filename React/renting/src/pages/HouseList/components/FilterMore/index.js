@@ -11,26 +11,33 @@ export default class FilterMore extends Component {
   // 点击标题高亮
   onTagClick(value) {
     const { selectedTags } = this.state;
-    const { newSelectedTags } = { ...selectedTags };
+    const newSelectedTags  = [...selectedTags];
     // 点击tag 如果没有存储在selectedTags中
     if (selectedTags.indexOf(value) <= -1) {
       // 选中的标签不在数组中，添加到数组中
-      selectedTags.push(value)
-    }else{
+      newSelectedTags.push(value);
+    } else {
       // 如果已经高亮了，点击取消高亮
-      const index = newSelectedTags.indexOf(item =>item===value)
-      selectedTags.splice(index,1)
+      const index = newSelectedTags.indexOf((item) => item === value);
+      newSelectedTags.splice(index, 1);
     }
+    this.setState({
+      selectedTags: newSelectedTags,
+    });
   }
   // 渲染标签
   renderFilters(data) {
+    const { selectedTags } = this.state;
     // 高亮类名： styles.tagActive
     return data.map((item) => {
+      console.log(selectedTags);
+
+      const isSelected = selectedTags.indexOf(item.value) > -1;
       return (
         <span
           key={item.value}
           // styles.tagActive
-          className={[styles.tag].join(" ")}
+          className={[styles.tag, isSelected ? styles.tagActive : ""].join(" ")}
           onClick={() => {
             this.onTagClick(item.value);
           }}
