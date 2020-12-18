@@ -47,15 +47,57 @@ export default class Filter extends Component {
   }
 
   //点击取消 隐藏对话框
-  onCancel = () => {
+  onCancel = (type) => {
+    const { titleSelectedStatus, selectTitle } = this.state;
+
+    // 新的标题选中状态
+    const newTitleStatus = { ...titleSelectedStatus };
+    const selectValue = selectTitle[type];
+    if (
+      type === "area" &&
+      (selectValue.length !== 2 || selectValue[0] !== "area")
+    ) {
+      newTitleStatus[type] = true;
+    } else if (type === "mode" && selectValue[0] !== "null") {
+      newTitleStatus[type] = true;
+    } else if (type === "price" && selectValue[0] !== "null") {
+      newTitleStatus[type] = true;
+    } else if (type === "more" && selectValue.length !== 0) {
+      // todo
+      newTitleStatus[type] = true;
+    } else {
+      newTitleStatus[type] = false;
+    }
     this.setState({
       openType: "",
+      titleSelectedStatus: newTitleStatus,
     });
   };
   //点击确定 隐藏对话框
   onSave = (type, value) => {
+    const { titleSelectedStatus } = this.state;
+
+    // 新的标题选中状态
+    const newTitleStatus = { ...titleSelectedStatus };
+    const selectValue = value;
+    if (
+      type === "area" &&
+      (selectValue.length !== 2 || selectValue[0] !== "area")
+    ) {
+      newTitleStatus[type] = true;
+    } else if (type === "mode" && selectValue[0] !== "null") {
+      newTitleStatus[type] = true;
+    } else if (type === "price" && selectValue[0] !== "null") {
+      newTitleStatus[type] = true;
+    } else if (type === "more" && selectValue.length !== 0) {
+      // todo
+      newTitleStatus[type] = true;
+    } else {
+      newTitleStatus[type] = false;
+    }
     this.setState({
       openType: "",
+      titleSelectedStatus: newTitleStatus,
       selectTitle: {
         ...this.state.selectTitle,
         [type]: value,
@@ -85,8 +127,9 @@ export default class Filter extends Component {
         newTitleStatus[key] = true;
       } else if (key === "price" && selectValue[0] !== "null") {
         newTitleStatus[key] = true;
-      } else if (key === "more") {
+      } else if (key === "more" && selectValue.length !== 0) {
         // todo
+        newTitleStatus[key] = true;
       } else {
         newTitleStatus[key] = false;
       }
@@ -171,7 +214,10 @@ export default class Filter extends Component {
         {/* 前三个菜单的遮罩层 */}
         {/* <div className={styles.mask} /> */}
         {openType === "area" || openType === "mode" || openType === "price" ? (
-          <div className={styles.mask} onClick={this.onCancel} />
+          <div
+            className={styles.mask}
+            onClick={() => this.onCancel(openType)}
+          />
         ) : null}
 
         <div className={styles.content}>

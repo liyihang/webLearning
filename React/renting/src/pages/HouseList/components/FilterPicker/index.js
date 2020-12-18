@@ -9,7 +9,7 @@ export default class FilterPicker extends Component {
     value: this.props.defaultTitle,
   };
   render() {
-    const { onCancel, onSave, data, cols,type } = this.props;
+    const { onCancel, onSave, data, cols, type } = this.props;
     const { value } = this.state;
     return (
       <>
@@ -26,7 +26,10 @@ export default class FilterPicker extends Component {
         />
 
         {/* 底部按钮 */}
-        <FilterFooter onCancel={() => onCancel()} onOk={() => onSave(type,value)} />
+        <FilterFooter
+          onCancel={() => onCancel(type)}
+          onOk={() => onSave(type, value)}
+        />
       </>
     );
   }
