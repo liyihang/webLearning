@@ -95,6 +95,28 @@ export default class Filter extends Component {
     } else {
       newTitleStatus[type] = false;
     }
+    // 获取数据参数
+    const newSelectedValue = {
+      ...this.state.selectTitle,
+      [type]: value,
+    };
+    // 区域参数
+    const { area, mode, price, more } = newSelectedValue;
+    // 参数对象
+    const params = {};
+    const areaKey = area[0];
+    let areaValue = "null";
+    // area有参数
+    if (area.length === 3) {
+      areaValue = area[2] !== "null" ? area[2] : area[1];
+    }
+    params[areaKey] = areaValue;
+
+    // 出租方式和租金
+    params[mode] = mode[0];
+    params[price] = price[0];
+    params[more] = more.join(",");
+    console.log(params);
     this.setState({
       openType: "",
       titleSelectedStatus: newTitleStatus,
