@@ -54,7 +54,6 @@ export default class Filter extends Component {
   };
   //点击确定 隐藏对话框
   onSave = (type, value) => {
-    console.log(type, value);
     this.setState({
       openType: "",
       selectTitle: {
@@ -147,13 +146,23 @@ export default class Filter extends Component {
   renderFilterMore() {
     const {
       openType,
+      selectTitle,
       titleData: { roomType, oriented, floor, characteristic },
     } = this.state;
     if (openType !== "more") {
       return null;
     }
     const data = { roomType, oriented, floor, characteristic };
-    return <FilterMore data={data}/>;
+    const defaultValue = selectTitle.more;
+    return (
+      <FilterMore
+        data={data}
+        type={openType}
+        onSave={this.onSave}
+        onCancel={this.onCancel}
+        defaultValue={defaultValue}
+      />
+    );
   }
   render() {
     const { titleSelectedStatus, openType } = this.state;

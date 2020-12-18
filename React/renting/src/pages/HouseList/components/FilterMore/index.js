@@ -6,12 +6,12 @@ import styles from "./index.module.css";
 
 export default class FilterMore extends Component {
   state = {
-    selectedTags: [],
+    selectedTags: this.props.defaultValue,
   };
   // 点击标题高亮
   onTagClick(value) {
     const { selectedTags } = this.state;
-    const newSelectedTags  = [...selectedTags];
+    const newSelectedTags = [...selectedTags];
     // 点击tag 如果没有存储在selectedTags中
     if (selectedTags.indexOf(value) <= -1) {
       // 选中的标签不在数组中，添加到数组中
@@ -30,8 +30,6 @@ export default class FilterMore extends Component {
     const { selectedTags } = this.state;
     // 高亮类名： styles.tagActive
     return data.map((item) => {
-      console.log(selectedTags);
-
       const isSelected = selectedTags.indexOf(item.value) > -1;
       return (
         <span
@@ -47,15 +45,27 @@ export default class FilterMore extends Component {
       );
     });
   }
-
+  // 取消选中
+  onCancel = () => {
+    this.setState({
+      selectedTags: [],
+    });
+  };
+  // 确认
+  onOk = () => {
+    const { type, onSave } = this.props;
+    onSave(type, this.state.selectedTags);
+  };
   render() {
     const {
       data: { roomType, oriented, floor, characteristic },
+      onCancel,
     } = this.props;
     return (
       <div className={styles.root}>
         {/* 遮罩层 */}
-        <div className={styles.mask} />
+        {/* 点击遮罩层取消 */}
+        <div className={styles.mask} onClick={onCancel} />
 
         {/* 条件内容 */}
         <div className={styles.tags}>
@@ -75,7 +85,12 @@ export default class FilterMore extends Component {
         </div>
 
         {/* 底部按钮 */}
-        <FilterFooter className={styles.footer} />
+        <FilterFooter
+          className={styles.footer}
+          cancelText="清除"
+          onCancel={this.onCancel}
+          onOk={this.onOk}
+        />
       </div>
     );
   }
