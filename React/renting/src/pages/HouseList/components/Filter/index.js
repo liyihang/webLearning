@@ -116,7 +116,9 @@ export default class Filter extends Component {
     params[mode] = mode[0];
     params[price] = price[0];
     params[more] = more.join(",");
-    console.log(params);
+   console.log(params)
+    // 参数传递给父组件
+    this.props.onFilter(params);
     this.setState({
       openType: "",
       titleSelectedStatus: newTitleStatus,
