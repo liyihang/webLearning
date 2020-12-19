@@ -4,12 +4,21 @@ import SearchBar from "../../components/SearchBar";
 import Filter from "./components/Filter";
 import styles from "./index.module.css";
 import { http } from "../../utils/http";
-const { label } = JSON.parse(localStorage.getItem("bkzf"));
+const { label,value } = JSON.parse(localStorage.getItem("bkzf"));
 
 export default class HouseList extends React.Component {
+  state = {
+    list: [],
+    count: 0,
+  };
+
+  params = {};
+
+  componentDidMount() {
+    this.getSearchData();
+  }
   // 筛选数据获取
   async getSearchData() {
-    const {value} = JSON.parse(localStorage.getItem("bkzf"));
     const res = await http.get("/houses", {
       params: {
         cityId: value,
@@ -18,7 +27,11 @@ export default class HouseList extends React.Component {
         end: 20,
       },
     });
-    console.log(res);
+    const { list, count } = res.data.body;
+    this.setState({
+      list,
+      count,
+    });
   }
   // 接受子组件的数据
   onFilter = (params) => {
