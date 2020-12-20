@@ -4,7 +4,10 @@ import SearchBar from "../../components/SearchBar";
 import Filter from "./components/Filter";
 import styles from "./index.module.css";
 import { http } from "../../utils/http";
-const { label,value } = JSON.parse(localStorage.getItem("bkzf"));
+import HouseItem from '../../components/HouseItem'
+import { List } from "react-virtualized";
+import { BASE_URL } from "../../utils/url";
+const { label, value } = JSON.parse(localStorage.getItem("bkzf"));
 
 export default class HouseList extends React.Component {
   state = {
@@ -29,8 +32,8 @@ export default class HouseList extends React.Component {
     });
     const { list, count } = res.data.body;
     this.setState({
-      list,
-      count,
+      list:list,
+      count:count,
     });
   }
   // 接受子组件的数据
@@ -40,6 +43,23 @@ export default class HouseList extends React.Component {
     // 调用获取数据方法
     this.getSearchData();
   };
+  renderHouseList = ({ key, index, style }) => {
+    // 根据索引号来获取当前这一行的房屋数据
+    const { list } = this.state
+    const house = list[index]
+
+    return (
+      <HouseItem
+        key={key}
+        style={style}
+        src={BASE_URL + house.houseImg}
+        title={house.title}
+        desc={house.desc}
+        tags={house.tags}
+        price={house.price}
+      />
+    )
+  }
   render() {
     return (
       <div>
@@ -53,6 +73,16 @@ export default class HouseList extends React.Component {
         </Flex>
         {/* 条件筛选 */}
         <Filter onFilter={this.onFilter}></Filter>
+        {/* 房屋列表 */}
+        <div className={styles.houseItems}>
+          <List
+            width={300}
+            height={300}
+            rowCount={this.state.count} // List列表项的行数
+            rowHeight={120} // 每一行的高度
+            rowRenderer={this.renderHouseList} // 渲染列表项中的每一行
+          />
+        </div>
       </div>
     );
   }
