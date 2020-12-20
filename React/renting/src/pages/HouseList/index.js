@@ -5,7 +5,12 @@ import Filter from "./components/Filter";
 import styles from "./index.module.css";
 import { http } from "../../utils/http";
 import HouseItem from "../../components/HouseItem";
-import { List,AutoSizer,WindowScroller } from "react-virtualized";
+import {
+  List,
+  AutoSizer,
+  WindowScroller,
+  InfiniteLoader,
+} from "react-virtualized";
 import { BASE_URL } from "../../utils/url";
 const { label, value } = JSON.parse(localStorage.getItem("bkzf"));
 
@@ -33,7 +38,7 @@ export default class HouseList extends React.Component {
     const { list, count } = res.data.body;
     this.setState({
       list,
-      count
+      count,
     });
   }
   // 接受子组件的数据
@@ -47,7 +52,13 @@ export default class HouseList extends React.Component {
     // 根据索引号来获取当前这一行的房屋数据
     const { list } = this.state;
     const house = list[index];
-
+    if (!house) {
+      return (
+        <div key={key} style={style}>
+          <p className={style.loading}></p>
+        </div>
+      );
+    }
     return (
       <HouseItem
         key={key}
@@ -59,6 +70,28 @@ export default class HouseList extends React.Component {
         price={house.price}
       />
     );
+  };
+  isRowLoaded = ({ index }) => {
+    return !!this.state.list[index];
+  };
+  loadMoreRows = ({ startIndex, stopIndex }) => {
+    return new Promise((reslove) => {
+      http
+        .get("/houses", {
+          params: {
+            cityId: value,
+            ...this.filters,
+            start: startIndex,
+            end: stopIndex,
+          },
+        })
+        .then((res) => {
+          this.setState({
+            list: [...this.state.list, ...res.data.body.list],
+          });
+          reslove();
+        });
+    });
   };
   render() {
     return (
@@ -75,24 +108,34 @@ export default class HouseList extends React.Component {
         <Filter onFilter={this.onFilter}></Filter>
         {/* 房屋列表 */}
         <div className={styles.houseItems}>
-         <WindowScroller>
-           {({height,isScrolling,scrollTop})=>(
-             <AutoSizer>
-               {({width})=>(
-                  <List
-                  autoHeight
-                  width={width}
-                  height={height}
-                  rowCount={this.state.count} // List列表项的行数
-                  rowHeight={120} // 每一行的高度
-                  rowRenderer={this.renderHouseList} // 渲染列表项中的每一行
-                  isScrolling={isScrolling}
-                  scrollTop={scrollTop}
-                />
-               )}
-             </AutoSizer>
-           )}
-         </WindowScroller>
+          <InfiniteLoader
+            isRowLoaded={this.isRowLoaded}
+            loadMoreRows={this.loadMoreRows}
+            rowCount={this.state.count}
+          >
+            {({ onRowsRendered, registerChild }) => (
+              <WindowScroller>
+                {({ height, isScrolling, scrollTop }) => (
+                  <AutoSizer>
+                    {({ width }) => (
+                      <List
+                        onRowsRendered={onRowsRendered}
+                        ref={registerChild}
+                        autoHeight
+                        width={width}
+                        height={height}
+                        rowCount={this.state.count} // List列表项的行数
+                        rowHeight={120} // 每一行的高度
+                        rowRenderer={this.renderHouseList} // 渲染列表项中的每一行
+                        isScrolling={isScrolling}
+                        scrollTop={scrollTop}
+                      />
+                    )}
+                  </AutoSizer>
+                )}
+              </WindowScroller>
+            )}
+          </InfiniteLoader>
         </div>
       </div>
     );
