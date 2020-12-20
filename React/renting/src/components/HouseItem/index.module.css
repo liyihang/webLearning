@@ -1,4 +1,4 @@
-.house {
+.houses {
   height: 120px;
   position: relative;
   box-sizing: border-box;
@@ -73,3 +73,4 @@
   color: #5aabfd;
   background: #e6f2ff;
 }
+

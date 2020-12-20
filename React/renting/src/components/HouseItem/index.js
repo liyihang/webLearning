@@ -6,7 +6,7 @@ import styles from './index.module.css'
 
 function HouseItem({ src, title, desc, tags, price, onClick }) {
   return (
-    <div className={styles.house} onClick={onClick}>
+    <div className={styles.houses} onClick={onClick}>
       <div className={styles.imgWrap}>
         <img className={styles.img} src={src} alt="" />
       </div>

@@ -4,8 +4,8 @@ import SearchBar from "../../components/SearchBar";
 import Filter from "./components/Filter";
 import styles from "./index.module.css";
 import { http } from "../../utils/http";
-import HouseItem from '../../components/HouseItem'
-import { List } from "react-virtualized";
+import HouseItem from "../../components/HouseItem";
+import { List,AutoSizer,WindowScroller } from "react-virtualized";
 import { BASE_URL } from "../../utils/url";
 const { label, value } = JSON.parse(localStorage.getItem("bkzf"));
 
@@ -32,8 +32,8 @@ export default class HouseList extends React.Component {
     });
     const { list, count } = res.data.body;
     this.setState({
-      list:list,
-      count:count,
+      list,
+      count
     });
   }
   // 接受子组件的数据
@@ -45,8 +45,8 @@ export default class HouseList extends React.Component {
   };
   renderHouseList = ({ key, index, style }) => {
     // 根据索引号来获取当前这一行的房屋数据
-    const { list } = this.state
-    const house = list[index]
+    const { list } = this.state;
+    const house = list[index];
 
     return (
       <HouseItem
@@ -58,8 +58,8 @@ export default class HouseList extends React.Component {
         tags={house.tags}
         price={house.price}
       />
-    )
-  }
+    );
+  };
   render() {
     return (
       <div>
@@ -75,13 +75,24 @@ export default class HouseList extends React.Component {
         <Filter onFilter={this.onFilter}></Filter>
         {/* 房屋列表 */}
         <div className={styles.houseItems}>
-          <List
-            width={300}
-            height={300}
-            rowCount={this.state.count} // List列表项的行数
-            rowHeight={120} // 每一行的高度
-            rowRenderer={this.renderHouseList} // 渲染列表项中的每一行
-          />
+         <WindowScroller>
+           {({height,isScrolling,scrollTop})=>(
+             <AutoSizer>
+               {({width})=>(
+                  <List
+                  autoHeight
+                  width={width}
+                  height={height}
+                  rowCount={this.state.count} // List列表项的行数
+                  rowHeight={120} // 每一行的高度
+                  rowRenderer={this.renderHouseList} // 渲染列表项中的每一行
+                  isScrolling={isScrolling}
+                  scrollTop={scrollTop}
+                />
+               )}
+             </AutoSizer>
+           )}
+         </WindowScroller>
         </div>
       </div>
     );
