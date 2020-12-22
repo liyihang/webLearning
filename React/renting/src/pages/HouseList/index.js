@@ -55,7 +55,7 @@ export default class HouseList extends React.Component {
     if (!house) {
       return (
         <div key={key} style={style}>
-          <p className={style.loading}></p>
+          <p className={styles.loading}></p>
         </div>
       );
     }
@@ -75,7 +75,7 @@ export default class HouseList extends React.Component {
     return !!this.state.list[index];
   };
   loadMoreRows = ({ startIndex, stopIndex }) => {
-    return new Promise((reslove) => {
+    return new Promise((resolve) => {
       http
         .get("/houses", {
           params: {
@@ -89,7 +89,7 @@ export default class HouseList extends React.Component {
           this.setState({
             list: [...this.state.list, ...res.data.body.list],
           });
-          reslove();
+          resolve();
         });
     });
   };
