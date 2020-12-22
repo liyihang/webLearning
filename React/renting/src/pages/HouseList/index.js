@@ -106,7 +106,7 @@ export default class HouseList extends React.Component {
           ></i>
           <SearchBar curCity={label} className={styles.searchbar}></SearchBar>
         </Flex>
-        <Sticky>
+        <Sticky height={40}>
           {/* 条件筛选 */}
           <Filter onFilter={this.onFilter}></Filter>
         </Sticky>

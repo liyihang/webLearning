@@ -8,6 +8,7 @@ class Sticky extends Component {
 
   //   事件监听函数
   handleScroll = () => {
+      const {height} = this.props;
     //   dom
     const placeholderEl = this.placeholder.current;
     const contentEl = this.content.current;
@@ -15,7 +16,7 @@ class Sticky extends Component {
     if (top < 0) {
       // 吸顶效果
       contentEl.classList.add(styles.fixed);
-      placeholderEl.style.height = "40px";
+      placeholderEl.style.height = `${height}px`;
     } else {
       // 取消吸顶功能
       contentEl.classList.remove(styles.fixed);
