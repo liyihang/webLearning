@@ -5,6 +5,7 @@ import Filter from "./components/Filter";
 import styles from "./index.module.css";
 import { http } from "../../utils/http";
 import HouseItem from "../../components/HouseItem";
+
 import {
   List,
   AutoSizer,
@@ -12,6 +13,7 @@ import {
   InfiniteLoader,
 } from "react-virtualized";
 import { BASE_URL } from "../../utils/url";
+import Sticky from "../../components/Sticky";
 const { label, value } = JSON.parse(localStorage.getItem("bkzf"));
 
 export default class HouseList extends React.Component {
@@ -104,8 +106,10 @@ export default class HouseList extends React.Component {
           ></i>
           <SearchBar curCity={label} className={styles.searchbar}></SearchBar>
         </Flex>
-        {/* 条件筛选 */}
-        <Filter onFilter={this.onFilter}></Filter>
+        <Sticky>
+          {/* 条件筛选 */}
+          <Filter onFilter={this.onFilter}></Filter>
+        </Sticky>
         {/* 房屋列表 */}
         <div className={styles.houseItems}>
           <InfiniteLoader
