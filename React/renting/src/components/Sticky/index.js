@@ -8,7 +8,7 @@ class Sticky extends Component {
 
   //   事件监听函数
   handleScroll = () => {
-      const {height} = this.props;
+    const { height } = this.props;
     //   dom
     const placeholderEl = this.placeholder.current;
     const contentEl = this.content.current;

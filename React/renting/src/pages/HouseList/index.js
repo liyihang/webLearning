@@ -1,10 +1,11 @@
-import { Flex } from "antd-mobile";
+import { Flex, Toast } from "antd-mobile";
 import React from "react";
 import SearchBar from "../../components/SearchBar";
 import Filter from "./components/Filter";
 import styles from "./index.module.css";
 import { http } from "../../utils/http";
 import HouseItem from "../../components/HouseItem";
+import NoHouse from "../../components/NoHouse";
 
 import {
   List,
@@ -20,6 +21,7 @@ export default class HouseList extends React.Component {
   state = {
     list: [],
     count: 0,
+    isLoading:false
   };
 
   params = {};
@@ -28,7 +30,12 @@ export default class HouseList extends React.Component {
     this.getSearchData();
   }
   // 筛选数据获取
+
   async getSearchData() {
+    Toast.loading("数据加载中，请稍等……");
+    this.setState({
+      isLoading:true
+    })
     const res = await http.get("/houses", {
       params: {
         cityId: value,
@@ -38,9 +45,13 @@ export default class HouseList extends React.Component {
       },
     });
     const { list, count } = res.data.body;
+    if (count > 0) {
+      Toast.info(`共有${count}套房源`);
+    }
     this.setState({
       list,
       count,
+      isLoading:false
     });
   }
   // 接受子组件的数据
@@ -95,6 +106,43 @@ export default class HouseList extends React.Component {
         });
     });
   };
+  // 房屋列表
+  renderHouseItem() {
+    const {count,isLoading} = this.state;
+    if(count === 0 && !isLoading){
+      return <NoHouse></NoHouse>
+    }
+    return (
+      <InfiniteLoader
+        isRowLoaded={this.isRowLoaded}
+        loadMoreRows={this.loadMoreRows}
+        rowCount={this.state.count}
+      >
+        {({ onRowsRendered, registerChild }) => (
+          <WindowScroller>
+            {({ height, isScrolling, scrollTop }) => (
+              <AutoSizer>
+                {({ width }) => (
+                  <List
+                    onRowsRendered={onRowsRendered}
+                    ref={registerChild}
+                    autoHeight
+                    width={width}
+                    height={height}
+                    rowCount={this.state.count} // List列表项的行数
+                    rowHeight={120} // 每一行的高度
+                    rowRenderer={this.renderHouseList} // 渲染列表项中的每一行
+                    isScrolling={isScrolling}
+                    scrollTop={scrollTop}
+                  />
+                )}
+              </AutoSizer>
+            )}
+          </WindowScroller>
+        )}
+      </InfiniteLoader>
+    );
+  }
   render() {
     return (
       <div>
@@ -111,36 +159,7 @@ export default class HouseList extends React.Component {
           <Filter onFilter={this.onFilter}></Filter>
         </Sticky>
         {/* 房屋列表 */}
-        <div className={styles.houseItems}>
-          <InfiniteLoader
-            isRowLoaded={this.isRowLoaded}
-            loadMoreRows={this.loadMoreRows}
-            rowCount={this.state.count}
-          >
-            {({ onRowsRendered, registerChild }) => (
-              <WindowScroller>
-                {({ height, isScrolling, scrollTop }) => (
-                  <AutoSizer>
-                    {({ width }) => (
-                      <List
-                        onRowsRendered={onRowsRendered}
-                        ref={registerChild}
-                        autoHeight
-                        width={width}
-                        height={height}
-                        rowCount={this.state.count} // List列表项的行数
-                        rowHeight={120} // 每一行的高度
-                        rowRenderer={this.renderHouseList} // 渲染列表项中的每一行
-                        isScrolling={isScrolling}
-                        scrollTop={scrollTop}
-                      />
-                    )}
-                  </AutoSizer>
-                )}
-              </WindowScroller>
-            )}
-          </InfiniteLoader>
-        </div>
+        <div className={styles.houseItems}>{this.renderHouseItem()}</div>
       </div>
     );
   }
