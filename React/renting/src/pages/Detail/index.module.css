@@ -1,0 +1,15 @@
+.header {
+    height: 45px;
+    padding: 0 10px;
+    background-color: #f6f5f6;
+  }
+  .header :global(.icon-back) {
+    font-size: 16px;
+  }
+  .header :global(.icon-map) {
+    color: aqua;
+  }
+  .searchbar {
+    position: relative;
+    top: 0;
+  }

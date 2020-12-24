@@ -4,7 +4,7 @@ import "./index.css";
 import Axios from "axios";
 import { List, AutoSizer } from "react-virtualized";
 
-import { getCurrentCity } from "../../utils";
+import { getCurrentCity } from "./utils";
 
 import NavHeader from '../../components/NavHeader'
 // 格式化城市数据
