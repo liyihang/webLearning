@@ -48,6 +48,47 @@ export default class Detail extends React.Component {
             />
           ))}
         </Carousel>
+        {/* 房屋信息 */}
+        <div className={styles.detail}>
+          <div className={styles.title}>
+            <div className={styles.houseinfo}>
+              整租·梅源里小区 2室1厅 南/北
+            </div>
+            <p className={styles.advantage}>近地铁</p>
+          </div>
+          <div className={styles.detailinfo}>
+            <div className={styles.item}>
+              <p>8500元/月</p>
+              <p>租金</p>
+            </div>
+            <div className={styles.item}>
+              <p>一室一厅</p>
+              <p>房型</p>
+            </div>
+            <div className={styles.item}>
+              <p>78平</p>
+              <p>面积</p>
+            </div>
+          </div>
+          {/* location */}
+          <div className={styles.map} id="container">
+
+          </div>
+          {/* 配套设置 provided */}
+          <div className={styles.provided}>
+              <ul>
+                  <li><i></i>洗衣机</li>
+                  <li><i></i>洗衣机</li>
+                  <li><i></i>洗衣机</li>
+                  <li><i></i>洗衣机</li>
+                  <li><i></i>洗衣机</li>
+              </ul>
+          </div>
+          {/* 房源概况 Profile */}
+          <div className={styles.profile}>
+              <h3>李女士</h3>
+          </div>
+        </div>
       </div>
     );
   }
