@@ -3,7 +3,7 @@ import { Flex, Carousel } from "antd-mobile";
 
 import styles from "./index.module.css";
 import SearchBar from "../../components/SearchBar";
-
+import HousePackage from '../../components/HouseProvided'
 const { label } = JSON.parse(localStorage.getItem("bkzf"));
 export default class Detail extends React.Component {
   state = {
@@ -51,9 +51,7 @@ export default class Detail extends React.Component {
         {/* 房屋信息 */}
         <div className={styles.detail}>
           <div className={styles.title}>
-            <div className={styles.houseinfo}>
-              整租·梅源里小区 2室1厅 南/北
-            </div>
+            <div className={styles.houseinfo}>整租·梅源里小区 2室1厅 南/北</div>
             <p className={styles.advantage}>近地铁</p>
           </div>
           <div className={styles.detailinfo}>
@@ -71,22 +69,34 @@ export default class Detail extends React.Component {
             </div>
           </div>
           {/* location */}
-          <div className={styles.map} id="container">
 
+          <div className={styles.maparea}>
+              <h3 className={styles.mapinfo}>房源位置</h3>
+              <div className={styles.map}></div>
           </div>
           {/* 配套设置 provided */}
-          <div className={styles.provided}>
-              <ul>
-                  <li><i></i>洗衣机</li>
-                  <li><i></i>洗衣机</li>
-                  <li><i></i>洗衣机</li>
-                  <li><i></i>洗衣机</li>
-                  <li><i></i>洗衣机</li>
-              </ul>
-          </div>
+          <div className={styles.provided}></div>
+          <HousePackage
+            list={[
+              "电视",
+              "冰箱",
+              "洗衣机",
+              "空调",
+              "热水器",
+              "沙发",
+              "衣柜",
+              "天然气",
+            ]}
+          ></HousePackage>
           {/* 房源概况 Profile */}
           <div className={styles.profile}>
-              <h3>李女士</h3>
+            <h3>李女士</h3>
+            <div>
+            1.周边配套齐全，地铁四号线陶然亭站，交通便利，公交云集，距离北京南站、西站都很近距离。
+              2.小区规模大，配套全年，幼儿园，体育场，游泳馆，养老院，小学。
+              3.人车分流，环境优美。
+              4.精装两居室，居家生活方便，还有一个小书房，看房随时联系。
+            </div>
           </div>
         </div>
       </div>
