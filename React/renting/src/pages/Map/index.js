@@ -4,8 +4,8 @@ import NavHeader from "../../components/NavHeader";
 import "./index.css";
 import { Toast } from "antd-mobile";
 
-import { BASE_URL } from "../CityList/utils/url";
-import {http} from '../CityList/utils/http'
+import { BASE_URL } from "../utils/url";
+import {http} from '../utils/http'
 const BMap = window.BMap;
 
 // 覆盖物样式

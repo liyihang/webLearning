@@ -1,6 +1,6 @@
 import React from "react";
 import HouseImg from "../../assets/images/nohouse.jpeg";
-import { BASE_URL } from "../../pages/CityList/utils/url";
+import { BASE_URL } from "../../pages/utils/url";
 import styles from "./index.module.css";
 
 const NoHouse = ({ children }) => {

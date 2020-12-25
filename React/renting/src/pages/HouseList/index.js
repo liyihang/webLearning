@@ -3,7 +3,7 @@ import React from "react";
 import SearchBar from "../../components/SearchBar";
 import Filter from "./components/Filter";
 import styles from "./index.module.css";
-import { http } from "../CityList/utils/http";
+import { http } from "../utils/http";
 import HouseItem from "../../components/HouseItem";
 import NoHouse from "../../components/NoHouse";
 
@@ -13,7 +13,7 @@ import {
   WindowScroller,
   InfiniteLoader,
 } from "react-virtualized";
-import { BASE_URL } from "../CityList/utils/url";
+import { BASE_URL } from "../utils/url";
 import Sticky from "../../components/Sticky";
 const { label, value } = JSON.parse(localStorage.getItem("bkzf"));
 

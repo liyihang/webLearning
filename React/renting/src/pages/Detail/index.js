@@ -1,17 +1,24 @@
 import React from "react";
 import { Flex, Carousel } from "antd-mobile";
-
+import { http } from "../utils/http";
 import styles from "./index.module.css";
 import SearchBar from "../../components/SearchBar";
-import HousePackage from '../../components/HouseProvided'
-import HouseItem from '../../components/HouseItem'
+import HousePackage from "../../components/HouseProvided";
+import HouseItem from "../../components/HouseItem";
 const { label } = JSON.parse(localStorage.getItem("bkzf"));
 export default class Detail extends React.Component {
   state = {
     data: ["1", "2", "3"],
     imgHeight: 176,
   };
+  //   获取房屋详细信息
+  getHouseDetail() {
+    const id = this.props.match.params;
+    console.log(id);
+    const res = http.get(`/houses/${id}`);
+  }
   componentDidMount() {
+    this.getHouseDetail();
     // simulate img loading
     setTimeout(() => {
       this.setState({
@@ -36,17 +43,27 @@ export default class Detail extends React.Component {
         </Flex>
         {/* 轮播 */}
         <Carousel autoplay={false} infinite>
-          {this.state.data.map((val) => (
-            <img
-              src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
-              alt=""
-              style={{ width: "100%", verticalAlign: "top" }}
-              onLoad={() => {
-                // fire window resize event to change height
-                window.dispatchEvent(new Event("resize"));
-                this.setState({ imgHeight: "auto" });
+          {this.state.data.map((item) => (
+            <a
+              key={item.id}
+              href="http://www.zfyg.com"
+              style={{
+                display: "inline-block",
+                width: "100%",
+                height: 212,
               }}
-            />
+            >
+              <img
+                src={`https://zos.alipayobjects.com/rmsportal/${item}.png`}
+                alt=""
+                style={{ width: "100%", verticalAlign: "top" }}
+                onLoad={() => {
+                  // fire window resize event to change height
+                  window.dispatchEvent(new Event("resize"));
+                  this.setState({ imgHeight: "auto" });
+                }}
+              />
+            </a>
           ))}
         </Carousel>
         {/* 房屋信息 */}
@@ -72,8 +89,8 @@ export default class Detail extends React.Component {
           {/* location */}
 
           <div className={styles.maparea}>
-              <h3 className={styles.mapinfo}>房源位置</h3>
-              <div className={styles.map}></div>
+            <h3 className={styles.mapinfo}>房源位置</h3>
+            <div className={styles.map}></div>
           </div>
           {/* 配套设置 provided */}
           <div className={styles.provided}></div>
@@ -101,7 +118,7 @@ export default class Detail extends React.Component {
           </div>
         </div>
         <div className={styles.reconmend}>
-            <HouseItem></HouseItem>
+          {/* <HouseItem></HouseItem> */}
         </div>
       </div>
     );

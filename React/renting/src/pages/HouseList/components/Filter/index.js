@@ -5,7 +5,7 @@ import FilterPicker from "../FilterPicker";
 import FilterMore from "../FilterMore";
 
 import styles from "./index.module.css";
-import { http } from "../../../CityList/utils/http";
+import { http } from "../../../utils/http";
 
 // 组件高亮状态
 

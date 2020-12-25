@@ -4,7 +4,7 @@ import React from "react";
 
 import "./index.css";
 // 导入公共组件
-import { getCurrentCity } from "../CityList/utils";
+import { getCurrentCity } from "../utils";
 // 导入轮播组件
 import { Carousel, Flex, Grid, WingBlank } from "antd-mobile";
 
@@ -13,8 +13,8 @@ import Nav1 from "../../assets/images/nav-1.png";
 import Nav2 from "../../assets/images/nav-2.png";
 import Nav3 from "../../assets/images/nav-3.png";
 import Nav4 from "../../assets/images/nav-4.png";
-import { BASE_URL } from "../CityList/utils/url";
-import { http } from "../CityList/utils/http";
+import { BASE_URL } from "../utils/url";
+import { http } from "../utils/http";
 
 // nav 导航数据
 const navItems = [
