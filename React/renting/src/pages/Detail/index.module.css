@@ -40,17 +40,35 @@
   font-size: 16px;
 }
 
-.maparea {
-  clear: both;
-  border-top: 1px solid #ebe7e7;
-}
+
 .map {
-  height: 300px;
-  width: 100%;
-  background-color: aqua;
+  margin-top: 10px;
+  background: #fff;
 }
-.profileContent {
-  line-height: 1.6;
-  padding: 10px 0;
+
+.mapTitle {
+  margin: 0 3%;
+  line-height: 44px;
+  color: #666;
+}
+
+.mapTitle :global(span) {
   color: #333;
 }
+
+.mapContainer {
+  height: 145px;
+  text-align: center;
+}
+
+.mapArrow {
+  background: url(http://map.baidu.com/fwmap/upload/r/map/fwmap/static/house/images/label.png)
+    no-repeat;
+  position: absolute;
+  width: 11px;
+  height: 10px;
+  top: 23px;
+  left: 10px;
+  overflow: hidden;
+}
+

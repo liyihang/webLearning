@@ -7,6 +7,21 @@ import HousePackage from "../../components/HouseProvided";
 import HouseItem from "../../components/HouseItem";
 import { BASE_URL } from "../utils/url";
 const { label } = JSON.parse(localStorage.getItem("bkzf"));
+const BMap = window.BMap
+const labelStyle = {
+  position: "absolute",
+  zIndex: -7982820,
+  backgroundColor: "rgb(238, 93, 91)",
+  color: "rgb(255, 255, 255)",
+  height: 25,
+  padding: "5px 10px",
+  lineHeight: "14px",
+  borderRadius: 3,
+  boxShadow: "rgb(204, 204, 204) 2px 2px 2px",
+  whiteSpace: "nowrap",
+  fontSize: 12,
+  userSelect: "none",
+};
 export default class Detail extends React.Component {
   state = {
     houseInfo: {
@@ -35,17 +50,38 @@ export default class Detail extends React.Component {
     this.setState({
       houseInfo: res.data.body,
     });
+    const { community, coord } = res.data.body;
+
+    // 渲染地图
+    this.renderMap(community, coord);
   }
   componentDidMount() {
     this.getHouseDetail();
     // simulate img loading
+  }
+  //   renderMap
+  renderMap(community, coord) {
+    const { longitude, latitude } = coord;
+    const map = new BMap.Map("map");
+    const point = new BMap.Point(longitude, latitude);
+    map.centerAndZoom(point, 17);
+    const label = new BMap.Label("", {
+      position: point,
+      offset: new BMap.Size(0, -36),
+    });
+    label.setStyle(labelStyle);
+    label.setContent(`
+      <span>${community}</span>
+      <div class="${styles.mapArrow}"></div>
+    `);
+    map.addOverlay(label);
   }
   //   render swiper
   renderSwiper() {
     const {
       houseInfo: { houseImg },
     } = this.state;
-    console.log(houseImg[0])
+    console.log(this.state);
     return houseImg.map((item) => (
       <a
         key={item.id}
@@ -56,7 +92,6 @@ export default class Detail extends React.Component {
           height: 212,
         }}
       >
-          
         <img
           src={BASE_URL + item}
           alt=""
@@ -71,6 +106,9 @@ export default class Detail extends React.Component {
     ));
   }
   render() {
+    const {
+      houseInfo: { community, title, tags, price, roomType, size },
+    } = this.state;
     return (
       <div>
         {/*  */}
@@ -89,28 +127,36 @@ export default class Detail extends React.Component {
         {/* 房屋信息 */}
         <div className={styles.detail}>
           <div className={styles.title}>
-            <div className={styles.houseinfo}>整租·梅源里小区 2室1厅 南/北</div>
-            <p className={styles.advantage}>近地铁</p>
+            <div className={styles.houseinfo}>{title}</div>
+            {/* {tags.map(item=> */}
+            <p className={styles.advantage}>{tags.join(" ")}</p>
+            {/* )} */}
           </div>
           <div className={styles.detailinfo}>
             <div className={styles.item}>
-              <p>8500元/月</p>
+              <p>{price}元/月</p>
               <p>租金</p>
             </div>
             <div className={styles.item}>
-              <p>一室一厅</p>
+              <p>{roomType}</p>
               <p>房型</p>
             </div>
             <div className={styles.item}>
-              <p>78平</p>
+              <p>{size}平</p>
               <p>面积</p>
             </div>
           </div>
           {/* location */}
 
-          <div className={styles.maparea}>
-            <h3 className={styles.mapinfo}>房源位置</h3>
-            <div className={styles.map}></div>
+          {/* 地图位置 */}
+          <div className={styles.map}>
+            <div className={styles.mapTitle}>
+              小区：
+              <span>{community}</span>
+            </div>
+            <div className={styles.mapContainer} id="map">
+              地图
+            </div>
           </div>
           {/* 配套设置 provided */}
           <div className={styles.provided}></div>
