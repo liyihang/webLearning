@@ -5,30 +5,70 @@ import styles from "./index.module.css";
 import SearchBar from "../../components/SearchBar";
 import HousePackage from "../../components/HouseProvided";
 import HouseItem from "../../components/HouseItem";
+import { BASE_URL } from "../utils/url";
 const { label } = JSON.parse(localStorage.getItem("bkzf"));
 export default class Detail extends React.Component {
   state = {
-    data: ["1", "2", "3"],
-    imgHeight: 176,
+    houseInfo: {
+      houseImg: [],
+      title: "",
+      tags: [],
+      price: 0,
+      roomType: "",
+      size: 0,
+      oritent: [],
+      floor: 0,
+      community: "",
+      coord: {
+        longitude: "",
+        latitude: "",
+      },
+      supporting: [],
+      houseCode: "",
+      description: "",
+    },
   };
   //   获取房屋详细信息
-  getHouseDetail() {
-    const id = this.props.match.params;
-    console.log(id);
-    const res = http.get(`/houses/${id}`);
+  async getHouseDetail() {
+    const { id } = this.props.match.params;
+    const res = await http.get(`/houses/${id}`);
+    this.setState({
+      houseInfo: res.data.body,
+    });
   }
   componentDidMount() {
     this.getHouseDetail();
     // simulate img loading
-    setTimeout(() => {
-      this.setState({
-        data: [
-          "AiyWuByWklrrUDlFignR",
-          "TekJlZRVCjLFexlOCuWn",
-          "IJOtIlfsYdTyaDTRVrLI",
-        ],
-      });
-    }, 100);
+  }
+  //   render swiper
+  renderSwiper() {
+    const {
+      houseInfo: { houseImg },
+    } = this.state;
+    console.log(houseImg[0])
+    return houseImg.map((item) => (
+      <a
+        key={item.id}
+        href="http://www.zfyg.com"
+        style={{
+          display: "inline-block",
+          width: "100%",
+          height: 212,
+        }}
+      >
+          
+        <img
+          src={BASE_URL + item}
+          alt=""
+          style={{ width: "100%", verticalAlign: "top" }}
+          onLoad={() => {
+            // fire window resize event to change height
+            window.dispatchEvent(new Event("resize"));
+            this.setState({ imgHeight: "auto" });
+          }}
+        />
+      </a>
+    ));
   }
   render() {
     return (
@@ -43,28 +83,8 @@ export default class Detail extends React.Component {
         </Flex>
         {/* 轮播 */}
         <Carousel autoplay={false} infinite>
-          {this.state.data.map((item) => (
-            <a
-              key={item.id}
-              href="http://www.zfyg.com"
-              style={{
-                display: "inline-block",
-                width: "100%",
-                height: 212,
-              }}
-            >
-              <img
-                src={`https://zos.alipayobjects.com/rmsportal/${item}.png`}
-                alt=""
-                style={{ width: "100%", verticalAlign: "top" }}
-                onLoad={() => {
-                  // fire window resize event to change height
-                  window.dispatchEvent(new Event("resize"));
-                  this.setState({ imgHeight: "auto" });
-                }}
-              />
-            </a>
-          ))}
+          {/* swiper */}
+          {this.renderSwiper()}
         </Carousel>
         {/* 房屋信息 */}
         <div className={styles.detail}>
@@ -117,9 +137,7 @@ export default class Detail extends React.Component {
             </div>
           </div>
         </div>
-        <div className={styles.reconmend}>
-          {/* <HouseItem></HouseItem> */}
-        </div>
+        <div className={styles.reconmend}>{/* <HouseItem></HouseItem> */}</div>
       </div>
     );
   }
