@@ -2,7 +2,7 @@ import React from "react";
 import { Flex, Carousel } from "antd-mobile";
 import { http } from "../utils/http";
 import styles from "./index.module.css";
-import SearchBar from "../../components/SearchBar";
+import NavHeader from "../../components/NavHeader";
 import HousePackage from "../../components/HouseProvided";
 import HouseItem from "../../components/HouseItem";
 import { BASE_URL } from "../utils/url";
@@ -148,11 +148,8 @@ export default class Detail extends React.Component {
       <div>
         {/*  */}
         <Flex className={styles.header}>
-          <i
-            className="iconfont icon-back"
-            onClick={() => this.props.history.go(-1)}
-          ></i>
-          <SearchBar curCity={label} className={styles.searchbar}></SearchBar>
+          
+          <NavHeader curCity={label} className={styles.searchbar}>{community}</NavHeader>
         </Flex>
         {/* 轮播 */}
         <Carousel autoplay={false} infinite>
