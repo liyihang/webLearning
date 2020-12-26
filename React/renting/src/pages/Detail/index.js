@@ -7,7 +7,33 @@ import HousePackage from "../../components/HouseProvided";
 import HouseItem from "../../components/HouseItem";
 import { BASE_URL } from "../utils/url";
 const { label } = JSON.parse(localStorage.getItem("bkzf"));
-const BMap = window.BMap
+const recommendHouses = [
+  {
+    id: 1,
+    src: BASE_URL + "/img/message/1.png",
+    desc: "72.32㎡/南 北/低楼层",
+    title: "安贞西里 3室1厅",
+    price: 4500,
+    tags: ["随时看房"],
+  },
+  {
+    id: 2,
+    src: BASE_URL + "/img/message/2.png",
+    desc: "83㎡/南/高楼层",
+    title: "天居园 2室1厅",
+    price: 7200,
+    tags: ["近地铁"],
+  },
+  {
+    id: 3,
+    src: BASE_URL + "/img/message/3.png",
+    desc: "52㎡/西南/低楼层",
+    title: "角门甲4号院 1室1厅",
+    price: 4300,
+    tags: ["集中供暖"],
+  },
+];
+const BMap = window.BMap;
 const labelStyle = {
   position: "absolute",
   zIndex: -7982820,
@@ -107,7 +133,16 @@ export default class Detail extends React.Component {
   }
   render() {
     const {
-      houseInfo: { community, title, tags, price, roomType, size },
+      houseInfo: {
+        community,
+        title,
+        tags,
+        price,
+        roomType,
+        size,
+        supporting,
+        description,
+      },
     } = this.state;
     return (
       <div>
@@ -160,30 +195,45 @@ export default class Detail extends React.Component {
           </div>
           {/* 配套设置 provided */}
           <div className={styles.provided}></div>
-          <HousePackage
-            list={[
-              "电视",
-              "冰箱",
-              "洗衣机",
-              "空调",
-              "热水器",
-              "沙发",
-              "衣柜",
-              "天然气",
-            ]}
-          ></HousePackage>
+          {supporting.length === 0 ? (
+            <div className={styles.titleEmpty}>暂无数据</div>
+          ) : (
+            <HousePackage list={supporting} />
+          )}
           {/* 房源概况 Profile */}
           <div className={styles.profile}>
             <h3>李女士</h3>
             <div className={styles.profileContent}>
-              1.周边配套齐全，地铁四号线陶然亭站，交通便利，公交云集，距离北京南站、西站都很近距离。
-              2.小区规模大，配套全年，幼儿园，体育场，游泳馆，养老院，小学。
-              3.人车分流，环境优美。
-              4.精装两居室，居家生活方便，还有一个小书房，看房随时联系。
+              {description || "暂无房屋描述"}
             </div>
           </div>
         </div>
-        <div className={styles.reconmend}>{/* <HouseItem></HouseItem> */}</div>
+        {/* 推荐 */}
+        <div className={styles.recommend}>
+          <div className={styles.houseTitle}>猜你喜欢</div>
+          <div className={styles.items}>
+            {recommendHouses.map((item) => (
+              <HouseItem {...item} key={item.id} />
+            ))}
+          </div>
+        </div>
+        {/* 底部收藏按钮 */}
+        <Flex className={styles.fixedBottom}>
+          <Flex.Item>
+            <img
+              src={BASE_URL + "/img/unstar.png"}
+              className={styles.favoriteImg}
+              alt="收藏"
+            />
+            <span className={styles.favorite}>收藏</span>
+          </Flex.Item>
+          <Flex.Item>在线咨询</Flex.Item>
+          <Flex.Item>
+            <a href="tel:400-618-4000" className={styles.telephone}>
+              电话预约
+            </a>
+          </Flex.Item>
+        </Flex>
       </div>
     );
   }

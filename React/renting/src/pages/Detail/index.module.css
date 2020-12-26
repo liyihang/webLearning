@@ -40,7 +40,6 @@
   font-size: 16px;
 }
 
-
 .map {
   margin-top: 10px;
   background: #fff;
@@ -71,4 +70,54 @@
   left: 10px;
   overflow: hidden;
 }
+.houseTitle {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 10px;
+  padding: 15px 0;
+  border-bottom: solid 1px #cecece;
+}
+.recommend {
+  margin: 10px 0 0 0;
+  padding: 0 15px;
+  background: #fff;
+}
 
+.items :global(div:last-child) {
+  border-bottom: 0;
+}
+
+.fixedBottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  border-top: 1px solid #cecece;
+  text-align: center;
+  font-size: 17px;
+  color: #999;
+  background-color: #fff;
+}
+
+.favorite {
+  margin-left: 6px;
+}
+
+.favoriteImg {
+  width: 16px;
+}
+
+.fixedBottom :global(div:first-child) {
+  border-right: solid 1px #e8e8e9;
+}
+
+.fixedBottom :global(div:last-child) {
+  border-right: solid 1px #e8e8e9;
+  background-color: #21b97a;
+}
+
+.telephone {
+  color: #fff;
+}
