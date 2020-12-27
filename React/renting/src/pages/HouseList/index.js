@@ -15,13 +15,14 @@ import {
 } from "react-virtualized";
 import { BASE_URL } from "../utils/url";
 import Sticky from "../../components/Sticky";
+
 const { label, value } = JSON.parse(localStorage.getItem("bkzf"));
 
 export default class HouseList extends React.Component {
   state = {
     list: [],
     count: 0,
-    isLoading:false
+    isLoading: false,
   };
 
   params = {};
@@ -34,8 +35,8 @@ export default class HouseList extends React.Component {
   async getSearchData() {
     Toast.loading("数据加载中，请稍等……");
     this.setState({
-      isLoading:true
-    })
+      isLoading: true,
+    });
     const res = await http.get("/houses", {
       params: {
         cityId: value,
@@ -51,7 +52,7 @@ export default class HouseList extends React.Component {
     this.setState({
       list,
       count,
-      isLoading:false
+      isLoading: false,
     });
   }
   // 接受子组件的数据
@@ -74,7 +75,7 @@ export default class HouseList extends React.Component {
     }
     return (
       <HouseItem
-        onClick={()=>this.props.history.push(`/detail/${house.houseCode}`)}
+        onClick={() => this.props.history.push(`/detail/${house.houseCode}`)}
         key={key}
         style={style}
         src={BASE_URL + house.houseImg}
@@ -109,9 +110,9 @@ export default class HouseList extends React.Component {
   };
   // 房屋列表
   renderHouseItem() {
-    const {count,isLoading} = this.state;
-    if(count === 0 && !isLoading){
-      return <NoHouse></NoHouse>
+    const { count, isLoading } = this.state;
+    if (count === 0 && !isLoading) {
+      return <NoHouse></NoHouse>;
     }
     return (
       <InfiniteLoader

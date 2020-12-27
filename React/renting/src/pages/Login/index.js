@@ -1,7 +1,15 @@
 import React from "react";
 import NavHeader from "../../components/NavHeader";
-import { InputItem, Button, WhiteSpace, WingBlank, List } from "antd-mobile";
+import {
+  InputItem,
+  Button,
+  WhiteSpace,
+  WingBlank,
+  List,
+  Toast,
+} from "antd-mobile";
 import { Link } from "react-router-dom";
+import { http } from "../utils/http";
 import styles from "./index.module.css";
 export default class Login extends React.Component {
   state = {
@@ -12,6 +20,21 @@ export default class Login extends React.Component {
     this.setState({
       [name]: value,
     });
+  };
+
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    const { username, password } = this.state;
+    const res = await http.post("/user/login", { username, password });
+    const { status, body, description } = res.data;
+    console.log(res.data)
+
+    if (status === 200) {
+      localStorage.setItem("bkzf_token", body.token);
+      this.props.history.go(-1);
+    } else {
+      Toast.info(description, 2, null, false);
+    }
   };
   render() {
     const { username, password } = this.state;
@@ -32,15 +55,18 @@ export default class Login extends React.Component {
               </InputItem>
               <WhiteSpace size="xl"></WhiteSpace>
               <InputItem
+                type="password"
                 value={password}
                 onChange={(val) => this.getUsername("password", val)}
                 clear
-                placeholder="click the button below to focus"
+                placeholder="请输入密码"
               >
                 密码:
               </InputItem>
               <WhiteSpace />
-              <Button type="primary">登录</Button>
+              <Button onClick={this.handleSubmit} type="primary">
+                登录
+              </Button>
             </List>
           </form>
           <WingBlank className={styles.register}>
