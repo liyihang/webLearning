@@ -1,0 +1,11 @@
+.profile{
+    height: 300px;
+    background: url('../../assets/images/bg.jpg');
+}
+.avatar {
+    position: absolute;
+    left: 40%;
+    top: 25%;
+    height: 100px;
+    width: 100px;
+}
