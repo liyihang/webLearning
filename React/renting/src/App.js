@@ -10,7 +10,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* <Route exact render={()=><Redirect to="/home"></Redirect>}></Route> */}
+        <Route path='/' exact render={()=><Redirect to="/home"></Redirect>}></Route>
         <Route path="/home" component={Home}></Route>
         <Route path="/map" component={Map}></Route>
         <Route path="/citylist" component={CityList}></Route>
