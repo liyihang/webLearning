@@ -51,3 +51,36 @@
   border-radius: 5px;
   background-color: #ff9600;
 }
+.title {
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+  font-size: 16px;
+}
+.subtitle {
+  text-align: center;
+  color: #fff;
+}
+
+.menuItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 13px;
+  color: #333;
+}
+
+.menuItem :global(i) {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+:global(.am-grid.am-grid-square .am-grid-item:before) {
+  padding-bottom: 76%;
+}
+
+:global(.am-grid .am-flexbox) {
+  background-color: inherit;
+}
