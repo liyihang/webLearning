@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { Button, Grid } from "antd-mobile";
 import styles from "./index.module.css";
 import Img from "../../assets/images/avatar.png";
+import { BASE_URL } from "../utils/url";
+import { isAuth, getToken } from "../utils/auth";
+import { http } from "../utils/http";
 
 const menus = [
   { id: 1, name: "我的收藏", iconfont: "icon-coll", to: "/favorate" },
@@ -13,17 +16,64 @@ const menus = [
   { id: 6, name: "联系我们", iconfont: "icon-cust" },
 ];
 export default class User extends React.Component {
+  state = {
+    // 是否登录
+    isLogin: isAuth(),
+    // 用户信息
+    userInfo: {
+      avatar: "",
+      nickname: "",
+    },
+  };
+  componentDidMount() {
+    this.getUserInfo();
+  }
+  async getUserInfo() {
+    if (!this.state.isLogin) {
+      // 未登录
+      return;
+    }
+
+    // 发送请求，获取个人资料
+    const res = await http.get("/user", {
+      headers: {
+        authorization: getToken(),
+      },
+    });
+
+    // console.log(res)
+    if (res.data.status === 200) {
+      const { avatar, nickname } = res.data.body;
+      this.setState({
+        userInfo: {
+          avatar: BASE_URL + avatar,
+          nickname,
+        },
+      });
+    }
+  }
   render() {
+    const {isLogin,avatar,nickname} = this.state;
     return (
       <div>
         {/* 用户信息 */}
         <div className={styles.profile}></div>
-        <div className={styles.userinfo}>
-          <img className={styles.avatar} src={Img} alt="" title="用户头像" />
-          <Button size="small" inline type="primary">
-            登录
-          </Button>
-        </div>
+        {isLogin ? (
+          <div className={styles.userinfo}>
+            <img className={styles.avatar} src={Img} alt="" title="用户头像" />
+            <span>{nickname}</span>
+            <Button size="small" inline type="primary">
+              登录
+            </Button>
+          </div>
+        ) : (
+          <div className={styles.userinfo}>
+            <img className={styles.avatar} src={Img} alt="" title="用户头像" />
+            <Button size="small" inline type="primary">
+              登录
+            </Button>
+          </div>
+        )}
         {/*grid  */}
         <div className={styles.items}>
           <Grid
