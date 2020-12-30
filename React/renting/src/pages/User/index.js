@@ -28,6 +28,10 @@ export default class User extends React.Component {
   componentDidMount() {
     this.getUserInfo();
   }
+  // 获取用户信息
+  quit(){
+    
+  }
   async getUserInfo() {
     if (!this.state.isLogin) {
       // 未登录
@@ -40,7 +44,6 @@ export default class User extends React.Component {
         authorization: getToken(),
       },
     });
-
     // console.log(res)
     if (res.data.status === 200) {
       const { avatar, nickname } = res.data.body;
@@ -53,18 +56,25 @@ export default class User extends React.Component {
     }
   }
   render() {
-    const {isLogin,avatar,nickname} = this.state;
+    const {
+      isLogin,
+      userInfo: { avatar, nickname },
+    } = this.state;
     return (
       <div>
         {/* 用户信息 */}
         <div className={styles.profile}></div>
         {isLogin ? (
           <div className={styles.userinfo}>
-            <img className={styles.avatar} src={Img} alt="" title="用户头像" />
+            <img
+              className={styles.avatar}
+              src={avatar}
+              alt=""
+              title="用户头像"
+            />
             <span>{nickname}</span>
-            <Button size="small" inline type="primary">
-              登录
-            </Button>
+            <span className={styles.quit} onClick={this.quit}>退出</span>
+           
           </div>
         ) : (
           <div className={styles.userinfo}>
@@ -86,6 +96,7 @@ export default class User extends React.Component {
                   <div className={styles.menuItem}>
                     <i className={`iconfont ${item.iconfont}`}></i>
                     <span>{item.name}</span>
+                    
                   </div>
                 </Link>
               ) : (

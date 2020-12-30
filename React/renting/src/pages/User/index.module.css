@@ -28,6 +28,7 @@
 }
 .new {
   margin-top: 80px;
+  padding-left: 10px;
 }
 .recommend {
   padding-top: 15px;
@@ -83,4 +84,16 @@
 
 :global(.am-grid .am-flexbox) {
   background-color: inherit;
+}
+.quit{
+    display: block;
+    height: 30px;
+    width: 45px;
+    text-align: center;
+    line-height: 30px;
+    margin: 0 auto;
+    margin-top: 10px;
+    border: 1px solid #2ecc71;
+    background-color: #2ecc71;
+    border-radius: 5px;
 }
