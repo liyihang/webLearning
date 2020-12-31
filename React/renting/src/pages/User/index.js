@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Grid } from "antd-mobile";
+import { Button, Grid, Modal } from "antd-mobile";
 import styles from "./index.module.css";
 import Img from "../../assets/images/avatar.png";
 import { BASE_URL } from "../utils/url";
-import { isAuth, getToken } from "../utils/auth";
+import { isAuth, getToken, removeToken } from "../utils/auth";
 import { http } from "../utils/http";
 
+const alert = Modal.alert;
 const menus = [
   { id: 1, name: "我的收藏", iconfont: "icon-coll", to: "/favorate" },
   { id: 2, name: "我的出租", iconfont: "icon-ind", to: "/rent" },
@@ -29,8 +30,26 @@ export default class User extends React.Component {
     this.getUserInfo();
   }
   // 获取用户信息
-  quit(){
-    
+  quit() {
+    alert("退出", "确定退出嘛???", [
+      { text: "取消" },
+      {
+        text: "确认",
+        onPress: async () => {
+          await http.post("/user/logout", null, {
+            headers: { authorization: getToken() },
+          });
+          removeToken();
+          this.setState({
+            isLogin: false,
+            userInfo: {
+              avatar: "",
+              nickname: "",
+            },
+          });
+        },
+      },
+    ]);
   }
   async getUserInfo() {
     if (!this.state.isLogin) {
@@ -53,9 +72,14 @@ export default class User extends React.Component {
           nickname,
         },
       });
+    } else {
+      this.setState({
+        isLogin: false,
+      });
     }
   }
   render() {
+    const { history } = this.props
     const {
       isLogin,
       userInfo: { avatar, nickname },
@@ -73,15 +97,16 @@ export default class User extends React.Component {
               title="用户头像"
             />
             <span>{nickname}</span>
-            <span className={styles.quit} onClick={this.quit}>退出</span>
-           
+            <span className={styles.quit} onClick={this.quit}>
+              退出
+            </span>
           </div>
         ) : (
           <div className={styles.userinfo}>
             <img className={styles.avatar} src={Img} alt="" title="用户头像" />
-            <Button size="small" inline type="primary">
-              登录
-            </Button>
+              <Button size="small" inline type="primary" onClick={() => history.push('/login')}>
+                登录
+              </Button>
           </div>
         )}
         {/*grid  */}
@@ -96,7 +121,6 @@ export default class User extends React.Component {
                   <div className={styles.menuItem}>
                     <i className={`iconfont ${item.iconfont}`}></i>
                     <span>{item.name}</span>
-                    
                   </div>
                 </Link>
               ) : (
