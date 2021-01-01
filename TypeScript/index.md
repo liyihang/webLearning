@@ -77,10 +77,25 @@ I'll be ${myAge + 1} years old next month.`;
 `JavaScript`中没有`void()`的概念，在`TS`中`void()`表示可以返回任何值。
 
 ```js
-
+function alertName(): void {
+    alert('My name is Tom');
+}
 ```
 
+声明一个`void`的变量没有任何作用，它只能赋值`null`和`undefined`。
 
+```typescript
+let unusable:void = undefined；
+```
+
+###### `null`和`undefined`
+
+在 TypeScript 中，可以使用 `null` 和 `undefined` 来定义这两个原始数据类型：
+
+```ts
+let u: undefined = undefined;
+let n: null = null;
+```
 
 #### 任意值
 
