@@ -30,7 +30,7 @@ export default class User extends React.Component {
     this.getUserInfo();
   }
   // 获取用户信息
-  quit() {
+  quit = () => {
     alert("退出", "确定退出嘛???", [
       { text: "取消" },
       {
@@ -50,7 +50,7 @@ export default class User extends React.Component {
         },
       },
     ]);
-  }
+  };
   async getUserInfo() {
     if (!this.state.isLogin) {
       // 未登录
@@ -79,7 +79,7 @@ export default class User extends React.Component {
     }
   }
   render() {
-    const { history } = this.props
+    const { history } = this.props;
     const {
       isLogin,
       userInfo: { avatar, nickname },
@@ -104,9 +104,14 @@ export default class User extends React.Component {
         ) : (
           <div className={styles.userinfo}>
             <img className={styles.avatar} src={Img} alt="" title="用户头像" />
-              <Button size="small" inline type="primary" onClick={() => history.push('/login')}>
-                登录
-              </Button>
+            <Button
+              size="small"
+              inline
+              type="primary"
+              onClick={() => history.push("/login")}
+            >
+              登录
+            </Button>
           </div>
         )}
         {/*grid  */}
