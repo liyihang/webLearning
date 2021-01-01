@@ -24,6 +24,62 @@ JavaScript数据类型分为原始数据类型(Primitive Data Type)和对象数�
 let isDone:boolearn = false;
 ```
 
+注意，使用构造函数 `Boolean` 创造的对象**不是**布尔值：
+
+```ts
+let createdByNewBoolean: boolean = new Boolean(1);
+```
+
+事实上 `new Boolean()` 返回的是一个 `Boolean` 对象：
+
+```ts
+let createdByNewBoolean: Boolean = new Boolean(1);
+```
+
+直接调用 `Boolean` 也可以返回一个 `boolean` 类型：
+
+```ts
+let createdByBoolean: boolean = Boolean(1);
+```
+
+在 TypeScript 中，`boolean` 是 JavaScript 中的基本类型，而 `Boolean` 是 JavaScript 中的构造函数。其他基本类型（除了 `null` 和 `undefined`）一样，不再赘述。
+
+###### 数值 
+
+数值就是`number`类型。
+
+```ts
+let decLiteral: number = 6;
+let hexLiteral: number = 0xf00d;
+// ES6 中的二进制表示法
+let binaryLiteral: number = 0b1010;
+// ES6 中的八进制表示法
+let octalLiteral: number = 0o744;
+let notANumber: number = NaN;
+let infinityNumber: number = Infinity;
+```
+
+`number `可表示十进制，二进制，八进制等。
+
+###### 字符串类型
+
+字符串类型就是由`string`定义的类型。
+
+```js
+let name:string = 'jimmy';
+let age:Number = 28;
+let sentence: string = `Hello, my name is ${myName}.
+I'll be ${myAge + 1} years old next month.`;
+```
+
+###### 空值
+
+`JavaScript`中没有`void()`的概念，在`TS`中`void()`表示可以返回任何值。
+
+```js
+
+```
+
 
 
 #### 任意值
