@@ -72,9 +72,9 @@ let sentence: string = `Hello, my name is ${myName}.
 I'll be ${myAge + 1} years old next month.`;
 ```
 
-###### 空值
+###### void
 
-`JavaScript`中没有`void()`的概念，在`TS`中`void()`表示可以返回任何值。
+`JavaScript`中没有`void()`的概念，在`TS`中`void()`表示可以返回任何值。与`any`相反，一般是用在函数中，表示不返回任何值。
 
 ```js
 function alertName(): void {
@@ -90,14 +90,18 @@ let unusable:void = undefined；
 
 ###### `null`和`undefined`
 
-在 TypeScript 中，可以使用 `null` 和 `undefined` 来定义这两个原始数据类型：
+在TypeScript中，undefined和null实际上都分别将其类型命名为undefined和null。就像void一样，它们本身并不是非常有用：
 
 ```ts
 let u: undefined = undefined;
 let n: null = null;
 ```
 
-#### 任意值
+#### any
+
+`any`用来表示可以被赋值为任意类型。
+
+
 
 #### 类型推断
 
