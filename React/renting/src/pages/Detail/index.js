@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Carousel } from "antd-mobile";
+import { Flex, Carousel, Modal, Toast } from "antd-mobile";
 import { http } from "../utils/http";
 import styles from "./index.module.css";
 import NavHeader from "../../components/NavHeader";
@@ -49,6 +49,7 @@ const labelStyle = {
   fontSize: 12,
   userSelect: "none",
 };
+const alert = Modal.alert;
 export default class Detail extends React.Component {
   state = {
     // 是否收藏
@@ -100,6 +101,45 @@ export default class Detail extends React.Component {
       });
     }
   }
+  // 处理房源是否收藏
+  handleFavorite = async () => {
+    const isLogin = isAuth();
+    const { history, location, match } = this.props;
+    if (!isLogin) {
+      alert("提示", "登录后才能操作，确定登录吗???", [
+        { text: "取消" },
+        {
+          text: "确认",
+          onPress: () => history.push("/login", { from: location }),
+        },
+      ]);
+    }
+    const { favorite } = this.state;
+    const { id } = match.params;
+    // 已经收藏取消收藏
+    if (favorite) {
+      const res = await http.delete(`/user/delete/${id}`);
+      this.setState({
+        isFavorite: false,
+      });
+      if (res.data.status === 200) {
+        Toast.info("已取消收藏", 1, null, false);
+      } else {
+        Toast.info("登录超时", 1, null, false);
+      }
+      // 未收藏，点击收藏
+    } else {
+      const res = await http.post(`/user/favorite/${id}`);
+      if (res.data.status === 200) {
+        Toast.info("已收藏", 1, null, false);
+        this.setState({
+          isFavorite: true,
+        });
+      } else {
+        Toast.info("登录超时", 1, null, false);
+      }
+    }
+  };
   componentDidMount() {
     this.getHouseDetail();
     // simulate img loading
@@ -163,7 +203,7 @@ export default class Detail extends React.Component {
         supporting,
         description,
       },
-      isFavorite
+      isFavorite,
     } = this.state;
     return (
       <div>
@@ -238,13 +278,17 @@ export default class Detail extends React.Component {
         </div>
         {/* 底部收藏按钮 */}
         <Flex className={styles.fixedBottom}>
-          <Flex.Item>
+          <Flex.Item onClick={this.handleFavorite}>
             <img
-              src={BASE_URL + isFavorite?"/img/star.png":"/img/unstar.png"}
+              src={
+                BASE_URL + (isFavorite ? "/img/star.png" : "/img/unstar.png")
+              }
               className={styles.favoriteImg}
               alt="收藏"
             />
-            <span className={styles.favorite}>{isFavorite?'已收藏':'收藏'}</span>
+            <span className={styles.favorite}>
+              {isFavorite ? "已收藏" : "收藏"}
+            </span>
           </Flex.Item>
           <Flex.Item>在线咨询</Flex.Item>
           <Flex.Item>
