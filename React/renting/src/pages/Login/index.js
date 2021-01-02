@@ -27,11 +27,14 @@ export default class Login extends React.Component {
     const { username, password } = this.state;
     const res = await http.post("/user/login", { username, password });
     const { status, body, description } = res.data;
-    console.log(res.data)
 
     if (status === 200) {
       localStorage.setItem("bkzf_token", body.token);
-      this.props.history.go(-1);
+      if (!this.props.location.state) {
+        this.props.history.go(-1);
+      } else {
+        this.props.history.replace(this.props.location.state.from.pathname);
+      }
     } else {
       Toast.info(description, 2, null, false);
     }

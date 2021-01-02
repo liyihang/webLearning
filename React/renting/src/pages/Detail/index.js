@@ -6,6 +6,7 @@ import NavHeader from "../../components/NavHeader";
 import HousePackage from "../../components/HouseProvided";
 import HouseItem from "../../components/HouseItem";
 import { BASE_URL } from "../utils/url";
+import { isAuth } from "../utils/auth";
 const { label } = JSON.parse(localStorage.getItem("bkzf"));
 const recommendHouses = [
   {
@@ -50,6 +51,8 @@ const labelStyle = {
 };
 export default class Detail extends React.Component {
   state = {
+    // 是否收藏
+    isFavorite: false,
     houseInfo: {
       houseImg: [],
       title: "",
@@ -81,9 +84,26 @@ export default class Detail extends React.Component {
     // 渲染地图
     this.renderMap(community, coord);
   }
+  // 检查房源是否收藏
+  async checkFavorite() {
+    const isLogin = isAuth();
+    if (!isLogin) {
+      return;
+    }
+    // 获取房源信息
+    const { id } = this.props.match.params;
+    const res = await http.get(`/user/favorite/${id}`);
+    const { status, body } = res.data;
+    if (status === 200) {
+      this.setState({
+        isFavorite: body.isFavorite,
+      });
+    }
+  }
   componentDidMount() {
     this.getHouseDetail();
     // simulate img loading
+    this.checkFavorite();
   }
   //   renderMap
   renderMap(community, coord) {
@@ -143,13 +163,15 @@ export default class Detail extends React.Component {
         supporting,
         description,
       },
+      isFavorite
     } = this.state;
     return (
       <div>
         {/*  */}
         <Flex className={styles.header}>
-          
-          <NavHeader curCity={label} className={styles.searchbar}>{community}</NavHeader>
+          <NavHeader curCity={label} className={styles.searchbar}>
+            {community}
+          </NavHeader>
         </Flex>
         {/* 轮播 */}
         <Carousel autoplay={false} infinite>
@@ -218,11 +240,11 @@ export default class Detail extends React.Component {
         <Flex className={styles.fixedBottom}>
           <Flex.Item>
             <img
-              src={BASE_URL + "/img/unstar.png"}
+              src={BASE_URL + isFavorite?"/img/star.png":"/img/unstar.png"}
               className={styles.favoriteImg}
               alt="收藏"
             />
-            <span className={styles.favorite}>收藏</span>
+            <span className={styles.favorite}>{isFavorite?'已收藏':'收藏'}</span>
           </Flex.Item>
           <Flex.Item>在线咨询</Flex.Item>
           <Flex.Item>
