@@ -40,7 +40,7 @@ const navItems = [
     id: 4,
     title: "出租",
     imgSrc: Nav4,
-    path: "renting",
+    path: "rent/add",
   },
 ];
 // grid data
