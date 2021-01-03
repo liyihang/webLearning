@@ -114,11 +114,11 @@ export default class Detail extends React.Component {
         },
       ]);
     }
-    const { favorite } = this.state;
+    const { isFavorite } = this.state;
     const { id } = match.params;
     // 已经收藏取消收藏
-    if (favorite) {
-      const res = await http.delete(`/user/delete/${id}`);
+    if (isFavorite) {
+      const res = await http.delete(`/user/favorites/${id}`);
       this.setState({
         isFavorite: false,
       });
@@ -129,7 +129,7 @@ export default class Detail extends React.Component {
       }
       // 未收藏，点击收藏
     } else {
-      const res = await http.post(`/user/favorite/${id}`);
+      const res = await http.post(`/user/favorites/${id}`);
       if (res.data.status === 200) {
         Toast.info("已收藏", 1, null, false);
         this.setState({
