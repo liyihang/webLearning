@@ -2,6 +2,7 @@ import React from "react";
 import { SearchBar } from "antd-mobile";
 import { getCity } from "../../utils/city";
 import { http } from "../../utils/http";
+import styles from "./index.module.css";
 
 export default class RentSearch extends React.Component {
   cityId = getCity().value;
@@ -28,11 +29,31 @@ export default class RentSearch extends React.Component {
       this.setState({
         searchList: res.data.body,
       });
-    }, 500);
+    }, 800);
   };
-
-  render() {
+  // 点击去发布房源
+  onCommunityClick(item) {
+    this.props.history.replace("/rent/add", {
+      name: item.communityName,
+      id: item.community,
+    });
+  }
+  // 小区搜索🔍渲染列表
+  renderSearchList = () => {
     const { searchList } = this.state;
+    console.log(searchList);
+
+    return searchList.map((item) => (
+      <li
+        className={styles.item}
+        key={item.community}
+        onClick={() => this.onCommunityClick(item)}
+      >
+        {item.communityName}
+      </li>
+    ));
+  };
+  render() {
     return (
       <div>
         <SearchBar
@@ -43,7 +64,9 @@ export default class RentSearch extends React.Component {
           onChange={this.handleInput}
           showCancelButton={true}
         />
-        {searchList.length > 0}
+        <div>
+          <ul>{this.renderSearchList()}</ul>
+        </div>
       </div>
     );
   }
