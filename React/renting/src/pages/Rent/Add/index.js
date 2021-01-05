@@ -92,7 +92,11 @@ export default class RentAdd extends React.Component {
     });
   };
   //   获取租房配置
-  
+  handleProvided = (selected) => {
+    this.setState({
+        supporting:selected.join('|')
+    })
+  };
   render() {
     const { history } = this.props;
     const {
@@ -174,7 +178,7 @@ export default class RentAdd extends React.Component {
         </List>
         {/* 房屋配置 */}
         <List renderHeader={() => "房屋配置"} className={styles.title}>
-          <HouseProvided select onSelete={this.handleProvided}></HouseProvided>
+          <HouseProvided select onSelect={this.handleProvided}></HouseProvided>
         </List>
         {/* 房屋描述 */}
         <List renderHeader={() => "房屋描述"} className={styles.title}>
