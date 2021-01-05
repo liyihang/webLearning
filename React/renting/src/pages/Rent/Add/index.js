@@ -4,7 +4,7 @@ import {
   Picker,
   ImagePicker,
   TextareaItem,
-  Flex
+  Flex,
 } from "antd-mobile";
 import React from "react";
 
@@ -85,6 +85,14 @@ export default class RentAdd extends React.Component {
       description: "",
     };
   }
+  //   获取租房信息
+  getValue = (name, val) => {
+    this.setState({
+      [name]: val,
+    });
+  };
+  //   获取租房配置
+  
   render() {
     const { history } = this.props;
     const {
@@ -110,25 +118,55 @@ export default class RentAdd extends React.Component {
           >
             小区名称:
           </Item>
-          <InputItem placeholder="租金" extra="元/月" value={price}>
+          <InputItem
+            placeholder="租金"
+            extra="元/月"
+            value={price}
+            onChange={(val) => this.getValue("price", val)}
+          >
             租&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;金:
           </InputItem>
-          <InputItem placeholder="建筑面积" extra="m²" value={size}>
+          <InputItem
+            placeholder="建筑面积"
+            extra="m²"
+            value={size}
+            onChange={(val) => this.getValue("size", val)}
+          >
             建筑面积:
           </InputItem>
-          <Picker data={roomTypeData} value={[roomType]} cols={1}>
+
+          <Picker
+            data={roomTypeData}
+            value={[roomType]}
+            cols={1}
+            onChange={(val) => this.getValue("roomType", val[0])}
+          >
             <Item>户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型:</Item>
           </Picker>
-          <Picker data={floorData} value={[floor]} cols={1}>
+          <Picker
+            data={floorData}
+            value={[floor]}
+            cols={1}
+            onChange={(val) => this.getValue("floor", val[0])}
+          >
             <Item>楼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;层:</Item>
           </Picker>
-          <Picker data={orientedData} value={[oriented]} cols={1}>
+          <Picker
+            data={orientedData}
+            value={[oriented]}
+            cols={1}
+            onChange={(val) => this.getValue("oriented", val[0])}
+          >
             <Item>朝&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;向:</Item>
           </Picker>
         </List>
         {/* 房屋标题 */}
         <List renderHeader={() => "房屋标题"} className={styles.title}>
-          <InputItem value={title} placeholder="请输入房屋标题"></InputItem>
+          <InputItem
+            value={title}
+            placeholder="请输入房屋标题"
+            onChange={(val) => this.getValue("title", val)}
+          ></InputItem>
         </List>
         {/* 房屋图片 */}
         <List renderHeader={() => "房屋图像"} className={styles.title}>
@@ -136,7 +174,7 @@ export default class RentAdd extends React.Component {
         </List>
         {/* 房屋配置 */}
         <List renderHeader={() => "房屋配置"} className={styles.title}>
-          <HouseProvided select></HouseProvided>
+          <HouseProvided select onSelete={this.handleProvided}></HouseProvided>
         </List>
         {/* 房屋描述 */}
         <List renderHeader={() => "房屋描述"} className={styles.title}>
@@ -144,6 +182,7 @@ export default class RentAdd extends React.Component {
             rows={5}
             placeholder="请输入描述"
             value={description}
+            onChange={(val) => this.getValue("description", val)}
           ></TextareaItem>
         </List>
         <Flex className={styles.bottom}>
