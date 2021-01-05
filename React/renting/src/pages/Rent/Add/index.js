@@ -5,12 +5,14 @@ import {
   ImagePicker,
   TextareaItem,
   Flex,
+  Toast,
 } from "antd-mobile";
 import React from "react";
 
 import NavHeader from "../../../components/NavHeader";
 import HouseProvided from "../../../components/HouseProvided";
 import styles from "./index.module.css";
+import { http } from "../../utils/http";
 
 const Item = List.Item;
 
@@ -94,8 +96,58 @@ export default class RentAdd extends React.Component {
   //   获取租房配置
   handleProvided = (selected) => {
     this.setState({
-        supporting:selected.join('|')
-    })
+      supporting: selected.join("|"),
+    });
+  };
+  //   房屋图片
+  handleImg = (files) => {
+    this.setState({
+      tempSlides: files,
+    });
+  };
+  //   提交租房信息
+  addHouse = async () => {
+    let houseImg = "";
+    const {
+      tempSlides,
+      title,
+      size,
+      community,
+      price,
+      description,
+      supporting,
+      oriented,
+      floor,
+      roomType,
+    } = this.state;
+    if (tempSlides.length > 0) {
+      const form = new FormData();
+      tempSlides.forEach((item) => form.append("file", item.file));
+      const res = await http.post("/houses/image", form, {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      });
+      houseImg = res.data.body.join("|");
+    }
+    const result = await http.post("/user/houses", {
+      title,
+      size,
+      community: community.id,
+      price,
+      description,
+      supporting,
+      oriented,
+      floor,
+      roomType,
+      houseImg,
+    });
+    if (result.data.status === 200) {
+      Toast.info("发布房源成功", 1, null);
+      this.props.history.push("/rent");
+    } else {
+      Toast.info("服务器出错，稍后再试……", 1, null);
+    }
   };
   render() {
     const { history } = this.props;
@@ -174,7 +226,11 @@ export default class RentAdd extends React.Component {
         </List>
         {/* 房屋图片 */}
         <List renderHeader={() => "房屋图像"} className={styles.title}>
-          <ImagePicker files={tempSlides} multiple={true}></ImagePicker>
+          <ImagePicker
+            files={tempSlides}
+            multiple={true}
+            onChange={this.handleImg}
+          ></ImagePicker>
         </List>
         {/* 房屋配置 */}
         <List renderHeader={() => "房屋配置"} className={styles.title}>
