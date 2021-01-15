@@ -1,13 +1,18 @@
 import React from "react";
-import { Button } from "antd";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import Login from "./pages/Login";
+import Manage from "./pages/Manage";
+
 export default class App extends React.Component {
- 
-  handleClick=()=>{
-    alert('点击了按钮……')
-  }
   render() {
     return (
-      <Button type="primary" danger onClick={this.handleClick}>点击</Button>
-    )
+      <Router>
+        <Switch>
+          <Route path="/login" component={Login}></Route>
+          <Route path="/" component={Manage}></Route>
+        </Switch>
+      </Router>
+    );
   }
 }
