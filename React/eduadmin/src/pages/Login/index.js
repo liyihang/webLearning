@@ -24,6 +24,7 @@ export default class Login extends React.Component {
               className="login-form"
               initialValues={{ remember: true }}
               onFinish={onFinish}
+              size="middle"
             >
               <Form.Item
                 name="username"
@@ -70,7 +71,6 @@ export default class Login extends React.Component {
               </Form.Item>
             </Form>
           </div>
-          <div className></div>
         </div>
       </div>
     );
