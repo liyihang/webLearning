@@ -1,16 +1,25 @@
 import React from "react";
-import { Form, Input, Button,Checkbox } from "antd";
-import {UserOutlined,LockOutlined} from '@ant-design/icons'
+import styles from "./index.module.css";
+
+import { Form, Input, Button, Checkbox } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 // const {Header,Content,Footer} = Layout
-import styles from "./index.module.css";
 import LogoImg from "../../assets/img/logo.png";
 
 export default class Login extends React.Component {
+  state = {
+    username: "",
+    password: "",
+  };
+  onFinish = (values) => {
+    const { username, password } = values;
+    this.setState({
+      username,
+      password,
+    });
+  };
   render() {
-    const onFinish = (values) => {
-        console.log("Received values of form: ", values);
-      };
     return (
       <div className={styles.login}>
         <div className={styles.loginbox}>
@@ -23,7 +32,7 @@ export default class Login extends React.Component {
               name="normal_login"
               className="login-form"
               initialValues={{ remember: true }}
-              onFinish={onFinish}
+              onFinish={this.onFinish}
               size="middle"
             >
               <Form.Item
@@ -35,6 +44,7 @@ export default class Login extends React.Component {
                 <Input
                   prefix={<UserOutlined className="site-form-item-icon" />}
                   placeholder="Username"
+                  className={styles.inputitem}
                 />
               </Form.Item>
               <Form.Item
@@ -47,6 +57,7 @@ export default class Login extends React.Component {
                   prefix={<LockOutlined className="site-form-item-icon" />}
                   type="password"
                   placeholder="Password"
+                  className={styles.inputitem}
                 />
               </Form.Item>
               <Form.Item>
