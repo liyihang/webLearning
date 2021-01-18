@@ -7,7 +7,7 @@ import {
   UploadOutlined,
   MenuFoldOutlined,
 } from "@ant-design/icons";
-import styles from  './index.module.css'
+import styles from "./index.less";
 export default class Login extends React.Component {
   state = {
     collapsed: false,
@@ -23,8 +23,14 @@ export default class Login extends React.Component {
     const { Header, Content, Sider } = Layout;
     return (
       <div className={styles.container}>
-        <Layout>
-          <Sider trigger={null} collapsible collapsed={this.state.collapsed} style={{height:'100%'}}>
+        <div className={styles.hello}>heool</div>
+        <Layout style={{ height: "100%" }}>
+          <Sider
+            trigger={null}
+            collapsible
+            collapsed={this.state.collapsed}
+            
+          >
             <div className="logo" />
             <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
               <Menu.Item key="1" icon={<UserOutlined />}>
