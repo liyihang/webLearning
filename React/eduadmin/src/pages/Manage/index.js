@@ -18,8 +18,9 @@ import {
   MailOutlined,
 } from "@ant-design/icons";
 import styles from "./index.module.css";
-import Manage from '../../pages/Manage'
-export default class Login extends React.Component {
+import Baseinfo from '../../pages/Baseinfo'
+import DailyManage from '../../pages/DailyManage'
+export default class Manage extends React.Component {
   state = {
     collapsed: false,
   };
@@ -134,7 +135,8 @@ export default class Login extends React.Component {
               }}
             >
               <Switch>
-                <Route path='/home' component={Manage}></Route>
+                <Route path='/home' component={Baseinfo}></Route>
+                <Route path='/repair' component={DailyManage}></Route>
               </Switch>
             </Content>
           </Layout>
