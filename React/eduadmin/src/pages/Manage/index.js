@@ -18,8 +18,8 @@ import {
   MailOutlined,
 } from "@ant-design/icons";
 import styles from "./index.module.css";
-import Baseinfo from '../../pages/Baseinfo'
-import DailyManage from '../../pages/DailyManage'
+import Home from "../../pages/Home";
+import DailyManage from "../../pages/DailyManage";
 export default class Manage extends React.Component {
   state = {
     collapsed: false,
@@ -85,14 +85,26 @@ export default class Manage extends React.Component {
                 </Menu.Item>
               </SubMenu>
               <SubMenu key="sub4" icon={<DashboardOutlined />} title="抄表管理">
-                <Menu.Item key="5"><Link to="/meterreading">抄表录数</Link></Menu.Item>
-                <Menu.Item key="6"><Link to="/chargelog">收费记录</Link></Menu.Item>
-                <Menu.Item key="7"><Link to="/meterreading">新增仪表</Link></Menu.Item>
+                <Menu.Item key="5">
+                  <Link to="/meterreading">抄表录数</Link>
+                </Menu.Item>
+                <Menu.Item key="6">
+                  <Link to="/chargelog">收费记录</Link>
+                </Menu.Item>
+                <Menu.Item key="7">
+                  <Link to="/meterreading">新增仪表</Link>
+                </Menu.Item>
               </SubMenu>
               <SubMenu key="sub5" icon={<PayCircleOutlined />} title="收费管理">
-                <Menu.Item key="5"><Link to="/newcharges">费用新增</Link></Menu.Item>
-                <Menu.Item key="6"><Link to="/cost">费用分配</Link></Menu.Item>
-                <Menu.Item key="7"><Link to="/meterreading">生成费用</Link></Menu.Item>
+                <Menu.Item key="5">
+                  <Link to="/newcharges">费用新增</Link>
+                </Menu.Item>
+                <Menu.Item key="6">
+                  <Link to="/cost">费用分配</Link>
+                </Menu.Item>
+                <Menu.Item key="7">
+                  <Link to="/meterreading">生成费用</Link>
+                </Menu.Item>
               </SubMenu>
               {/* <SubMenu key="sub6" icon={<MessageOutlined />} title="微信业务">
                 <Menu.Item key="5">option5</Menu.Item>
@@ -101,18 +113,30 @@ export default class Manage extends React.Component {
                 <Menu.Item key="8">option8</Menu.Item>
               </SubMenu> */}
               <SubMenu key="sub7" icon={<UserOutlined />} title="租赁管理">
-                <Menu.Item key="5"><Link to="/rentalinquiry">租赁查询</Link></Menu.Item>
+                <Menu.Item key="5">
+                  <Link to="/rentalinquiry">租赁查询</Link>
+                </Menu.Item>
               </SubMenu>
               <SubMenu key="sub8" icon={<BarChartOutlined />} title="统计查询">
-                <Menu.Item key="5"><Link to="/tanantquery">租户查询</Link></Menu.Item>
-                <Menu.Item key="5"><Link to="/payment">缴费查询</Link></Menu.Item>
+                <Menu.Item key="5">
+                  <Link to="/tanantquery">租户查询</Link>
+                </Menu.Item>
+                <Menu.Item key="5">
+                  <Link to="/payment">缴费查询</Link>
+                </Menu.Item>
               </SubMenu>
               <SubMenu key="sub9" icon={<MailOutlined />} title="短信管理">
-                <Menu.Item key="5"><Link to="/messagetemplate">短信模板</Link></Menu.Item>
-                <Menu.Item key="6"><Link to="/sendlog">发送记录</Link></Menu.Item>
+                <Menu.Item key="5">
+                  <Link to="/messagetemplate">短信模板</Link>
+                </Menu.Item>
+                <Menu.Item key="6">
+                  <Link to="/sendlog">发送记录</Link>
+                </Menu.Item>
               </SubMenu>
               <SubMenu key="sub10" icon={<SettingOutlined />} title="系统设置">
-                <Menu.Item key="5"><Link to="/managelist">管理员列表</Link></Menu.Item>
+                <Menu.Item key="5">
+                  <Link to="/managelist">管理员列表</Link>
+                </Menu.Item>
               </SubMenu>
             </Menu>
           </Sider>
@@ -135,8 +159,8 @@ export default class Manage extends React.Component {
               }}
             >
               <Switch>
-                <Route path='/home' component={Baseinfo}></Route>
-                <Route path='/repair' component={DailyManage}></Route>
+                <Route path="/home" component={Home}></Route>
+                <Route path="/repair" component={DailyManage}></Route>
               </Switch>
             </Content>
           </Layout>
