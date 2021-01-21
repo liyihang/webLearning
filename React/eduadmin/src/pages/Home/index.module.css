@@ -44,3 +44,8 @@ h1 {
 .left:first-child {
   margin-top: -10px;
 }
+.leftoverview > span{
+  font-size: 20px;
+  padding-right: 10px;
+  color: #867e7e;
+}
