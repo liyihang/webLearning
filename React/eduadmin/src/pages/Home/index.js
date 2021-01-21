@@ -2,7 +2,9 @@ import React from "react";
 import styles from "./index.module.css";
 
 import { Row, Col } from "antd";
-import {ToolOutlined,TransactionOutlined,KeyOutlined} from '@ant-design/icons'
+import {ToolOutlined,TransactionOutlined,KeyOutlined,SearchOutlined,CarOutlined} from '@ant-design/icons'
+
+import Rcharts from '../../component/Echarts'
 
 
 export default class Home extends React.Component {
@@ -26,10 +28,14 @@ export default class Home extends React.Component {
               <div className={styles.leftoverview}> <ToolOutlined />故障报修</div>
               <div className={styles.leftoverview}><KeyOutlined />房屋租赁</div>
               <div className={styles.leftoverview}><TransactionOutlined />费用缴纳</div>
+              <div className={styles.leftoverview}><CarOutlined />车位管理</div>
+              <div className={styles.leftoverview}><SearchOutlined />信息查询</div>
             </div>
           </Col>
           <Col className="gutter-row" span={20}>
-            <div style={style}>col-6</div>
+            <div>
+              <Rcharts></Rcharts>
+            </div>
           </Col>
         </Row>
       </div>
