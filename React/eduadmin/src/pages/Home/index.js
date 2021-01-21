@@ -8,9 +8,19 @@ export default class Home extends React.Component {
     const style = { background: "#0092ff", padding: "0" };
     return (
       <div>
+        <h1>管理小区信息概览</h1>
+        <Row gutter={16}>
+          <div className={styles.overview}>管理小区数：99</div>
+          <div className={styles.overview}>房屋总数：999</div>
+          <div className={styles.overview}>租房总数：9999</div>
+          <div className={styles.overview}>车位总数：9999</div>
+          <div className={styles.overview}>商铺数量：9999</div>
+          <div className={styles.overview}>总栋数：100</div>
+        </Row>
+        <h1>住户信息统计</h1>
         <Row gutter={16}>
           <Col className="gutter-row" span={6}>
-            <div>
+            <div className={styles.left}>
               <div className={styles.leftoverview}>故障报修</div>
               <div className={styles.leftoverview}>房屋租赁</div>
               <div className={styles.leftoverview}>费用缴纳</div>
