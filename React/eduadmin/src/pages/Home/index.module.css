@@ -49,3 +49,16 @@ h1 {
   padding-right: 10px;
   color: #867e7e;
 }
+.footer{
+  margin-top: 30px;
+  height: 100px;
+  width: 100%;
+  line-height: 100px;
+  text-align: center;
+  font-size: 20px;
+  background-color: #fff;
+}
+.desc{
+  display: block;
+  font-size: 12px;
+}

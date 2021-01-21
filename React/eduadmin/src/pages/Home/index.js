@@ -2,14 +2,18 @@ import React from "react";
 import styles from "./index.module.css";
 
 import { Row, Col } from "antd";
-import {ToolOutlined,TransactionOutlined,KeyOutlined,SearchOutlined,CarOutlined} from '@ant-design/icons'
+import {
+  ToolOutlined,
+  TransactionOutlined,
+  KeyOutlined,
+  SearchOutlined,
+  CarOutlined,
+} from "@ant-design/icons";
 
-import Rcharts from '../../component/Echarts'
-
+import Rcharts from "../../component/Echarts";
 
 export default class Home extends React.Component {
   render() {
-    const style = { background: "#0092ff", padding: "0" };
     return (
       <div>
         <h1>管理小区信息概览</h1>
@@ -25,16 +29,40 @@ export default class Home extends React.Component {
         <Row gutter={16}>
           <Col className="gutter-row" span={4}>
             <div className={styles.left}>
-              <div className={styles.leftoverview}> <ToolOutlined />故障报修</div>
-              <div className={styles.leftoverview}><KeyOutlined />房屋租赁</div>
-              <div className={styles.leftoverview}><TransactionOutlined />费用缴纳</div>
-              <div className={styles.leftoverview}><CarOutlined />车位管理</div>
-              <div className={styles.leftoverview}><SearchOutlined />信息查询</div>
+              <div className={styles.leftoverview}>
+                {" "}
+                <ToolOutlined />
+                故障报修
+              </div>
+              <div className={styles.leftoverview}>
+                <KeyOutlined />
+                房屋租赁
+              </div>
+              <div className={styles.leftoverview}>
+                <TransactionOutlined />
+                费用缴纳
+              </div>
+              <div className={styles.leftoverview}>
+                <CarOutlined />
+                车位管理
+              </div>
+              <div className={styles.leftoverview}>
+                <SearchOutlined />
+                信息查询
+              </div>
             </div>
           </Col>
           <Col className="gutter-row" span={20}>
             <div>
               <Rcharts></Rcharts>
+            </div>
+          </Col>
+        </Row>
+        <Row className={styles.footer}>
+          <Col span={24}>
+            <div>
+              <a href="www.zfyg.com">正方云谷科技有限公司  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;专注物业系统研发</a>
+              <span className={styles.desc}></span>
             </div>
           </Col>
         </Row>
