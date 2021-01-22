@@ -1,0 +1,39 @@
+.login {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../assets/img/logingb.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.loginbox {
+  width: 45rem;
+  height: auto;
+  background-color: #ffffff60;
+}
+.img {
+  height: 60px;
+  width: 60px;
+  display: block;
+  margin: 10px auto;
+}
+.title {
+  text-align: center;
+  color: #1abc9c;
+}
+.loginform {
+  margin: 0 auto;
+  width: 50%;
+}
+.site-form-item-icon {
+  font-size: larger;
+}
+.loginform .ant-input-affix-wrapper {
+  background-color: #ffffff50;
+}
+#inputitem {
+  background-color: #ffffff50;
+  font-size: 19px;
+}
