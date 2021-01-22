@@ -1,0 +1,99 @@
+.profile {
+  height: 300px;
+  background: url("../../assets/images/bg.jpg");
+  filter: blur(5px);
+}
+.userinfo {
+  position: absolute;
+  top: 150px;
+  left: 50px;
+  height: 200px;
+  width: 275px;
+  background-color: #fff;
+  box-shadow: 2px grey;
+}
+.avatar {
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+  position: relative;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.items {
+  position: relative;
+  top: 80px;
+}
+.new {
+  margin-top: 80px;
+  padding-left: 10px;
+}
+.recommend {
+  padding-top: 15px;
+  height: 100px;
+  display: flex;
+  justify-content: space-around;
+}
+.recommend > div {
+  height: 75px;
+  width: 105px;
+}
+.item0 {
+  border-radius: 5px;
+  background-color: #ff5617;
+}
+.item1 {
+  border-radius: 5px;
+  background-color: #ffc700;
+}
+.item2 {
+  border-radius: 5px;
+  background-color: #ff9600;
+}
+.title {
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+  font-size: 16px;
+}
+.subtitle {
+  text-align: center;
+  color: #fff;
+}
+
+.menuItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 13px;
+  color: #333;
+}
+
+.menuItem :global(i) {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+:global(.am-grid.am-grid-square .am-grid-item:before) {
+  padding-bottom: 76%;
+}
+
+:global(.am-grid .am-flexbox) {
+  background-color: inherit;
+}
+.quit{
+    display: block;
+    height: 30px;
+    width: 45px;
+    text-align: center;
+    line-height: 30px;
+    margin: 0 auto;
+    margin-top: 10px;
+    border: 1px solid #2ecc71;
+    background-color: #2ecc71;
+    border-radius: 5px;
+}

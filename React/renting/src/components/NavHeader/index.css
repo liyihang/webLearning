@@ -1,0 +1,14 @@
+.navbar {
+  margin-top: -45px;
+  background-color: #f6f5f6;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+}
+.navbar .am-navbar-title {
+  font-size: 16px;
+  color: #333;
+}
+.navbar .am-navbar-left-icon {
+  color: #333;
+}

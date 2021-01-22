@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "eduadmin",
   "version": "0.1.0",
   "private": true,
@@ -155,5 +156,9 @@
     "presets": [
       "react-app"
     ]
+=======
+  "dependencies": {
+    "prop-types": "^15.7.2"
+>>>>>>> eadfb1c5b5965f214294b93a1a40290556b9d96a
   }
 }

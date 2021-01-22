@@ -1,0 +1,124 @@
+.header {
+  height: 45px;
+  padding: 0 10px;
+  background-color: #f6f5f6;
+  text-align: center;
+}
+.header :global(.icon-back) {
+  font-size: 16px;
+}
+.header :global(.icon-map) {
+  color: aqua;
+}
+.searchbar {
+  position: relative;
+  top: 0;
+}
+.title {
+  padding: 10px;
+  border-bottom: 1px solid #ebe7e7;
+}
+.houseinfo {
+  font-size: 20px;
+}
+.advantage {
+  display: inline-block;
+  margin: 10px;
+  border: 1px solid #ebe7e7;
+  background-color: lightblue;
+}
+.detailinfo {
+  margin: 10px;
+  height: 40px;
+}
+.item {
+  float: left;
+  margin-left: 30px;
+}
+.item > p:nth-child(odd) {
+  padding-bottom: 8px;
+  color: red;
+  font-size: 16px;
+}
+
+.map {
+  margin-top: 10px;
+  background: #fff;
+}
+
+.mapTitle {
+  margin: 0 3%;
+  line-height: 44px;
+  color: #666;
+}
+
+.mapTitle :global(span) {
+  color: #333;
+}
+
+.mapContainer {
+  height: 145px;
+  text-align: center;
+}
+
+.mapArrow {
+  background: url(http://map.baidu.com/fwmap/upload/r/map/fwmap/static/house/images/label.png)
+    no-repeat;
+  position: absolute;
+  width: 11px;
+  height: 10px;
+  top: 23px;
+  left: 10px;
+  overflow: hidden;
+}
+.houseTitle {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 10px;
+  padding: 15px 0;
+  border-bottom: solid 1px #cecece;
+}
+.recommend {
+  margin: 10px 0 0 0;
+  padding: 0 15px;
+  background: #fff;
+}
+
+.items :global(div:last-child) {
+  border-bottom: 0;
+}
+
+.fixedBottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  border-top: 1px solid #cecece;
+  text-align: center;
+  font-size: 17px;
+  color: #999;
+  background-color: #fff;
+}
+
+.favorite {
+  margin-left: 6px;
+}
+
+.favoriteImg {
+  width: 16px;
+}
+
+.fixedBottom :global(div:first-child) {
+  border-right: solid 1px #e8e8e9;
+}
+
+.fixedBottom :global(div:last-child) {
+  border-right: solid 1px #e8e8e9;
+  background-color: #21b97a;
+}
+
+.telephone {
+  color: #fff;
+}

@@ -1,0 +1,9 @@
+<view class="container">
+	<image  class="img" src="/images/cat.jpeg"></image>
+	<text class="solo">电影周刊</text>
+	<text>每周一部好电影</text>
+	<text>网址：www.iqiyi.com</text>
+	<text>网址：www.iqiyi.com</text>
+	<text>网址：www.iqiyi.com</text>
+	<text>网址：www.iqiyi.com</text>
+</view>

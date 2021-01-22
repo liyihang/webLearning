@@ -1,0 +1,95 @@
+.map,
+#container {
+  height: 97%;
+}
+.BMap_stdMpZoom {
+  top: -45px;
+}
+.buddle {
+  height: 75px;
+  width: 75px;
+  display: inline-block;
+  position: absolute;
+  padding-top: 20px;
+  background-color: green;
+  color: aliceblue;
+  border-radius: 100%;
+  text-align: center;
+}
+/* fix  [Intervention] Ignored attempt to cancel a touchmove event with cancelable=false,
+ for example because scrolling is in progress and cannot be interrupted 
+ */
+html {
+  touch-action: none;
+}
+.rect {
+  height: 20px;
+  width: 100px;
+  line-height: 20px;
+  position: absolute;
+  border-radius: 3px;
+  background-color: green;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.housename {
+  display: inline-block;
+  width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+.housenum {
+  display: inline-block;
+}
+.wrap {
+  width: 100%;
+  height: 40%;
+  z-index: 999;
+  position: absolute;
+  bottom: 0px;
+  background-color: #fff;
+  overflow: auto;
+}
+.house {
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #939393;
+  text-align: center;
+}
+ul {
+  padding: 10px;
+}
+.houseitem {
+  margin: 0;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid lightgray;
+}
+.housedetail {
+  float: left;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Noto Sans SC";
+  padding-left: 15px;
+}
+.morehouse {
+  padding-left: 70%;
+  color: #939393;
+}
+.houseimg {
+  height: 100px;
+  widows: 120px;
+}
+.itemdetail {
+  display: inline-block;
+  margin: 10px;
+  position: absolute;
+}
+.itemdetail > h2{
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+.itemdetail > p {
+  padding-bottom: 10px;
+}
