@@ -1,7 +1,5 @@
-<view class="container">
-<text>本周推荐</text>
-<image src="/images/Netflix.jpeg"></image>
-<text>我和黑帮大佬的365天</text>
-<text>点评：</text>
-</view> 
+<view style='width:0px;height:0px;overflow:hidden;'>
 
+	<canvas class="myCanvas" canvas-id="mycanvas" type="2d" />
+
+</view>

@@ -1,10 +1,43 @@
 import React from "react";
 import styles from "./index.module.css";
 
-import { Breadcrumb } from "antd";
+import { Breadcrumb, Form, Table } from "antd";
 
 export default class DailyManage extends React.Component {
   render() {
+    const dataSource = [
+      {
+        key: "1",
+        name: "胡彦斌",
+        age: 32,
+        address: "西湖区湖底公园1号",
+      },
+      {
+        key: "2",
+        name: "胡彦祖",
+        age: 42,
+        address: "西湖区湖底公园1号",
+      },
+    ];
+
+    const columns = [
+      {
+        title: "姓名",
+        dataIndex: "name",
+        key: "name",
+      },
+      {
+        title: "年龄",
+        dataIndex: "age",
+        key: "age",
+      },
+      {
+        title: "住址",
+        dataIndex: "address",
+        key: "address",
+      },
+    ];
+
     return (
       <div>
         <Breadcrumb>
@@ -12,9 +45,11 @@ export default class DailyManage extends React.Component {
             <a href="/repair">日常管理</a>
           </Breadcrumb.Item>
           <Breadcrumb.Item>报修处理</Breadcrumb.Item>
-          <Breadcrumb.Item>报修处理</Breadcrumb.Item>
-          
         </Breadcrumb>
+        <Form>
+          <Form.Item></Form.Item>
+        </Form>
+        <Table dataSource={dataSource} columns={columns} />
       </div>
     );
   }
