@@ -9,10 +9,15 @@ const store = new Vuex.Store({
     num: 9527,
   },
   mutations: {
-    add(state) {
-      state.num + 1;
+    add(state,payload) {
+      state.num += payload;
     },
   },
+  actions:{
+    getAsync(ctx){
+      ctx.commit('add',100)
+    }
+  }
 });
 Vue.config.productionTip = false;
 

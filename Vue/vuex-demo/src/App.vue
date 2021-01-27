@@ -1,13 +1,15 @@
 <template>
   <div id="app">
     <div>插值表达式:{{$store.state.num}}</div>
-    <div>计算属性：{{count}}</div>
+    <!-- <div>计算属性：{{count}}</div> -->
     <div>辅助函数：{{num}}</div>
+    <button @click="add(111)">增加</button>
+    <button @click="getAsync">Action++</button>
   </div>
 </template>
 
 <script>
-import {mapState}  from 'vuex'
+import {mapState,mapMutations}  from 'vuex'
 export default {
   name: "App",
   components: {},
@@ -17,6 +19,15 @@ export default {
       
     // }
     ...mapState(['num'])
+  },
+  methods:{
+    getAsync(){
+      this.$store.dispatch('getAsync')
+    },
+    // add(){
+    //   this.$store.commit('add',10)
+    // }
+    ...mapMutations(['add'])
   }
 };
 </script>
