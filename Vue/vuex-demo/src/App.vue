@@ -5,14 +5,16 @@
     <div>辅助函数：{{num}}</div>
     <button @click="add(111)">增加</button>
     <button @click="getAsync">Action++</button>
+    <Child></Child>
   </div>
 </template>
 
 <script>
 import {mapState,mapMutations}  from 'vuex'
+import Child from './components/child'
 export default {
   name: "App",
-  components: {},
+  components: {Child},
   computed:{
     // count(){
     //   // return this.$store.state.num

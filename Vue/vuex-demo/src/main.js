@@ -9,15 +9,36 @@ const store = new Vuex.Store({
     num: 9527,
   },
   mutations: {
-    add(state,payload) {
+    add(state, payload) {
       state.num += payload;
     },
   },
-  actions:{
-    getAsync(ctx){
-      ctx.commit('add',100)
-    }
-  }
+  actions: {
+    getAsync(ctx) {
+      ctx.commit("add", 100);
+    },
+  },
+  getters: {
+    token: (state) => state.user.token,
+    title: (state) => state.settings.title
+  },
+  modules: {
+    user: {
+      state: {
+        token: "mkqwe123",
+      },
+      mutations:{
+        updateToken(state){
+          state.token="Sayhi"
+        }
+      }
+    },
+    settings: {
+      state: {
+        title: "Vuex modules usage",
+      },
+    },
+  },
 });
 Vue.config.productionTip = false;
 
