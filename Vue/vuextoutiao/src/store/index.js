@@ -18,7 +18,6 @@ export default new Vuex.Store({
   getters: {
     category: state => state.header.category,
     currentCategory: state => state.header.currentCategory,
-    currentList: (state) =>
-      state.news.allData[state.header.currentCategory] || []
+    currentList: state => state.news.allData[state.header.currentCategory] || []
   }
 })
