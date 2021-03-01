@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <script>
-    Function.prototype.callClone = function(...arg) {
+Function.prototype.callClone = function(...arg) {
       let context = arg[0] || window; 
       if(typeof context !== 'object') {
         context = Object.create(null); 
@@ -36,6 +27,3 @@
     bar.callClone(null); // 2
     
     console.log(bar.callClone(obj, 'kevin', 18));
-  </script>
-</body>
-</html>
