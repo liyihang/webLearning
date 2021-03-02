@@ -12,15 +12,15 @@
         <h3 class="title">HRS人力资源管理系统</h3>
       </div>
 
-      <el-form-item prop="username">
+      <el-form-item prop="mobile">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="Username"
-          name="username"
+          ref="mobile"
+          v-model="loginForm.mobile"
+          placeholder="请输入手机号码"
+          name="mobile"
           type="text"
           tabindex="1"
           auto-complete="on"
@@ -36,7 +36,7 @@
           ref="password"
           v-model="loginForm.password"
           :type="passwordType"
-          placeholder="Password"
+          placeholder="请输入密码"
           name="password"
           tabindex="2"
           auto-complete="on"
@@ -66,36 +66,49 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
+import { validMobile } from '@/utils/validate'
 
 export default {
   name: 'Login',
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+    const validateMobile = (rule, value, callback) => {
+      if (!validMobile(value)) {
+        callback(new Error('手机格式不正确'))
       } else {
         callback()
       }
-    }
-    const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
-      } else {
-        callback()
-      }
+      // (validMobile(value))?callback():callback(new Error('手机格式不正确'))
     }
     return {
       loginForm: {
-        username: '18810881088',
+        mobile: '18810881088',
         password: '95277259'
       },
       loginRules: {
-        username: [
-          { required: true, trigger: 'blur', validator: validateUsername }
+        mobile: [
+          {
+            required: true,
+            trigger: 'blur',
+            message: '手机号码不能为空'
+          },
+          {
+            trigger: 'blur',
+            validator: validateMobile,
+            message: '手机号码长度在6-16号之间'
+          }
         ],
         password: [
-          { required: true, trigger: 'blur', validator: validatePassword }
+          {
+            required: true,
+            trigger: 'blur',
+            message: '密码不能为空'
+          },
+          {
+            trigger: 'blur',
+            min: 6,
+            max: 16,
+            message: '手机号码长度在6-16号之间'
+          }
         ]
       },
       loading: false,
@@ -191,16 +204,16 @@ $cursor: #fff;
 
   .el-form-item {
     border: 1px solid rgba(205, 11, 11, 0.1);
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(255, 255, 255, 0.7);
     border-radius: 5px;
     color: #454545;
   }
   .loginBtn {
-  background: #407ffe;
-  height: 64px;
-  line-height: 32px;
-  font-size: 24px;
-}
+    background: #407ffe;
+    height: 64px;
+    line-height: 32px;
+    font-size: 24px;
+  }
 }
 </style>
 
