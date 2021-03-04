@@ -21,9 +21,7 @@ const actions = {
     // 调用登录api接口
     const res = await login(data)
     // 为true 登录成功
-    if (res.data.success) {
-      context.commit('setToken', res.data.data)
-    }
+    context.commit('setToken', res)
   }
 }
 export default {
