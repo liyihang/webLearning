@@ -9,13 +9,15 @@ service.interceptors.request.use() // 请求拦截器
 // 响应拦截器
 service.interceptors.response.use(
   (response) => {
-    const { sucess, message, data } = response.data
+    console.log(response)
+    const { success, message, data } = response.data
     // 成功 返回数据
-    if (sucess) {
+    if (success) {
       return data
     } else {
       // 返回错误信息，返回promise.reject
       Message.error(message)
+      console.log('到这了')
       return Promise.reject(new Error(message))
     }
   },

@@ -58,8 +58,8 @@
       >登录</el-button>
 
       <div class="tips">
-        <span style="margin-right: 20px">账号：18810881088</span>
-        <span> 密码：95277259</span>
+        <span style="margin-right: 20px">账号：13800000003</span>
+        <span> 密码：123456</span>
       </div>
     </el-form>
   </div>
@@ -81,8 +81,8 @@ export default {
     }
     return {
       loginForm: {
-        mobile: '18810881088',
-        password: '95277259'
+        mobile: '13800000003',
+        password: '123456'
       },
       loginRules: {
         mobile: [
