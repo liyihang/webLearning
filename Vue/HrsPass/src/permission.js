@@ -5,15 +5,17 @@ import 'nprogress/nprogress'
 
 // 设置白名单
 const whiteList = ['/login', '/404']
-router.beforeEach((to, from, next) => {
+router.beforeEach(async(to, from, next) => {
   nprogress.start()
   // 判断是否有
   if (store.getters.token) {
-    console.log('123123123')
-
     if (to.path === '/login') {
       next('/')
     } else {
+      // 如果不存在userId  重新获取数据
+      if (!store.getters.userId) {
+        await store.dispatch('user/getUserInfo')
+      }
       next()
     }
   } else {

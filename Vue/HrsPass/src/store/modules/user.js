@@ -1,5 +1,5 @@
-import { login, getUserInfo } from '@/api/user'
-import { getToken, removeToken, setToken } from '@/utils/auth'
+import { login, getUserInfo, getUserDetailById } from '@/api/user'
+import { getToken, removeToken, setToken, setTimeStamp } from '@/utils/auth'
 const state = {
   // 初始化从缓存中读取token
   token: getToken(),
@@ -19,7 +19,7 @@ const mutations = {
   },
   // 设置用户信息
   setUserInfo(state, res) {
-    state.userInfo = res
+    state.userInfo = { ...res }
   },
   // 删除用户数据
   removeUserInfo(state) {
@@ -32,11 +32,23 @@ const actions = {
     const res = await login(data)
     // 为true 登录成功
     context.commit('setToken', res)
+    // set timestamp
+    setTimeStamp()
   },
   async getUserInfo(context) {
     const result = await getUserInfo()
-    context.commit('setUserInfo', result)
+    // 获取用户信息后，再获取详情
+    const baseInfo = await getUserDetailById(result.userId)
+    const res = { ...result, ...baseInfo }
+    context.commit('setUserInfo', res)
     return result // 以后做权限使用
+  },
+  // 退出功能
+  logout(context) {
+    // delete token
+    context.commit('removeToken')
+    // delete userinfo
+    context.commit('removeUserInfo')
   }
 }
 export default {
