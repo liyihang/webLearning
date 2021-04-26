@@ -1,9 +1,9 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
+    <p>{{$store.state.user.profile.nickname}}</p>
+    <button @click="$store.commit('user/setUser',{nickname:'萬萬'})">update</button>
   <router-view/>
+  </div>
 </template>
 
 <style lang="less">
