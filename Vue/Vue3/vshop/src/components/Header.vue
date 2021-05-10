@@ -7,17 +7,25 @@
       <li>会员中心</li>
       <li>帮助中心</li>
       <li>下载App</li>
+      <div ref="hell"><button @click="clickme">点我</button></div>
     </ul>
   </div>
 </template>
 <script>
 export default {
-
+  methods: {
+    clickme () {
+      const h = this.$refs.hell.scrollHeight
+      let t = this.$refs.hell.scrollTop
+      t = h
+      console.log(t)
+    }
+  }
 }
 </script>
 
 <style>
-.header{
+.header {
   height: 120px;
   width: 100%;
   background-color: #000;

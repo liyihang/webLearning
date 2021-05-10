@@ -1,10 +1,18 @@
 <template>
   <div id="nav">
-    <p>{{$store.state.user.profile.nickname}}</p>
-    <button @click="$store.commit('user/setUser',{nickname:'萬萬'})">update</button>
-  <router-view/>
+    <router-view></router-view>
   </div>
 </template>
+<script>
+import request from './utils/request'
+export default {
+  created () {
+    request('/home/banner', 'get').then(data => {
+      console.log(data)
+    })
+  }
+}
+</script>
 
 <style lang="less">
 #app {
