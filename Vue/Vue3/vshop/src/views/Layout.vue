@@ -1,6 +1,6 @@
 <template>
   <!-- header -->
-  <nav>顶部通栏</nav>
+  <nav class="test">顶部通栏</nav>
   <!-- 头部 -->
   <header>头部</header>
   <!-- 页面主体 -->
@@ -17,4 +17,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped lang="less">
+.test{
+  color: @comColor;
+}
+</style>
