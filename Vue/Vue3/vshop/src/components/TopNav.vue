@@ -2,12 +2,22 @@
   <nav class="nav">
     <div class="container">
       <ul>
-        <li>
-          <a href="#">请先登录</a>
-        </li>
-        <li>
-          <a href="#">免费注册</a>
-        </li>
+        <template v-if="profile.token">
+          <li>
+            <a href="#"><i class="iconfont icon-user"></i>{{ profile.nickname }}</a>
+          </li>
+          <li>
+            <a href="#">退出登录</a>
+          </li>
+        </template>
+        <template v-else>
+          <li>
+            <a href="#">请先登录</a>
+          </li>
+          <li>
+            <a href="#">免费注册</a>
+          </li>
+        </template>
         <li>
           <a href="#">我的订单</a>
         </li>
@@ -25,8 +35,12 @@
   </nav>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'TopNav',
+  computed: {
+    ...mapState('user', ['profile'])
+  },
   methods: {}
 }
 </script>
@@ -45,13 +59,16 @@ export default {
         color: #cdcdcd;
         line-height: 1;
         display: inline-block;
-        i{
+        &:hover {
+          color: @comColor;
+        }
+        i {
           font-size: 12px;
           margin-right: 2px;
         }
       }
-      ~li{
-        a{
+      ~ li {
+        a {
           border-left: 2px solid #797575;
         }
       }
