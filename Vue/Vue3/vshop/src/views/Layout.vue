@@ -1,6 +1,6 @@
 <template>
   <!-- header -->
-  <nav class="test">顶部通栏</nav>
+  <top-nav></top-nav>
   <!-- 头部 -->
   <header>头部</header>
   <!-- 页面主体 -->
@@ -12,7 +12,9 @@
 </template>
 
 <script>
+import TopNav from '@/components/TopNav'
 export default {
+  components: { TopNav },
   name: 'Layout'
 }
 </script>

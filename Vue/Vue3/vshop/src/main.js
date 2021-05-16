@@ -7,6 +7,8 @@ import store from './store'
 //   // }
 //   App.config.devtools = true
 // }
+import 'normalize.css'
+import '@/assets/styles/common.less'
 createApp(App)
   .use(store)
   .use(router)
