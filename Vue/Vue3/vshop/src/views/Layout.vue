@@ -2,25 +2,30 @@
   <!-- header -->
   <top-nav></top-nav>
   <!-- 头部 -->
-  <header>头部</header>
+  <Header></Header>
   <!-- 页面主体 -->
-  <main>
+  <main class="main-body">
     <RouterView />
   </main>
   <!-- footer -->
-  <footer>底部</footer>
+  <Footer></Footer>
 </template>
 
 <script>
+import Footer from '@/components/Footer'
 import TopNav from '@/components/TopNav'
+import Header from '@/components/Header'
 export default {
-  components: { TopNav },
+  components: { TopNav, Header, Footer },
   name: 'Layout'
 }
 </script>
 
 <style scoped lang="less">
-.test{
+.main-body{
+  min-height: 600px;
+}
+.test {
   color: @comColor;
 }
 </style>
