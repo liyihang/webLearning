@@ -7,6 +7,9 @@ import store from './store'
 //   // }
 //   App.config.devtools = true
 // }
+
+// 导入mock.js
+import '@/mock'
 import 'normalize.css'
 import '@/assets/styles/common.less'
 createApp(App)
