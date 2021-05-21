@@ -16,13 +16,20 @@ import Footer from '@/components/Footer'
 import TopNav from '@/components/TopNav'
 import Header from '@/components/Header'
 export default {
-  components: { TopNav, Header, Footer },
-  name: 'Layout'
+  name: 'Layout',
+  components: {
+    TopNav,
+    Header,
+    Footer
+  },
+  created () {
+    this.$store.dispatch('category/getCategory')
+  }
 }
 </script>
 
 <style scoped lang="less">
-.main-body{
+.main-body {
   min-height: 600px;
 }
 .test {

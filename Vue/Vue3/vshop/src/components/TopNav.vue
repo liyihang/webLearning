@@ -28,6 +28,9 @@
           <a href="#">帮助中心</a>
         </li>
         <li>
+          <a href="#">关于我们</a>
+        </li>
+        <li>
           <a href="#"><i class="iconfont icon-phone"></i>下载App</a>
         </li>
       </ul>

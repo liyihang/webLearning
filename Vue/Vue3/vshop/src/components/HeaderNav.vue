@@ -1,36 +1,29 @@
 <template>
   <ul class="header-nav">
     <li class="home"><RouterLink to="/">首页</RouterLink></li>
-    <li>
-      <a href="#">美食</a>
+    <li v-for="item in list" :key="item.id">
+      <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
       <div class="layer">
         <ul>
-          <li v-for="i in 10" :key="i">
-            <a href="#">
-              <img
-                src="http://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/img/category%20(4).png"
-                alt=""
-              />
-              <p>果干</p>
-            </a>
+          <li v-for="sub in item.children" :key="sub.id">
+            <router-link :to="`/category/sub/${sub.id}`">
+              <img :src="sub.picture" alt="" />
+              <p>{{ sub.name }}</p>
+            </router-link>
           </li>
         </ul>
       </div>
     </li>
-    <li><a href="#">餐厨</a></li>
-    <li><a href="#">艺术</a></li>
-    <li><a href="#">电器</a></li>
-    <li><a href="#">居家</a></li>
-    <li><a href="#">洗护</a></li>
-    <li><a href="#">孕婴</a></li>
-    <li><a href="#">服装</a></li>
-    <li><a href="#">杂货</a></li>
   </ul>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-  name: 'HeaderNav'
+  name: 'HeaderNav',
+  computed: {
+    ...mapState('category', ['list'])
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -40,11 +33,11 @@ export default {
   padding-left: 40px;
   position: relative;
   z-index: 998;
-  >li {
+  > li {
     margin-right: 40px;
     width: 38px;
     text-align: center;
-    >a {
+    > a {
       font-size: 16px;
       line-height: 32px;
       height: 32px;
@@ -55,7 +48,7 @@ export default {
         color: @comColor;
         border-bottom: 1px solid @comColor;
       }
-      .layer {
+      > .layer {
         height: 124px;
         opacity: 1;
       }
