@@ -8,7 +8,7 @@ import store from '@/store'
 import router from '@/router'
 // axios instance
 const instance = axios.create({
-  baseURL: 'http://pcapi-xiaotuxian-front.itheima.net/',
+  // baseURL: 'http://pcapi-xiaotuxian-front.itheima.net/',
   timeout: 5000
 })
 // request interception

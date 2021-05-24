@@ -3,18 +3,33 @@ import { findHeadCategory } from '@/api/home'
 
 export default {
   namespaced: true,
-  state: {
-    list: topCategory.map(item => ({ name: item }))
-  },
-  mutations: {
-    setCategory (state, headCategory) {
-      state.list = headCategory
+  state: () => {
+    // return  data
+    return {
+      list: topCategory.map(item => ({ name: item }))
     }
   },
+  // register mutatioms
+  mutations: {
+    /**
+     *
+     * @param {*} state   the state should be first param
+     * @param {*} headCategory      the second param payload
+     */
+    setCategory (state, res) {
+      state.list = res
+    }
+  },
+  // register action
   actions: {
+    /**
+     *
+     * @param {*} param
+     */
     async getCategory ({ commit }) {
-      const { result } = await findHeadCategory()
-      commit('setCategory', result)
+      const { results } = await findHeadCategory()
+      console.log(results)
+      commit('setCategory', results)
     }
   }
 }
