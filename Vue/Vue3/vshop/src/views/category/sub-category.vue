@@ -1,5 +1,5 @@
 <template>
-  <h1>goods-category</h1>
+  <div>Hello-sub-category</div>
 </template>
 
 <script>

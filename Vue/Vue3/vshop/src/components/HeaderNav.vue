@@ -1,12 +1,19 @@
 <template>
   <ul class="header-nav">
     <li class="home"><RouterLink to="/">首页</RouterLink></li>
-    <li v-for="item in list" :key="item.id">
-      <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
-      <div class="layer">
+    <li
+      v-for="item in list"
+      :key="item.id"
+      @mouseenter="show(item)"
+      @mouseleave="hide(item)"
+    >
+      <RouterLink :to="`/category/${item.id}`" @click="hide(item)">{{
+        item.name
+      }}</RouterLink>
+      <div class="layer" :class="{open:item.open}">
         <ul>
           <li v-for="sub in item.children" :key="sub.id">
-            <router-link :to="`/category/sub/${sub.id}`">
+            <router-link :to="`/category/sub/${sub.id}`" @click="hide(item)">
               <img :src="sub.picture" alt="" />
               <p>{{ sub.name }}</p>
             </router-link>
@@ -18,11 +25,14 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'HeaderNav',
   computed: {
     ...mapState('category', ['list'])
+  },
+  methods: {
+    ...mapMutations('category', ['show', 'hide'])
   }
 }
 </script>
@@ -48,14 +58,18 @@ export default {
         color: @comColor;
         border-bottom: 1px solid @comColor;
       }
-      > .layer {
-        height: 124px;
-        opacity: 1;
-      }
+      // > .layer {
+      //   height: 124px;
+      //   opacity: 1;
+      // }
     }
   }
 }
 .layer {
+  &.open {
+    height: 124px;
+    opacity: 1;
+  }
   width: 1240px;
   background-color: #fff;
   position: absolute;

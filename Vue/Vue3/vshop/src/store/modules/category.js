@@ -18,6 +18,14 @@ export default {
      */
     setCategory (state, res) {
       state.list = res
+    },
+    show (state, item) {
+      const category = state.list.find(category => category.id === item.id)
+      category.open = true
+    },
+    hide (state, item) {
+      const category = state.list.find(category => category.id === item.id)
+      category.open = false
     }
   },
   // register action
@@ -28,6 +36,9 @@ export default {
      */
     async getCategory ({ commit }) {
       const { results } = await findHeadCategory()
+      results.forEach(item => {
+        item.open = false
+      })
       console.log(results)
       commit('setCategory', results)
     }
