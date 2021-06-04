@@ -1,6 +1,7 @@
 <template>
   <!-- header -->
   <top-nav></top-nav>
+  <TopNavStricky />
   <!-- 头部 -->
   <Header></Header>
   <!-- 页面主体 -->
@@ -15,12 +16,14 @@
 import Footer from '@/components/Footer'
 import TopNav from '@/components/TopNav'
 import Header from '@/components/Header'
+import TopNavStricky from '@/components/HeaderNavSticky'
 export default {
   name: 'Layout',
   components: {
     TopNav,
     Header,
-    Footer
+    Footer,
+    TopNavStricky
   },
   created () {
     this.$store.dispatch('category/getCategory')
