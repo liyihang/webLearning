@@ -1,9 +1,20 @@
 <template>
-  <h1>goods</h1>
+  <div class="home-page">
+    <div class="home-entry">
+      <div class="container">
+        <!-- 左侧分类 -->
+        <HomeCategory />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {}
+import HomeCategory from './components/home-categroy.vue'
+export default {
+  name: 'PageHome',
+  components: { HomeCategory }
+}
 </script>
 
-<style></style>
+<style scoped lang="less"></style>

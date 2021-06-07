@@ -12,7 +12,18 @@ const images = [
   'http://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/img/category%20(7).png',
   'http://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/img/category%20(8).png'
 ]
-
+const goods = []
+for (let index = 0; index < 9; index++) {
+  goods.push(
+    Mock.mock({
+      id: '@id',
+      name: '@ctitle(15,20)',
+      desc: '@ctitle(6,12)',
+      price: '@float(10,200,2,2)', // 预备几张图，随机取出即可
+      picture: images[Mock.mock('@integer(0,7)')]
+    })
+  )
+}
 const getHeadCategory = () => {
   const topCategoryList = topCategory.map(item => {
     const children = []
@@ -29,7 +40,8 @@ const getHeadCategory = () => {
     return Mock.mock({
       id: '@id',
       name: item,
-      children
+      children,
+      goods
     })
   })
   return {
