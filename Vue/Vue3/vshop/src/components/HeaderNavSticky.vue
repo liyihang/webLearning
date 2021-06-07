@@ -1,6 +1,6 @@
 <template>
-  <div class="app-header-sticky" :class="{ show }">
-    <div class="container" v-show="{ show }">
+  <div class="app-header-sticky" :class="{ show:y>78 }">
+    <div class="container" v-show="y>78">
       <RouterLink class="logo" to="/" />
       <HeaderNav />
       <div class="right">
@@ -13,20 +13,25 @@
 
 <script>
 import HeaderNav from './HeaderNav'
+import { useWindowScroll } from '@vueuse/core'
 export default {
   name: 'AppHeaderSticky',
   components: { HeaderNav },
-  data () {
-    return {
-      show: false
-    }
-  },
-  mounted () {
-    window.onscroll = () => {
-      const scrollTop = document.documentElement.scrollTop
-      this.show = scrollTop >= 78
-    }
+  setup () {
+    const { y } = useWindowScroll()
+    return { y }
   }
+  // data () {
+  //   return {
+  //     show: false
+  //   }
+  // },
+  // mounted () {
+  //   window.onscroll = () => {
+  //     const scrollTop = document.documentElement.scrollTop
+  //     this.show = scrollTop >= 78
+  //   }
+  // }
 }
 </script>
 <style scoped lang="less">
