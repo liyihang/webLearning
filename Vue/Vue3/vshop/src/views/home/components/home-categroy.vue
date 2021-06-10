@@ -38,6 +38,21 @@
           </RouterLink>
         </li>
       </ul>
+      <ul>
+        <li class="brand" v-for="i in 6" :key="i">
+          <RouterLink to="/">
+            <img
+              src="http://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/brand_goods_1.jpg"
+              alt=""
+            />
+            <div class="info">
+              <p class="place"><i class="iconfont icon-dingwei"></i>北京</p>
+              <p class="name ellipsis">DW</p>
+              <p class="desc ellipsis-2">DW品牌闪购</p>
+            </div>
+          </RouterLink>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -69,7 +84,6 @@ export default {
       //   item => item.id === this.categoryId
       // )
       const data = this.menuList.find(item => item.id === this.categoryId)
-      console.log(data)
       return data
     },
     menuList () {
@@ -193,22 +207,22 @@ export default {
         }
       }
     }
-  }
-}
-li.brand {
-  height: 180px;
-  a {
-    align-items: flex-start;
-    img {
-      width: 120px;
-      height: 160px;
-    }
-    .info {
-      p {
-        margin-top: 8px;
-      }
-      .place {
-        color: #999;
+    li.brand {
+      height: 180px;
+      a {
+        align-items: flex-start;
+        img {
+          width: 120px;
+          height: 160px;
+        }
+        .info {
+          p {
+            margin-top: 8px;
+          }
+          .place {
+            color: #999;
+          }
+        }
       }
     }
   }
