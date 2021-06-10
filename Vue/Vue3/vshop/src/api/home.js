@@ -7,3 +7,9 @@ import request from '@/utils/request'
 export const findHeadCategory = () => {
   return request('/home/category/head', 'get')
 }
+/**
+ * 获取头部品牌数据
+ */
+export const findBrands = limit => {
+  return request('/home/brand', 'get', limit)
+}
