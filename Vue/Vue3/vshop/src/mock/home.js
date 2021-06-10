@@ -22,7 +22,7 @@ export default {
     }
     return {
       msg: '获取品牌成功',
-      return: brands
+      result: brands
     }
   }
 }

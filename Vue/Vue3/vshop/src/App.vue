@@ -8,7 +8,7 @@ import request from './utils/request'
 export default {
   created () {
     request('/home/category/head', 'get').then(data => {
-      console.log(data)
+      // console.log(data)
     })
   }
 }

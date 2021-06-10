@@ -1,8 +1,9 @@
 <template>
-  <div class="home-category">
+  <div class="home-category" @mouseleave="categoryId = null">
     <ul class="menu">
       <li
         v-for="item in menuList"
+        :class="{ active: categoryId == item.id }"
         :key="item.id"
         @mouseenter="categoryId = item.id"
       >
@@ -19,7 +20,10 @@
       </li>
     </ul>
     <div class="layer">
-      <h4>分类推荐 <small>根据您的购买或浏览记录推荐</small></h4>
+      <h4 v-if="currCategory">
+        {{ currCategory.id === 'brand' ? '品牌' : '分类' }}推荐
+        <small>根据您的购买或浏览记录推荐</small>
+      </h4>
       <ul
         v-if="currCategory && currCategory.goods && currCategory.goods.length"
       >
@@ -39,6 +43,7 @@
 </template>
 
 <script>
+import { findBrands } from '@/api/home'
 export default {
   name: 'HomeCategory',
   data () {
@@ -48,15 +53,24 @@ export default {
       brand: {
         id: 'brand-100',
         name: '品牌',
-        children: [{ id: 'brand-100-001', name: '品牌推荐' }]
+        children: [{ id: 'brand-100-001', name: '品牌推荐' }],
+        brands: []
       }
     }
   },
+  async created () {
+    const data = await findBrands(6)
+    console.log(data)
+    this.brand.brands = data.result
+  },
   computed: {
     currCategory () {
-      return this.$store.state.category.list.find(
-        item => item.id === this.categoryId
-      )
+      // return this.$store.state.category.list.find(
+      //   item => item.id === this.categoryId
+      // )
+      const data = this.menuList.find(item => item.id === this.categoryId)
+      console.log(data)
+      return data
     },
     menuList () {
       const list = this.$store.state.category.list.map(item => {
@@ -86,7 +100,7 @@ export default {
       padding-left: 40px;
       height: 50px;
       line-height: 50px;
-      &:hover {
+      &:hover&.active {
         background: @comColor;
       }
       a {
@@ -114,71 +128,89 @@ export default {
   }
 }
 .layer {
-    width: 990px;
-    height: 500px;
-    background: rgba(255,255,255,0.8);
-    position: absolute;
-    left: 250px;
-    top: 0;
-    display: none;
-    padding: 0 15px;
-    h4 {
-      font-size: 20px;
-      font-weight: normal;
-      line-height: 80px;
-      small {
-        font-size: 16px;
-        color: #666;
-      }
+  width: 990px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  left: 250px;
+  top: 0;
+  display: none;
+  padding: 0 15px;
+  h4 {
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 80px;
+    small {
+      font-size: 16px;
+      color: #666;
     }
-    ul {
-      display: flex;
-      flex-wrap: wrap;
-      li {
-        width: 310px;
-        height: 120px;
-        margin-right: 15px;
-        margin-bottom: 15px;
-        border: 1px solid #eee;
-        border-radius: 4px;
-        background: #fff;
-        &:nth-child(3n) {
-          margin-right: 0;
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    li {
+      width: 310px;
+      height: 120px;
+      margin-right: 15px;
+      margin-bottom: 15px;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      background: #fff;
+      &:nth-child(3n) {
+        margin-right: 0;
+      }
+      a {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        padding: 10px;
+        &:hover {
+          background: #e3f9f4;
         }
-        a {
-          display: flex;
-          width: 100%;
-          height: 100%;
-          align-items: center;
-          padding: 10px;
-          &:hover {
-            background: #e3f9f4;
-          }
-          img {
-              width: 95px;
-              height: 95px;
-          }
-          .info {
-            padding-left: 10px;
-            line-height: 24px;
+        img {
+          width: 95px;
+          height: 95px;
+        }
+        .info {
+          padding-left: 10px;
+          line-height: 24px;
 
-            .name {
+          .name {
+            font-size: 16px;
+            color: #666;
+          }
+          .desc {
+            color: #999;
+          }
+          .price {
+            font-size: 22px;
+            color: @priceColor;
+            i {
               font-size: 16px;
-              color: #666;
-            }
-            .desc {
-              color: #999;
-            }
-            .price {
-              font-size: 22px;
-              color: @priceColor;
-              i {
-                font-size: 16px;
-              }
             }
           }
         }
       }
     }
   }
+}
+li.brand {
+  height: 180px;
+  a {
+    align-items: flex-start;
+    img {
+      width: 120px;
+      height: 160px;
+    }
+    .info {
+      p {
+        margin-top: 8px;
+      }
+      .place {
+        color: #999;
+      }
+    }
+  }
+}
 </style>

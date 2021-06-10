@@ -13,4 +13,4 @@ Mock.setup({
  */
 Mock.mock(/\/home\/category\/head/, 'get', category.headCategory)
 // brands
-Mock.mock(/\/home\/brand/, 'get', home.brands)
+Mock.mock(/\/home\/brand/, 'get', home.brand)

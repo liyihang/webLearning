@@ -11,5 +11,5 @@ export const findHeadCategory = () => {
  * 获取头部品牌数据
  */
 export const findBrands = limit => {
-  return request('/home/brand', 'get', limit)
+  return request('/home/brand', 'get', { limit })
 }
