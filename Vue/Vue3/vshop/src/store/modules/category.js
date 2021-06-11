@@ -39,7 +39,6 @@ export default {
       results.forEach(item => {
         item.open = false
       })
-      console.log(results)
       commit('setCategory', results)
     }
   }
