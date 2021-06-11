@@ -5,7 +5,6 @@
         v-for="item in menuList"
         :class="{ active: categoryId == item.id }"
         :key="item.id"
-        :class="{ active: categoryId === item.id }"
         @mouseenter="categoryId = item.id"
       >
         <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
@@ -40,7 +39,6 @@
           </RouterLink>
         </li>
       </ul>
-<<<<<<< HEAD
       <ul
         v-if="currCategory && currCategory.brands && currCategory.brands.length"
       >
@@ -53,19 +51,6 @@
               </p>
               <p class="name ellipsis">{{ item.name }}</p>
               <p class="desc ellipsis-2">{{ item.desc }}</p>
-=======
-      <ul>
-        <li class="brand" v-for="i in 6" :key="i">
-          <RouterLink to="/">
-            <img
-              src="http://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/brand_goods_1.jpg"
-              alt=""
-            />
-            <div class="info">
-              <p class="place"><i class="iconfont icon-dingwei"></i>北京</p>
-              <p class="name ellipsis">DW</p>
-              <p class="desc ellipsis-2">DW品牌闪购</p>
->>>>>>> 484f6bee13b695e93138ba747307e4898b58c993
             </div>
           </RouterLink>
         </li>
@@ -75,11 +60,8 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 import { findBrand } from '@/api/home'
-=======
-import { findBrands } from '@/api/home'
->>>>>>> 484f6bee13b695e93138ba747307e4898b58c993
+
 export default {
   name: 'HomeCategory',
   // 1. 获取vuex的一级分类，并且只需要两个二级分类
@@ -93,7 +75,6 @@ export default {
         id: 'brand-100',
         name: '品牌',
         children: [{ id: 'brand-100-001', name: '品牌推荐' }],
-<<<<<<< HEAD
         // 存储品牌列表
         brands: []
       },
@@ -104,29 +85,14 @@ export default {
   async created () {
     const { result } = await findBrand(6)
     this.brand.brands = result
-=======
-        brands: []
-      }
-    }
-  },
-  async created () {
-    const data = await findBrands(6)
-    console.log(data)
-    this.brand.brands = data.result
->>>>>>> 484f6bee13b695e93138ba747307e4898b58c993
   },
   computed: {
     // 当前分类====>可以取出对应推荐商品+推荐品牌
     currCategory () {
-<<<<<<< HEAD
       return this.menuList.find(item => item.id === this.categoryId)
-=======
       // return this.$store.state.category.list.find(
       //   item => item.id === this.categoryId
       // )
-      const data = this.menuList.find(item => item.id === this.categoryId)
-      return data
->>>>>>> 484f6bee13b695e93138ba747307e4898b58c993
     },
     // 菜单数据
     menuList () {
@@ -159,12 +125,8 @@ export default {
       padding-left: 40px;
       height: 50px;
       line-height: 50px;
-<<<<<<< HEAD
       &:hover,
       &.active {
-=======
-      &:hover&.active {
->>>>>>> 484f6bee13b695e93138ba747307e4898b58c993
         background: @comColor;
       }
       a {
@@ -231,19 +193,11 @@ export default {
         padding: 10px;
         &:hover {
           background: #e3f9f4;
-<<<<<<< HEAD
         }
         img {
           width: 95px;
           height: 95px;
         }
-=======
-        }
-        img {
-          width: 95px;
-          height: 95px;
-        }
->>>>>>> 484f6bee13b695e93138ba747307e4898b58c993
         .info {
           padding-left: 10px;
           line-height: 24px;
@@ -265,10 +219,6 @@ export default {
         }
       }
     }
-<<<<<<< HEAD
-    // 提供品牌的
-=======
->>>>>>> 484f6bee13b695e93138ba747307e4898b58c993
     li.brand {
       height: 180px;
       a {
