@@ -39,6 +39,10 @@ export default {
       results.forEach(item => {
         item.open = false
       })
+<<<<<<< HEAD
+=======
+      // console.log(results)
+>>>>>>> 484f6bee13b695e93138ba747307e4898b58c993
       commit('setCategory', results)
     }
   }
