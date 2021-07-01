@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>overflow  float</title>
+</head>
+<style>
+    .column-layout{
+        width: 400px;
+        height: 400px;
+    }
+    .left{
+        float: left;
+        width: 100px;
+        height: 100%;
+        background-color: #f55;
+    }
+    .right{
+        overflow: hidden;
+        height: 100%;
+        background-color: #55f;
+    }
+</style>
+<body>
+    <div class="column-layout">
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>three-column-layout  overflow float</title>
+</head>
+<style>
+.three-column-layout{
+    width: 400px;
+    height: 400px;
+}
+.left{
+    float: left;
+    width: 50px;
+    height: 100%;
+    background-color: #f66;
+}
+.center{
+    float: left;
+    width: 100px;
+    height: 100%;
+    background-color: #66f;
+}
+.right{
+    overflow: hidden;
+    height: 100%;
+    background-color: #3c9;
+}
+</style>
+<body>
+    <div class="three-column-layout">
+        <div class="left"></div>
+        <div class="center"></div>
+        <div class="right"></div>
+    </div>
+</body>
+</html>

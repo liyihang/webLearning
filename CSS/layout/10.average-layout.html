@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>average layout</title>
+</head>
+<style>
+    /* .average-layout{
+        height: 400px;
+        width: 400px;
+    }
+    div{
+        float: left;
+        width: 25%;
+        height: 100%;
+    } */
+    /* or below */
+    /* .average-layout{
+        column-count: 4;
+        column-gap: 0;
+        height: 400px;
+        width: 400px;
+    }
+    div{
+        height: 100%;
+    } */
+    /* or use flex */
+    .average-layout{
+        display: flex;
+        width: 400px;
+        height: 400px;
+    }
+    div{
+        flex: 1;
+    }
+    .one{
+        background-color: #f66;
+    }
+    .two{
+        background-color: #66f;
+    }
+    .three{
+        background-color: #f90;
+    }
+    .four{
+        background-color: #09f;
+    }
+</style>
+<body>
+    <div class="average-layout">
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+        <div class="four"></div>
+    </div>
+</body>
+</html>
