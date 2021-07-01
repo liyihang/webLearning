@@ -1,7 +1,5 @@
 {
   "prettier.singleQuote": true,
   "files.autoSave": "afterDelay",
-  "workbench.editorAssociations": [
-  
-  ]
+  "workbench.editorAssociations": {}
 }
