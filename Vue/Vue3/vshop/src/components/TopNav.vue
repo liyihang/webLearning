@@ -4,7 +4,9 @@
       <ul>
         <template v-if="profile.token">
           <li>
-            <a href="#"><i class="iconfont icon-user"></i>{{ profile.nickname }}</a>
+            <a href="#"
+              ><i class="iconfont icon-user">{{ profile.nickname }}</i></a
+            >
           </li>
           <li>
             <a href="#">退出登录</a>
@@ -38,13 +40,23 @@
   </nav>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+// import { mapState } from 'vuex'
 export default {
   name: 'TopNav',
-  computed: {
-    ...mapState('user', ['profile'])
-  },
-  methods: {}
+  setup () {
+    const store = useStore()
+    const profile = computed(() => {
+      return store.state.user.profile
+    })
+
+    return { profile }
+  }
+  // computed: {
+  //   ...mapState('user', ['profile'])
+  // },
+  // methods: {}
 }
 </script>
 

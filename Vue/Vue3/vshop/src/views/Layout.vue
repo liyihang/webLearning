@@ -17,6 +17,7 @@ import Footer from '@/components/Footer'
 import TopNav from '@/components/TopNav'
 import Header from '@/components/Header'
 import TopNavStricky from '@/components/HeaderNavSticky'
+import { useStore } from 'vuex'
 export default {
   name: 'Layout',
   components: {
@@ -25,8 +26,12 @@ export default {
     Footer,
     TopNavStricky
   },
-  created () {
-    this.$store.dispatch('category/getCategory')
+  // created () {
+  //   this.$store.dispatch('category/getCategory')
+  // }
+  setup () {
+    const store = useStore()
+    store.dispatch('category/getCategory')
   }
 }
 </script>
