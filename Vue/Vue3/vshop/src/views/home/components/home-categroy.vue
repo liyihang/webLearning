@@ -17,6 +17,10 @@
             {{ sub.name }}
           </RouterLink>
         </template>
+        <span v-else>
+           <skeleton width="40px" style="margin-right:5px" bg="rgba(255,255,255,0.2)" />
++          <skeleton width="35px" bg="rgba(255,255,255,0.2)" />
+        </span>
       </li>
     </ul>
     <!-- 推荐商品弹层 -->
@@ -61,8 +65,10 @@
 
 <script>
 import { findBrand } from '@/api/home'
+import skeleton from '../../../components/library/skeleton.vue'
 
 export default {
+  components: { skeleton },
   name: 'HomeCategory',
   // 1. 获取vuex的一级分类，并且只需要两个二级分类
   // 2. 需要在组件内部，定义一个品牌数据
@@ -237,6 +243,17 @@ export default {
         }
       }
     }
+  }
+}
+.xtx-skeleton {
+  animation: fade 1s linear infinite alternate;
+}
+@keyframes fade {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
   }
 }
 </style>

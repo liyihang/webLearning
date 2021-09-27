@@ -10,9 +10,13 @@ import store from './store'
 
 // 导入mock.js
 import '@/mock'
+
+// 导入skeleton
+import ui from './components/library'
 import 'normalize.css'
 import '@/assets/styles/common.less'
 createApp(App)
   .use(store)
   .use(router)
+  .use(ui)
   .mount('#app')
