@@ -16,3 +16,6 @@ Mock.mock(/\/home\/category\/head/, 'get', category.headCategory)
 // brands
 
 Mock.mock(/\/home\/brand/, 'get', home.brand)
+
+// banner
+Mock.mock(/\/home\/banner/, 'get', home.banner)

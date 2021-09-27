@@ -26,5 +26,20 @@ export default {
       msg: '获取品牌成功',
       result: brands
     }
+  },
+  // baner 轮播图
+  banner: config => {
+    const list = []
+    for (var i = 0; i < 5; i++) {
+      list.push(Mock.mock({
+        id: '@id',
+        imgUrl: `http://zhoushugang.gitee.io/erabbit-client-pc-static/images/b${i + 1}.jpg`,
+        hrefUrl: '#'
+      }))
+    }
+    return {
+      msg: '获取轮播成功',
+      result: list
+    }
   }
 }

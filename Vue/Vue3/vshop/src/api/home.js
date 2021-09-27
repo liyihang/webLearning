@@ -13,3 +13,6 @@ export const findHeadCategory = () => {
 export const findBrand = limit => {
   return request('/home/brand', 'get', { limit })
 }
+export const findbaner = () => {
+  return request('/home/baner', 'get')
+}
