@@ -17,7 +17,7 @@ export default {
       sliders:[]
     }
   },
-  asnyc created () {
+  async created () {
     const data = await findBaner()
     this.sliders = data.results
   }
