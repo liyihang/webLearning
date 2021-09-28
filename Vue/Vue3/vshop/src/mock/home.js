@@ -27,7 +27,7 @@ export default {
       result: brands
     }
   },
-  // baner 轮播图
+  // banner 轮播图
   banner: config => {
     const list = []
     for (var i = 0; i < 5; i++) {

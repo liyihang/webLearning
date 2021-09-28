@@ -19,7 +19,7 @@
         </template>
         <span v-else>
            <skeleton width="40px" style="margin-right:5px" bg="rgba(255,255,255,0.2)" />
-+          <skeleton width="35px" bg="rgba(255,255,255,0.2)" />
++          <skeleton width="45px" bg="rgba(255,255,255,0.2)" />
         </span>
       </li>
     </ul>
@@ -65,7 +65,7 @@
 
 <script>
 import { findBrand } from '@/api/home'
-import skeleton from '../../../components/library/skeleton.vue'
+import skeleton from '@/components/library/skeleton.vue'
 
 export default {
   components: { skeleton },

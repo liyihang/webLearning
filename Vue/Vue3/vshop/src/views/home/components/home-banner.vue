@@ -1,12 +1,11 @@
 <template>
   <div class="home-baner">
-    <Carousel :sliders="sliders"/>
+    <Carousel :sliders="sliders" />
   </div>
 </template>
-
 <script>
-import Carousel from '../../components/library/carousel.vue'
-import {findBaner} from '@api/home'
+import Carousel from '@/components/library/carousel.vue'
+import { findBanner } from '@/api/home'
 export default {
   name: 'HomeCarousel',
   components: {
@@ -14,16 +13,15 @@ export default {
   },
   data () {
     return {
-      sliders:[]
+      sliders: []
     }
   },
   async created () {
-    const data = await findBaner()
+    const data = await findBanner()
     this.sliders = data.results
   }
 }
 </script>
-
 <style>
 .home-banner {
   width: 1240px;

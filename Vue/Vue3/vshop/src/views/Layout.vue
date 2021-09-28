@@ -40,7 +40,4 @@ export default {
 .main-body {
   min-height: 600px;
 }
-.test {
-  color: @comColor;
-}
 </style>
