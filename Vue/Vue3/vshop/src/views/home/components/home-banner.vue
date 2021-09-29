@@ -1,13 +1,13 @@
 <template>
-  <div class="home-baner">
-    <Carousel :sliders="sliders" />
+  <div class="home-banner">
+    <Carousel autoPlay :sliders="sliders" />
   </div>
 </template>
 <script>
 import Carousel from '@/components/library/carousel.vue'
 import { findBanner } from '@/api/home'
 export default {
-  name: 'HomeCarousel',
+  name: 'HomeBanner',
   components: {
     Carousel
   },
@@ -17,8 +17,10 @@ export default {
     }
   },
   async created () {
-    const data = await findBanner()
-    this.sliders = data.results
+    const { result } = await findBanner()
+    console.log(result)
+    this.sliders = result
+    // console.log(this.sliders)
   }
 }
 </script>
@@ -31,4 +33,12 @@ export default {
   top: 0;
   z-index: 98;
 }
+/* .xtx-carousel {
+  ::v-deep .carousel-btn.prev {
+    left: 270px;
+  }
+  ::v-deep .carousel-indicator {
+    padding-left: 250px;
+  }
+} */
 </style>
