@@ -41,5 +41,21 @@ export default {
       msg: '获取轮播成功',
       result: list
     }
+  },
+  // 新鲜好物
+  new: config => {
+    const list = []
+    for (var i = 0; i < 4; i++) {
+      list.push(Mock.mock({
+        id: '@id',
+        picture: `http://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/new_goods_${i + 1}.jpg`,
+        name: '@ctitle(6,8)',
+        price: '@float(100,10000,2,2)'
+      }))
+    }
+    return {
+      msg: '查询好物成功',
+      result: list
+    }
   }
 }
