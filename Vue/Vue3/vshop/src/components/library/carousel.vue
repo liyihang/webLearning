@@ -12,10 +12,10 @@
         </RouterLink>
       </li>
     </ul>
-    <a href="javascript:;" class="carousel-btn prev"
+    <a href="javascript:;" @click="toggle(-1)" class="carousel-btn prev"
       ><i class="iconfont icon-angle-left"></i
     ></a>
-    <a href="javascript:;" class="carousel-btn next"
+    <a href="javascript:;" @click="toggle(1)" class="carousel-btn next"
       ><i class="iconfont icon-angle-right"></i
     ></a>
     <div class="carousel-indicator">
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue'
+import { onUnmounted, ref, watch } from 'vue'
 export default {
   name: 'Carousel',
   props: {
@@ -79,7 +79,22 @@ export default {
         autoPlayFn()
       }
     }
-    return { index, stop, start }
+    // 触发上一个 下一个
+    const toggle = step => {
+      if (index.value + step < 0) {
+        index.value = props.sliders.length - 1
+        return
+      }
+      if (index.value + step > props.sliders.length - 1) {
+        index.value = 0
+        return
+      }
+      index.value += step
+    }
+    onUnmounted(() => {
+      clearInterval(timer)
+    })
+    return { index, stop, start, toggle }
   }
 }
 </script>
