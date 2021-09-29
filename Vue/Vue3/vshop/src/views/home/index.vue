@@ -11,6 +11,8 @@
     <!-- 楼层 -->
     <!-- new -->
     <HomeNew />
+    <!-- hot -->
+    <HomeHot />
   </div>
 </template>
 
@@ -18,9 +20,10 @@
 import HomeCategory from './components/home-categroy.vue'
 import HomeBanner from './components/home-banner.vue'
 import HomeNew from './components/home-new.vue'
+import HomeHot from './components/home-hot.vue'
 export default {
   name: 'PageHome',
-  components: { HomeCategory, HomeBanner, HomeNew }
+  components: { HomeCategory, HomeBanner, HomeNew, HomeHot }
 }
 </script>
 

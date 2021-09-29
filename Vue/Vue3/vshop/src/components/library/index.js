@@ -1,8 +1,8 @@
-import skeleton from './skeleton.vue'
-import more from './more.vue'
+import Skeleton from './skeleton.vue'
+import More from './more.vue'
 export default {
   install (app) {
-    app.component(skeleton.name, skeleton)
-    app.component(more.name, more)
+    app.component(Skeleton.name, Skeleton)
+    app.component(More.name, More)
   }
 }

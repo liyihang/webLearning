@@ -1,18 +1,17 @@
 <template>
-  <HomePanel title="新鲜好物" sub-title="新鲜出炉 品质靠谱">
-    <template v-slot:right><More /></template>
-    <div style="position: relative;height: 406px;">
+  <HomePanel title="人气推荐" sub-title="人气爆款 不容错过">
+    <div style="position: relative;height: 426px;">
       <Transition name="fade">
         <ul v-if="goods.length" ref="pannel" class="goods-list">
           <li v-for="item in goods" :key="item.id">
             <RouterLink to="/">
               <img :src="item.picture" alt="" />
-              <p class="name">{{ item.name }}</p>
-              <p class="price">&yen;{{ item.price }}</p>
+              <p class="name">{{ item.title }}</p>
+              <p class="desc">{{ item.alt }}</p>
             </RouterLink>
           </li>
         </ul>
-        <HomeSkeleton bg="#f0f9f4" v-else />
+        <HomeSkeleton v-else />
       </Transition>
     </div>
   </HomePanel>
@@ -20,16 +19,15 @@
 
 <script>
 import { ref } from 'vue'
-import HomePanel from './home-panel.vue'
-import More from '../../../components/library/more.vue'
-import { findNew } from '@/api/home'
 import HomeSkeleton from './home-skeleton.vue'
+import HomePanel from './home-panel'
+import { findHot } from '@/api/home'
 export default {
-  name: 'HomeNew',
-  components: { HomePanel, More, HomeSkeleton },
+  name: 'HomeHot',
+  components: { HomePanel, HomeSkeleton },
   setup () {
     const goods = ref([])
-    findNew().then(data => {
+    findHot().then(data => {
       goods.value = data.result
     })
     return { goods }
@@ -37,15 +35,14 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 .goods-list {
   display: flex;
   justify-content: space-between;
-  height: 406px;
+  height: 426px;
   li {
     width: 306px;
     height: 406px;
-    background: #f0f9f4;
     .hoverShadow();
     img {
       width: 306px;
@@ -56,8 +53,9 @@ export default {
       padding-top: 12px;
       text-align: center;
     }
-    .price {
-      color: @priceColor;
+    .desc {
+      color: #999;
+      font-size: 18px;
     }
   }
 }

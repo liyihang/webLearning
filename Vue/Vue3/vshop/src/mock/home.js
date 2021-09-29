@@ -57,5 +57,20 @@ export default {
       msg: '查询好物成功',
       result: list
     }
+  },
+  hot: config => {
+    const list = []
+    for (var i = 0; i < 4; i++) {
+      list.push(Mock.mock({
+        id: '@id',
+        picture: `http://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/popular_${i + 1}.jpg`,
+        title: '@ctitle(5-10)',
+        alt: '@ctitle(5-9)'
+      }))
+    }
+    return {
+      msg: '热销商品获取成功',
+      result: list
+    }
   }
 }
