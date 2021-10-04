@@ -15,31 +15,48 @@
       ></a>
     </template>
     <div class="box" ref="target">
-      <ul v-if="goods.length" class="list" :style="{transform:`translateX(${-index*1240}px)`}">
-        <li v-for="item in goods" :key="item.id">
-          <RouterLink to="/">
-            <img :src="item.picture" :alt="item.alt" />
-          </RouterLink>
-        </li>
-      </ul>
+      <Transition name="fade">
+        <ul
+          v-if="goods.length"
+          class="list"
+          :style="{ transform: `translateX(${-index * 1240}px)` }"
+        >
+          <li v-for="item in goods" :key="item.id">
+            <RouterLink to="/">
+              <img :src="item.picture" :alt="item.alt" />
+            </RouterLink>
+          </li>
+        </ul>
+        <div v-else class="skeleton">
+          <skeleton
+            class="item"
+            v-for="i in 5"
+            :key="i"
+            animated
+            bg="#e4e4e4"
+            width="240px"
+            height="305px"
+          ></skeleton>
+        </div>
+      </Transition>
     </div>
   </HomePanel>
 </template>
 
 <script>
+import skeleton from '../../../components/library/skeleton.vue'
 import HomePanel from './home-panel'
 import { findBrand } from '@/api/home'
 import { useLazyData } from '@/hook'
 import { ref } from 'vue'
 export default {
   name: 'HomeBrand',
-  components: { HomePanel },
+  components: { HomePanel, skeleton },
   setup () {
     const { target, result } = useLazyData(() => findBrand(10))
-
+    // 左右触发  不是最优解
     const index = ref(0)
     const toggle = step => {
-      console.log(11111)
       const newIndex = index.value + step
       if (newIndex < 0 || newIndex > 1) return
       index.value = newIndex
