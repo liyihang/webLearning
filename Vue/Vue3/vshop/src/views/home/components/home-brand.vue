@@ -1,17 +1,24 @@
 <template>
   <HomePanel title="热门品牌" sub-title="国际经典 品质保证">
     <template v-slot:right>
-      <a href="javascript:;" class="iconfont icon-angle-left prev"></a>
-      <a href="javascript:;" class="iconfont icon-angle-right next"></a>
+      <a
+        @click="toggle(-1)"
+        href="javascript:;"
+        :class="{ disabled: index === 0 }"
+        class="iconfont icon-angle-left prev"
+      ></a>
+      <a
+        @click="toggle(1)"
+        href="javascript:;"
+        :class="{ disabled: index === 1 }"
+        class="iconfont icon-angle-right next"
+      ></a>
     </template>
     <div class="box" ref="target">
-      <ul class="list">
+      <ul v-if="goods.length" class="list" :style="{transform:`translateX(${-index*1240}px)`}">
         <li v-for="item in goods" :key="item.id">
           <RouterLink to="/">
-            <img
-              :src="item.picture"
-              :alt="item.alt"
-            />
+            <img :src="item.picture" :alt="item.alt" />
           </RouterLink>
         </li>
       </ul>
@@ -23,12 +30,21 @@
 import HomePanel from './home-panel'
 import { findBrand } from '@/api/home'
 import { useLazyData } from '@/hook'
+import { ref } from 'vue'
 export default {
   name: 'HomeBrand',
   components: { HomePanel },
   setup () {
     const { target, result } = useLazyData(() => findBrand(10))
-    return { goods: result, target }
+
+    const index = ref(0)
+    const toggle = step => {
+      console.log(11111)
+      const newIndex = index.value + step
+      if (newIndex < 0 || newIndex > 1) return
+      index.value = newIndex
+    }
+    return { goods: result, target, toggle, index }
   }
 }
 </script>
