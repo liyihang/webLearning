@@ -15,6 +15,8 @@
     <HomeHot />
     <!-- brand -->
     <HomeBrand />
+    <!-- product -->
+    <HomeProduct />
   </div>
 </template>
 
@@ -24,9 +26,10 @@ import HomeBanner from './components/home-banner.vue'
 import HomeNew from './components/home-new.vue'
 import HomeHot from './components/home-hot.vue'
 import HomeBrand from './components/home-brand.vue'
+import HomeProduct from './components/home-product.vue'
 export default {
   name: 'PageHome',
-  components: { HomeCategory, HomeBanner, HomeNew, HomeHot, HomeBrand }
+  components: { HomeCategory, HomeBanner, HomeNew, HomeHot, HomeBrand, HomeProduct }
 }
 </script>
 

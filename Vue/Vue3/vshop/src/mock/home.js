@@ -31,11 +31,14 @@ export default {
   banner: config => {
     const list = []
     for (var i = 0; i < 5; i++) {
-      list.push(Mock.mock({
-        id: '@id',
-        imgUrl: `http://zhoushugang.gitee.io/erabbit-client-pc-static/images/b${i + 1}.jpg`,
-        hrefUrl: '#'
-      }))
+      list.push(
+        Mock.mock({
+          id: '@id',
+          imgUrl: `http://zhoushugang.gitee.io/erabbit-client-pc-static/images/b${i +
+            1}.jpg`,
+          hrefUrl: '#'
+        })
+      )
     }
     return {
       msg: '获取轮播成功',
@@ -46,12 +49,15 @@ export default {
   new: config => {
     const list = []
     for (var i = 0; i < 4; i++) {
-      list.push(Mock.mock({
-        id: '@id',
-        picture: `http://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/new_goods_${i + 1}.jpg`,
-        name: '@ctitle(6,8)',
-        price: '@float(100,10000,2,2)'
-      }))
+      list.push(
+        Mock.mock({
+          id: '@id',
+          picture: `http://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/new_goods_${i +
+            1}.jpg`,
+          name: '@ctitle(6,8)',
+          price: '@float(100,10000,2,2)'
+        })
+      )
     }
     return {
       msg: '查询好物成功',
@@ -61,15 +67,65 @@ export default {
   hot: config => {
     const list = []
     for (var i = 0; i < 4; i++) {
-      list.push(Mock.mock({
-        id: '@id',
-        picture: `http://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/popular_${i + 1}.jpg`,
-        title: '@ctitle(5-10)',
-        alt: '@ctitle(5-9)'
-      }))
+      list.push(
+        Mock.mock({
+          id: '@id',
+          picture: `http://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/popular_${i +
+            1}.jpg`,
+          title: '@ctitle(5-10)',
+          alt: '@ctitle(5-9)'
+        })
+      )
     }
     return {
       msg: '热销商品获取成功',
+      result: list
+    }
+  },
+  goods: config => {
+    const list = []
+    const images = [
+      'http://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/fresh_goods_cover.jpg',
+      'http://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/clothes_goods_cover.jpg',
+      'http://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/kitchen_goods_cover.jpg',
+      'http://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/home_goods_cover.jpg'
+    ]
+    for (let i = 0; i < 4; i++) {
+      const children = []
+      for (let j = 0; j < 3; j++) {
+        children.push(
+          Mock.mock({
+            id: '@id',
+            name: '@ctitle(2,4)'
+          })
+        )
+      }
+      const goods = []
+      for (let k = 0; k < 8; k++) {
+        goods.push(
+          Mock.mock({
+            id: '@id',
+            name: '@ctitle(12,24)',
+            price: '@float(100,1000,2,2)',
+            picture: `http://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/fresh_goods_${k +
+              1}.jpg`
+          })
+        )
+      }
+      list.push(
+        Mock.mock({
+          id: '@id',
+          picture: images[i],
+          name: '@ctitle(2,3)',
+          saleInfo: '@ctitle(4,4)',
+          children,
+          goods
+        })
+      )
+    }
+    console.log('加载商品列表数据')
+    return {
+      msg: '查询商品列表成功',
       result: list
     }
   }
