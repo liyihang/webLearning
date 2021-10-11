@@ -1,5 +1,5 @@
 <template>
-  <div class="home-product" ref="homeProduct">
+  <div class="home-product" ref="target">
     <HomePanel :title="cate.name" v-for="cate in result" :key="cate.id">
       <template v-slot:right>
         <div class="sub">
@@ -37,9 +37,9 @@ export default {
   name: 'HomeProduct',
   components: { HomePanel, HomeGoods, More },
   setup () {
-    const { container, result } = useLazyData(findGoods)
+    const { target, result } = useLazyData(findGoods)
     console.log(result)
-    return { homeProduct: container, result }
+    return { target, result }
   }
 }
 </script>

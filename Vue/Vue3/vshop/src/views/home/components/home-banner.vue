@@ -18,7 +18,7 @@ export default {
   },
   async created () {
     const { result } = await findBanner()
-    console.log(result)
+    // console.log(result)
     this.sliders = result
     // console.log(this.sliders)
   }
