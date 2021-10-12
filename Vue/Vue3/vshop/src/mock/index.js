@@ -25,3 +25,5 @@ Mock.mock(/\/home\/new/, 'get', home.new)
 Mock.mock(/\/home\/hot/, 'get', home.hot)
 // goods
 Mock.mock(/\/home\/goods/, 'get', home.goods)
+// special
+Mock.mock(/\/home\/special/, 'get', home.special)

@@ -128,5 +128,26 @@ export default {
       msg: '查询商品列表成功',
       result: list
     }
+  },
+  // 专题列表
+  special: config => {
+    const list = []
+    for (let i = 0; i < 3; i++) {
+      list.push(Mock.mock({
+        id: '@id',
+        cover: `http://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/topic_goods_${i + 1}.jpg`,
+        title: '@ctitle(8,12)',
+        summary: '@ctitle(6,8)',
+        lowestPrice: '@float(100,1000,2,2)',
+        detailsUrl: '/#/',
+        collectNum: '100',
+        viewNum: '120',
+        replyNum: '60'
+      }))
+    }
+    return {
+      msg: '查询专题列表成功',
+      result: list
+    }
   }
 }
