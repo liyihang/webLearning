@@ -5,6 +5,6 @@ export default {
   install (app) {
     app.component(Skeleton.name, Skeleton)
     app.component(More.name, More)
-    app.component(Bread.name,Bread)
+    app.component(Bread.name, Bread)
   }
 }

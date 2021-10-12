@@ -1,13 +1,15 @@
 <template>
   <div class="xtx-bread">
     <div class="xtx-bread-item" v-if="parentName">
-      <RouterLink v-if="parentPath" :to="parentPath">{{parentName}}</RouterLink>
-      <span v-else>{{parentName}}</span>
+      <RouterLink v-if="parentPath" :to="parentPath">{{
+        parentName
+      }}</RouterLink>
+      <span v-else>{{ parentName }}</span>
     </div>
     <i v-if="parentName" class="iconfont icon-angle-right"></i>
-  <div class="xtx-bread-item">
-    <span><slot /></span>
-  </div>
+    <div class="xtx-bread-item">
+      <span><slot /></span>
+    </div>
   </div>
 </template>
 <script>
@@ -35,7 +37,7 @@ export default {
       color: #666;
       transition: all 0.4s;
       &:hover {
-        color: @xtxColor;
+        color: @comColor;
       }
     }
   }
