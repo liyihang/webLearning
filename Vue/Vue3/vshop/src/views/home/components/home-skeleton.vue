@@ -1,18 +1,18 @@
 <template>
   <div class="home-skeleton">
     <div class="item" v-for="i in 4" :key="i" :style="{ backgroundColor: bg }">
-      <skeleton bg="#e4e4e4" width="306px" height="306px" animated />
-      <skeleton bg="#e4e4e4" width="160px" height="24px" animated />
-      <skeleton bg="#e4e4e4" width="120px" height="24px" animated />
+      <Skeleton bg="#e4e4e4" width="306px" height="306px" animated />
+      <Skeleton bg="#e4e4e4" width="160px" height="24px" animated />
+      <Skeleton bg="#e4e4e4" width="120px" height="24px" animated />
     </div>
   </div>
 </template>
 
 <script>
-import skeleton from '@/components/library/skeleton.vue'
+import Skeleton from '@/components/library/skeleton.vue'
 export default {
   name: 'HomeSkeleton',
-  components: { skeleton },
+  components: { Skeleton },
   props: {
     bg: {
       type: String,

@@ -28,12 +28,12 @@
 
 <script>
 import HomePanel from './home-panel'
-import More from '../../../components/library/more.vue'
+// import More from '../../../components/library/more.vue'
 import { findSpecial } from '@/api/home'
 import { useLazyData } from '@/hook'
 export default {
   name: 'HomeSpecial',
-  components: { HomePanel, More },
+  components: { HomePanel },
   setup () {
     const { target, result } = useLazyData(findSpecial)
     console.log(result)

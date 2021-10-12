@@ -11,7 +11,7 @@
 </template>
 <script>
 export default {
-  name: 'skeleton',
+  name: 'Skeleton',
   // 使用的时候需要动态设置 高度，宽度，背景颜色，是否闪下
   props: {
     bg: {
