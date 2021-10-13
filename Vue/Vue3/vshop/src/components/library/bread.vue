@@ -28,7 +28,7 @@ export default {
 }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
 .xtx-bread {
   display: flex;
   padding: 25px 10px;
