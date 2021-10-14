@@ -21,7 +21,7 @@
         </ul>
       </div>
       <!-- 分类关联商品 -->
-      <div class="ref-goods">
+      <div class="ref-goods" v-for="item in subList" :key="item.id">
         <div class="head">
           <h3>- 海鲜 -</h3>
           <p class="tag">温暖柔软，品质之选</p>
@@ -38,8 +38,9 @@
 import { findBanner } from '@/api/home'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import GoodsItem from './components/goods-item.vue'
+import { findTopCategory } from '@/api/category'
 export default {
   name: 'TopCategory',
   components: {
@@ -62,7 +63,23 @@ export default {
       if (item) cate = item
       return cate
     })
-    return { sliders, topCategory }
+    // category related
+    // 获取各个子类目下推荐商品
+    const subList = ref([])
+    const getSubList = () => {
+      findTopCategory(route.params.id).then(data => {
+        subList.value = data.result.children
+      })
+    }
+    watch(
+      () => route.params.id,
+      newVal => {
+        // newVal && getSubList() 加上一个严谨判断，在顶级类名下才发请求
+        if (newVal && `/category/${newVal}` === route.path) getSubList()
+      },
+      { immediate: true }
+    )
+    return { sliders, topCategory, subList }
   }
 }
 </script>

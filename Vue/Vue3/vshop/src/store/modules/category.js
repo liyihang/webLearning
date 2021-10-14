@@ -1,5 +1,5 @@
 import { topCategory } from '@/api/constants'
-import { findHeadCategory } from '@/api/home'
+import { findHeadCategory } from '@/api/category'
 
 export default {
   namespaced: true,
