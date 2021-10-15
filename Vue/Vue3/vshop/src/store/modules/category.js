@@ -35,12 +35,12 @@ export default {
      * @param {*} param
      */
     async getCategory ({ commit }) {
-      const { results } = await findHeadCategory()
-      results.forEach(item => {
+      const { result } = await findHeadCategory()
+      result.forEach(item => {
         item.open = false
       })
 
-      commit('setCategory', results)
+      commit('setCategory', result)
     }
   }
 }

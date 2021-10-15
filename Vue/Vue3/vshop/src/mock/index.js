@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-import category from './category'
+// import category from './category'
 import home from './home'
 
 Mock.setup({
@@ -11,7 +11,7 @@ Mock.setup({
  * @param call back func
  * @returns obj
  */
-Mock.mock(/\/home\/category\/head/, 'get', category.headCategory)
+// Mock.mock(/\/home\/category\/head/, 'get', category.headCategory)
 
 // brands
 

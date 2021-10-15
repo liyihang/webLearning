@@ -4,7 +4,9 @@
       <!-- 面包屑 -->
       <Bread>
         <BreadItem to="/">首页</BreadItem>
-        <BreadItem>{{ topCategory.name }}</BreadItem>
+        <transition name="fade-right" mode="out-in">
+          <BreadItem :key="topCategory.id">{{ topCategory.name }}</BreadItem>
+        </transition>
       </Bread>
       <!-- 轮播图 -->
       <Carousel autoPlay :sliders="sliders" style="height:500px" />
@@ -23,12 +25,12 @@
       <!-- 分类关联商品 -->
       <div class="ref-goods" v-for="item in subList" :key="item.id">
         <div class="head">
-          <h3>- 海鲜 -</h3>
+          <h3>- {{ item.name }} -</h3>
           <p class="tag">温暖柔软，品质之选</p>
           <More />
         </div>
         <div class="body">
-          <GoodsItem v-for="i in 5" :key="i" />
+          <GoodsItem v-for="i in item.goods" :key="i.id" :goods="i" />
         </div>
       </div>
     </div>
