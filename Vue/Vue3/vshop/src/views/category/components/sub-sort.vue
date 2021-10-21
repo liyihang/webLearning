@@ -12,8 +12,8 @@
       </a>
     </div>
     <div class="check">
-      <XtxCheckbox>仅显示有货商品</XtxCheckbox>
-      <XtxCheckbox>仅显示特惠商品</XtxCheckbox>
+      <Checkbox>仅显示有货商品</Checkbox>
+      <Checkbox>仅显示特惠商品</Checkbox>
     </div>
   </div>
 </template>

@@ -13,7 +13,7 @@
 
 // 批量注册组件
 const importFn = require.context('./', false, /\.vue$/)
-console.dir(importFn.keys())
+// console.dir(importFn.keys())
 export default {
   install (app) {
     importFn.keys().forEach(key => {
