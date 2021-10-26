@@ -45,8 +45,12 @@
       </a>
     </div>
     <div class="check">
-      <Checkbox v-model="sortParams.inventory">仅显示有货商品</Checkbox>
-      <Checkbox v-model="sortParams.onlyDiscount">仅显示特惠商品</Checkbox>
+      <Checkbox @change="changeCheck" v-model="sortParams.inventory"
+        >仅显示有货商品</Checkbox
+      >
+      <Checkbox @change="changeCheck" v-model="sortParams.onlyDiscount"
+        >仅显示特惠商品</Checkbox
+      >
     </div>
   </div>
 </template>
@@ -54,7 +58,7 @@
 import { reactive } from 'vue'
 export default {
   name: 'SubSort',
-  setup () {
+  setup (props, { emit }) {
     // 1. 根据后台需要的参数定义数据对象
     // 2. 根据数据对象，绑定组件（复选框，排序按钮）
     // 3. 在操作排序组件的时候，需要反馈给数据对象
@@ -76,7 +80,8 @@ export default {
           sortParams.sortMethod = 'desc'
         } else {
           // 其他情况根据当前排序取反
-          sortParams.sortMethod = sortParams.sortMethod === 'desc' ? 'asc' : 'desc'
+          sortParams.sortMethod =
+            sortParams.sortMethod === 'desc' ? 'asc' : 'desc'
         }
       } else {
         // 如果排序未改变停止逻辑
@@ -84,9 +89,14 @@ export default {
         sortParams.sortField = sortField
         sortParams.sortMethod = null
       }
+      // 触发 sort-change 事件
+      //  this.$emit(event, ${[…args]})
+      emit('sort-change', sortParams)
     }
-
-    return { sortParams, changeSort }
+    const changeCheck = sortField => {
+      emit('sort-change', sortParams)
+    }
+    return { sortParams, changeSort, changeCheck }
   }
 }
 </script>
