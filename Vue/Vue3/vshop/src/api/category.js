@@ -13,3 +13,7 @@ export const findTopCategory = (id) => {
 export const findSubCategoryFilter = (id) => {
   return request('/category/sub/filter', 'get', { id })
 }
+// 获取分类商品数据
+export const findSubCategoryGoods = (params) => {
+  return request('/category/goods/temporary', 'post', params)
+}
