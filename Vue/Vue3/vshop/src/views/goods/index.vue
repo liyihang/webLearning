@@ -14,7 +14,9 @@
             <GoodsImage :images="goods.mainPictures"/>
             <GoodsSales />
           </div>
-        <div class="spec"></div>
+        <div class="spec">
+          <GoodsName  :goods="goods"/>
+        </div>
       </div>
       <!-- 商品推荐 -->
       <GoodsRelevant />
@@ -37,12 +39,13 @@
 import GoodsRelevant from './components/goods-relevant'
 import GoodsImage from './components/goods-image.vue'
 import GoodsSales from './components/goods-sale.vue'
+import GoodsName from './components/goods-name.vue'
 import { nextTick, ref, watch } from 'vue'
 import { findGoods } from '@/api/product'
 import { useRoute } from 'vue-router'
 export default {
   name: 'GoodsPage',
-  components: { GoodsRelevant, GoodsImage, GoodsSales },
+  components: { GoodsRelevant, GoodsImage, GoodsSales, GoodsName },
   setup () {
     const goods = useGoods()
     return { goods }
