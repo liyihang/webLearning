@@ -11,7 +11,8 @@
       <!-- 商品信息 -->
       <div class="goods-info">
           <div class="media">
-            <GoodsImage />
+            <GoodsImage :images="goods.mainPictures"/>
+            <GoodsSales />
           </div>
         <div class="spec"></div>
       </div>
@@ -35,12 +36,13 @@
 <script>
 import GoodsRelevant from './components/goods-relevant'
 import GoodsImage from './components/goods-image.vue'
+import GoodsSales from './components/goods-sale.vue'
 import { nextTick, ref, watch } from 'vue'
 import { findGoods } from '@/api/product'
 import { useRoute } from 'vue-router'
 export default {
   name: 'GoodsPage',
-  components: { GoodsRelevant, GoodsImage },
+  components: { GoodsRelevant, GoodsImage, GoodsSales },
   setup () {
     const goods = useGoods()
     return { goods }
