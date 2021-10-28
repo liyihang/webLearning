@@ -10,7 +10,9 @@
       </Bread>
       <!-- 商品信息 -->
       <div class="goods-info">
-          <div class="media"></div>
+          <div class="media">
+            <GoodsImage />
+          </div>
         <div class="spec"></div>
       </div>
       <!-- 商品推荐 -->
@@ -32,12 +34,13 @@
 
 <script>
 import GoodsRelevant from './components/goods-relevant'
+import GoodsImage from './components/goods-image.vue'
 import { nextTick, ref, watch } from 'vue'
 import { findGoods } from '@/api/product'
 import { useRoute } from 'vue-router'
 export default {
   name: 'GoodsPage',
-  components: { GoodsRelevant },
+  components: { GoodsRelevant, GoodsImage },
   setup () {
     const goods = useGoods()
     return { goods }
