@@ -4,19 +4,23 @@
       <!-- 面包屑 -->
       <Bread>
         <BreadItem to="/">首页</BreadItem>
-        <BreadItem :to="'/category/'+goods.categories[0].id">{{goods.categories[0].name}}</BreadItem>
-        <BreadItem :to="'/category/sub/'+goods.categories[1].id">{{goods.categories[1].name}}</BreadItem>
-        <BreadItem>{{goods.name}}</BreadItem>
+        <BreadItem :to="'/category/' + goods.categories[0].id">{{
+          goods.categories[0].name
+        }}</BreadItem>
+        <BreadItem :to="'/category/sub/' + goods.categories[1].id">{{
+          goods.categories[1].name
+        }}</BreadItem>
+        <BreadItem>{{ goods.name }}</BreadItem>
       </Bread>
       <!-- 商品信息 -->
       <div class="goods-info">
-          <div class="media">
-            <GoodsImage :images="goods.mainPictures"/>
-            <GoodsSales />
-          </div>
+        <div class="media">
+          <GoodsImage :images="goods.mainPictures" />
+          <GoodsSales />
+        </div>
         <div class="spec">
-          <GoodsName  :goods="goods"/>
-          <GoodsSku :goods="goods" />
+          <GoodsName :goods="goods" />
+          <GoodsSku :goods="goods" @change="changeSku" />
         </div>
       </div>
       <!-- 商品推荐 -->
@@ -42,7 +46,7 @@ import GoodsImage from './components/goods-image.vue'
 import GoodsSales from './components/goods-sale.vue'
 import GoodsName from './components/goods-name.vue'
 import GoodsSku from './components/goods-sku.vue'
-import { nextTick, ref, watch } from 'vue'
+import { nextTick, ref, provide, watch } from 'vue'
 import { findGoods } from '@/api/product'
 import { useRoute } from 'vue-router'
 export default {
@@ -50,7 +54,19 @@ export default {
   components: { GoodsRelevant, GoodsImage, GoodsSales, GoodsName, GoodsSku },
   setup () {
     const goods = useGoods()
-    return { goods }
+    const changeSku = sku => {
+      // 修改商品的现价原价库存信息
+      if (sku.skuId) {
+        goods.value.price = sku.price
+        goods.value.oldPrice = sku.oldPrice
+        goods.value.inventory = sku.inventory
+      }
+    }
+
+    // 提供goods数据给后代组件使用
+    provide('goods', goods)
+
+    return { goods, changeSku }
   }
 }
 // 获取商品详情
@@ -63,7 +79,7 @@ const useGoods = () => {
     newVal => {
       if (newVal && `/product/${newVal}` === route.path) {
         findGoods(route.params.id).then(data => {
-          // 让商品数据为null让后使用v-if的组件可以重新销毁和创建
+          // 让商品数据为null然后使用v-if的组件可以重新销毁和创建
           goods.value = null
           nextTick(() => {
             goods.value = data.result
@@ -76,7 +92,6 @@ const useGoods = () => {
   return goods
 }
 </script>
-
 <style scoped lang="less">
 .goods-info {
   min-height: 600px;

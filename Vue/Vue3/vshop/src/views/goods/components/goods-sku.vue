@@ -1,58 +1,42 @@
 <template>
   <div class="goods-sku">
     <dl v-for="item in goods.specs" :key="item.id">
-      <dt>{{ item.name }}</dt>
+      <dt>{{item.name}}</dt>
       <dd>
-        <!-- <img
-          class="selected"
-          src="https://yanxuan-item.nosdn.127.net/d77c1f9347d06565a05e606bd4f949e0.png"
-          alt=""
-        />
-        <img
-          class="disabled"
-          src="https://yanxuan-item.nosdn.127.net/d77c1f9347d06565a05e606bd4f949e0.png"
-          alt=""
-        /> -->
         <template v-for="val in item.values" :key="val.name">
-          <img
-            :class="{ selected: val.selected }"
-            @click="clickSpecs(item, val)"
-            v-if="val.picture"
-            :src="val.picture"
-            :title="val.name"
-          />
-          <span
-            :class="{ selected: val.selected }"
-            @click="clickSpecs(item, val)"
-            v-else
-            >{{ val.name }}</span
-          >
+          <img :class="{selected:val.selected,disabled:val.disabled}" @click="changeSku(item,val)" v-if="val.picture" :src="val.picture" :title="val.name" >
+          <span :class="{selected:val.selected,disabled:val.disabled}" @click="changeSku(item,val)" v-else>{{val.name}}</span>
         </template>
       </dd>
     </dl>
   </div>
 </template>
 <script>
-import getPowerSet from '@/vender/power-set'
-const spliter = '⭐️'
-// 根据skus数据得到路径字典对象
-const getPathMap = skus => {
+import powerSet from '@/vender/power-set'
+const spliter = '★'
+// 得到一个路径字典对象
+const getPathMap = (skus) => {
+  // 1. 得到所有的sku集合  props.goods.skus
+  // 2. 从所有的sku中筛选出有效的sku
+  // 3. 根据有效的sku使用power-set算法得到子集
+  // 4. 根据子集往路径字典对象中存储 key-value
   const pathMap = {}
   skus.forEach(sku => {
-    // 1. 过滤出有库存有效的sku
-    if (sku.inventory) {
-      // 2. 得到sku属性值数组
-      const specs = sku.specs.map(spec => spec.valueName)
-      // 3. 得到sku属性值数组的子集
-      const powerSet = getPowerSet(specs)
-      // 4. 设置给路径字典对象
-      powerSet.forEach(set => {
-        const key = set.join(spliter)
+    if (sku.inventory > 0) {
+      // 计算当前有库存的sku的子集
+      // 例如：[1,2,3] ==> [[1],[2],[3],[1,2],[1,3],[2,3],[1,2,3]]
+      // 可选值数组
+      const valueArr = sku.specs.map(val => val.valueName)
+      // 可选值数组 子集
+      const valueArrPowerSet = powerSet(valueArr)
+      // 遍历子集，往pathMap插入数据
+      valueArrPowerSet.forEach(arr => {
+        // 根据arr得到字符串的key，约定key是：['蓝色','美国'] ===> '蓝色★美国'
+        const key = arr.join(spliter)
+        // 给pathMap设置数据
         if (pathMap[key]) {
-          // 已经有key往数组追加
           pathMap[key].push(sku.id)
         } else {
-          // 没有key设置一个数组
           pathMap[key] = [sku.id]
         }
       })
@@ -61,11 +45,10 @@ const getPathMap = skus => {
   return pathMap
 }
 // 获取已选中的值数组
-const getSelectedValues = specs => {
+const getSelectedValues = (specs) => {
   const arr = []
   specs.forEach(item => {
     // 选中的按钮对象
-    console.log(item.values)
     const seletedVal = item.values.find(val => val.selected)
     arr.push(seletedVal ? seletedVal.name : undefined)
   })
@@ -98,41 +81,67 @@ const initDefaultSelected = (goods, skuId) => {
     val.selected = true
   })
 }
+
 export default {
   name: 'GoodsSku',
   props: {
     goods: {
       type: Object,
-      default: () => ({ specs: [], sku: [] })
+      default: () => ({})
     },
     skuId: {
       type: String,
       default: ''
     }
   },
-
-  setup (props) {
+  setup (props, { emit }) {
     const pathMap = getPathMap(props.goods.skus)
-    // console.log(pathMap)
-    // 根据传入的skuId默认选中规格按钮
-    initDefaultSelected(props.goods, props.skuId)
-    // 组件初始化的时候更新禁用状态
+    // 根据skuId初始化选中
+    if (props.skuId) {
+      initDefaultSelected(props.goods, props.skuId)
+    }
+    // ☆组件初始化：更新按钮禁用状态
     updateDisabledStatus(props.goods.specs, pathMap)
-    const clickSpecs = (item, val) => {
-      // 1. 选中与取消选中逻辑
-      if (val.disabled) return false
+    // 1. 选中与取消选中，约定在每一个按钮都拥有自己的选中状态数据：selected
+    // 1.1 点击的是已选中，只需要取消当前的选中
+    // 1.2 点击的是未选中，把同一个规格的按钮改成未选中，当前点击的改成选中
+    const changeSku = (item, val) => {
+      // 当按钮是禁用的阻止程序运行
+      if (val.disabled) return
+      // 如果不是禁用正常运行
       if (val.selected) {
         val.selected = false
       } else {
-        item.values.forEach(bv => {
-          bv.selected = false
+        item.values.forEach(valItem => {
+          valItem.selected = false
         })
         val.selected = true
       }
-      // 点击的时候更新禁用状态
+      // ☆点击按钮时：更新按钮禁用状态
       updateDisabledStatus(props.goods.specs, pathMap)
+      // 将你选择的sku信息通知父组件{skuId,price,oldPrice,inventory,specsText}
+      // 1. 选择完整的sku组合按钮，才可以拿到这些信息，提交父组件
+      // 2. 不是完整的sku组合按钮，提交空对象父组件
+      const validSelectedValues = getSelectedValues(props.goods.specs).filter(v => v)
+      if (validSelectedValues.length === props.goods.specs.length) {
+        // 完整
+        const skuIds = pathMap[validSelectedValues.join(spliter)]
+        const sku = props.goods.skus.find(sku => sku.id === skuIds[0])
+        emit('change', {
+          skuId: sku.id,
+          price: sku.price,
+          oldPrice: sku.oldPrice,
+          inventory: sku.inventory,
+          // 属性名：属性值 属性名1：属性值1 ... 这样的字符串
+          specsText: sku.specs.reduce((p, c) => `${p} ${c.name}：${c.valueName}`, '').trim()
+        })
+      } else {
+        // 不完整
+        // 父组件需要判断是否规格选择完整，不完整不能加购物车。
+        emit('change', {})
+      }
     }
-    return { clickSpecs }
+    return { changeSku }
   }
 }
 </script>
@@ -155,7 +164,7 @@ export default {
   padding-top: 20px;
   dl {
     display: flex;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     align-items: center;
     dt {
       width: 50px;
@@ -164,6 +173,7 @@ export default {
     dd {
       flex: 1;
       color: #666;
+      line-height: 40px;
       > img {
         width: 50px;
         height: 50px;
