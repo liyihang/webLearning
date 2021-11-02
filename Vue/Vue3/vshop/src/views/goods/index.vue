@@ -21,6 +21,8 @@
         <div class="spec">
           <GoodsName :goods="goods" />
           <GoodsSku :goods="goods" @change="changeSku" />
+          <Numbox label="数量" v-model="num" :max="goods.inventory" />
+          <Button type="primary" style="margin-top:20px;">加入购物车</Button>
         </div>
       </div>
       <!-- 商品推荐 -->
@@ -53,6 +55,7 @@ export default {
   name: 'GoodsPage',
   components: { GoodsRelevant, GoodsImage, GoodsSales, GoodsName, GoodsSku },
   setup () {
+    const num = ref(1)
     const goods = useGoods()
     const changeSku = sku => {
       // 修改商品的现价原价库存信息
@@ -66,7 +69,7 @@ export default {
     // 提供goods数据给后代组件使用
     provide('goods', goods)
 
-    return { goods, changeSku }
+    return { goods, num, changeSku }
   }
 }
 // 获取商品详情
