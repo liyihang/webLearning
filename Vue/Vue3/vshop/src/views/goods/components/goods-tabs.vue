@@ -1,16 +1,38 @@
 <template>
   <div class="goods-tabs">
     <nav>
-      <a class="active" href="javascript:;">商品详情</a>
-      <a href="javascript:;">商品评价<span>(500+)</span></a>
+      <a
+        :class="{ active: activeName === 'detail' }"
+        href="javascript:;"
+        @click="clickTab('detail')"
+        >商品详情</a
+      >
+      <a
+        :class="{ active: activeName === 'comment' }"
+        href="javascript:;"
+        @click="clickTab('comment')"
+        >商品评价<span>(500+)</span></a
+      >
     </nav>
-    <!-- 切换内容的地方 -->  
-  </div>  
+    <!-- 这个位置显示对应的组件 GoodsDetail 或者 GoodsComment -->
+    <component :is="'goods-' + activeName" />
+  </div>
 </template>
-
 <script>
+import { ref } from 'vue'
+import GoodsDetail from './goods-detail'
+import GoodsComment from './goods-comment'
 export default {
-
+  name: 'GoodsTabs',
+  components: { GoodsDetail, GoodsComment },
+  setup () {
+    // detail-->详情   comment-->评价
+    const activeName = ref('detail')
+    const clickTab = name => {
+      activeName.value = name
+    }
+    return { activeName, clickTab }
+  }
 }
 </script>
 
@@ -37,7 +59,7 @@ export default {
       }
       &.active {
         &::before {
-          content: "";
+          content: '';
           position: absolute;
           left: 40px;
           bottom: -1px;
@@ -49,4 +71,4 @@ export default {
     }
   }
 }
-</style> 
+</style>
