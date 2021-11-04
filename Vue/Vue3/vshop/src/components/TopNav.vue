@@ -14,7 +14,7 @@
         </template>
         <template v-else>
           <li>
-            <a href="#">请先登录</a>
+            <RouterLink to="/login">请先登录</RouterLink>
           </li>
           <li>
             <a href="#">免费注册</a>

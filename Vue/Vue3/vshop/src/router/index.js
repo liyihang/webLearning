@@ -4,6 +4,7 @@ import Home from '@/views/home/index.vue'
 import Category from '@/views/category'
 import SubCategory from '@/views/category/sub-category'
 import Goods from '@/views/goods/index'
+const Login = () => import('@/views/login/index')
 
 const routes = [
   {
@@ -27,7 +28,8 @@ const routes = [
         component: Goods
       }
     ]
-  }
+  },
+  { path: '/login', component: Login }
   // },
   // {
   //   path: '/about',
