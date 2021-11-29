@@ -8,23 +8,40 @@
         <i class="iconfont icon-msg"></i> 使用短信登录
       </a>
     </div>
-    <Form class="form" autocomplete="off">
+    <Form
+      class="form"
+      :validation-schema="mySchema"
+      v-slot="{ errors }"
+      autocomplete="off"
+    >
       <template v-if="!isMsgLogin">
         <div class="form-item">
           <div class="input">
             <i class="iconfont icon-user"></i>
             <Field
+              :class="{ error: errors.account }"
               type="text"
+              name="account"
               v-model="form.account"
               placeholder="请输入用户名或手机号"
             />
           </div>
-          <!-- <div class="error"><i class="iconfont icon-warning" />请输入手机号</div> -->
+          <div v-if="errors.account" class="error">
+            <i class="iconfont icon-warning" />{{ errors.account }}
+          </div>
         </div>
         <div class="form-item">
           <div class="input">
             <i class="iconfont icon-lock"></i>
-            <Field type="password" placeholder="请输入密码" />
+            <Field
+              :class="{ error: errors.password }"
+              type="password"
+              name="password"
+              placeholder="请输入密码"
+            />
+          </div>
+          <div v-if="errors.password" class="error">
+            <i class="iconfont icon-warning" />{{ errors.password }}
           </div>
         </div>
       </template>
@@ -32,20 +49,36 @@
         <div class="form-item">
           <div class="input">
             <i class="iconfont icon-user"></i>
-            <input type="text" placeholder="请输入手机号" />
+            <Field
+              :class="{ error: errors.phone }"
+              type="text"
+              name="mobile"
+              placeholder="请输入手机号"
+            />
+          </div>
+          <div v-if="errors.mobile" class="error">
+            <i class="iconfont icon-warning" />{{ errors.mobile }}
           </div>
         </div>
         <div class="form-item">
           <div class="input">
             <i class="iconfont icon-code"></i>
-            <input type="password" placeholder="请输入验证码" />
+            <Field
+              :class="{ error: errors.code }"
+              type="password"
+              name="code"
+              placeholder="请输入验证码"
+            />
             <span class="code">发送验证码</span>
+          </div>
+          <div v-if="errors.code" class="error">
+            <i class="iconfont icon-warning" />{{ errors.code }}
           </div>
         </div>
       </template>
       <div class="form-item">
         <div class="agree">
-          <XtxCheckbox v-model="form.isAgree" />
+          <Checkbox v-model="form.isAgree" />
           <span>我已同意</span>
           <a href="javascript:;">《隐私条款》</a>
           <span>和</span>
@@ -78,7 +111,7 @@ export default {
     Field
   },
   setup () {
-    const isMegLogin = ref(false)
+    const isMsgLogin = ref(false)
     // 表单信息
     const form = reactive({
       isAgree: true,
@@ -94,7 +127,7 @@ export default {
       code: schema.code,
       isAgree: schema.isAgree
     }
-    return { isMegLogin, form, schema: mySchema }
+    return { isMsgLogin, form, mySchema }
   }
 }
 </script>
