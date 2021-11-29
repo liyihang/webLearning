@@ -8,19 +8,23 @@
         <i class="iconfont icon-msg"></i> 使用短信登录
       </a>
     </div>
-    <div class="form">
+    <Form class="form" autocomplete="off">
       <template v-if="!isMsgLogin">
         <div class="form-item">
           <div class="input">
             <i class="iconfont icon-user"></i>
-            <input type="text" placeholder="请输入用户名或手机号" />
+            <Field
+              type="text"
+              v-model="form.account"
+              placeholder="请输入用户名或手机号"
+            />
           </div>
           <!-- <div class="error"><i class="iconfont icon-warning" />请输入手机号</div> -->
         </div>
         <div class="form-item">
           <div class="input">
             <i class="iconfont icon-lock"></i>
-            <input type="password" placeholder="请输入密码" />
+            <Field type="password" placeholder="请输入密码" />
           </div>
         </div>
       </template>
@@ -49,7 +53,7 @@
         </div>
       </div>
       <a href="javascript:;" class="btn">登录</a>
-    </div>
+    </Form>
     <div class="action">
       <img
         src="https://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_7.png"
@@ -64,15 +68,33 @@
 </template>
 <script>
 import { reactive, ref } from 'vue'
+import { Form, Field } from 'vee-validate'
+import schema from '@/utils/vee-validate-schema'
+
 export default {
   name: 'LoginForm',
+  components: {
+    Form,
+    Field
+  },
   setup () {
     const isMegLogin = ref(false)
     // 表单信息
     const form = reactive({
-      isAgree: true
+      isAgree: true,
+      account: null,
+      password: null,
+      mobile: null,
+      code: null
     })
-    return { isMegLogin, form }
+    const mySchema = {
+      account: schema.account,
+      password: schema.password,
+      mobile: schema.mobile,
+      code: schema.code,
+      isAgree: schema.isAgree
+    }
+    return { isMegLogin, form, schema: mySchema }
   }
 }
 </script>
