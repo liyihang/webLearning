@@ -10,6 +10,7 @@
 //     app.component(BreadItem.name, BreadItem)
 //   }
 // }
+import Message from './message'
 
 // 批量注册组件
 const importFn = require.context('./', false, /\.vue$/)
@@ -21,6 +22,7 @@ export default {
       app.component(components.name, components)
     })
     defineDirective(app)
+    app.config.globalProperties.$message = Message// 原型函数
   }
 }
 const defineDirective = (app) => {

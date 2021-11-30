@@ -9,6 +9,7 @@
       </a>
     </div>
     <Form
+      ref="target"
       class="form"
       :validation-schema="mySchema"
       v-slot="{ errors }"
@@ -85,7 +86,7 @@
           <a href="javascript:;">《服务条款》</a>
         </div>
       </div>
-      <a href="javascript:;" class="btn">登录</a>
+      <a @click="submit()" href="javascript:;" class="btn">登录</a>
     </Form>
     <div class="action">
       <img
@@ -100,10 +101,13 @@
   </div>
 </template>
 <script>
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import { Form, Field } from 'vee-validate'
 import schema from '@/utils/vee-validate-schema'
-
+import { userAccountLogin } from '@/api/user'
+import Message from '@/components/library/message'
+import { useStore } from 'vuex'
+import { useRoute, useRouter } from 'vue-router'
 export default {
   name: 'LoginForm',
   components: {
@@ -127,7 +131,69 @@ export default {
       code: schema.code,
       isAgree: schema.isAgree
     }
-    return { isMsgLogin, form, mySchema }
+    const target = ref(null)
+    watch(isMsgLogin, () => {
+      // 还原数据
+      form.isAgree = true
+      form.account = null
+      form.password = null
+      form.mobile = null
+      form.code = null
+      // 补充校验效果清除，Form组件提供resetForm()
+      target.value.resetForm()
+    })
+    // 使用store
+    const store = useStore()
+    // 使用router
+    const router = useRouter()
+    // 使用route
+    const route = useRoute()
+    const submit = async () => {
+      // 整体校验
+      const valid = await target.value.validate()
+      console.log(valid)
+      if (valid) {
+        // 发送请求
+        if (!isMsgLogin.value) {
+          // 帐号密码登录
+          userAccountLogin(form)
+            .then(data => {
+              // 成功
+              // 1. 存储信息
+              const {
+                id,
+                account,
+                nickname,
+                avatar,
+                token,
+                mobile
+              } = data.result
+              store.commit('user/setUser', {
+                id,
+                account,
+                nickname,
+                avatar,
+                token,
+                mobile
+              })
+              // 2. 提示
+              Message({ type: 'success', text: '登录成功' })
+              // 3. 跳转
+              router.push(route.query.redirectUrl || '/')
+            })
+            .catch(e => {
+              // 失败
+              Message({
+                type: 'error',
+                text: e.response.data.message || '登录失败'
+              })
+            })
+        } else {
+          // 短信登录
+        }
+      }
+    }
+    return { isMsgLogin, form, mySchema, submit }
   }
 }
 </script>

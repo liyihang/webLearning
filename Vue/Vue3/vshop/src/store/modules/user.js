@@ -4,6 +4,7 @@ export default {
     return {
       profile: {
         id: '',
+        account: '',
         nickname: '',
         avatar: '',
         mobile: '',
